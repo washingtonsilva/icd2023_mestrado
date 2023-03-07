@@ -1,0 +1,19 @@
+Roteiro:
+=========================================================================================
+
+1. Breve Apresentação sobre o Curso (Daniel)
+2. Apresentação dos Mestrandos
+3. Verificar acesso ao AVA/Moodle/Apresentar a Sala Virtual
+4. Slides - Aula 1 ---> 
+        Data Deluge ---> 
+          Alteração na Disciplina ---> 
+            Políticas ---> 
+              Plano de Curso ---> 
+               Referência Básica ---> 
+                 Referências Complementares ---> 
+                   Modelo de Projeto de CD/Econométrico-Computacional Reproduzivel ---> 
+                    Softwares básicos para o curso --->
+                      Conceitos Econometria Financeira --->
+                        O que é R --->
+                          RStudio Visão Geral ---> 
+    
