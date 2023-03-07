@@ -1,0 +1,465 @@
+\documentclass[11pt,]{article}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[margin = 1in]{geometry}
+\newcommand*{\authorfont}{\fontfamily{phv}\selectfont}
+\usepackage[]{mathpazo}
+\usepackage{abstract}
+\renewcommand{\abstractname}{}    % clear the title
+\renewcommand{\absnamepos}{empty} % originally center
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}} 
+\usepackage{longtable,booktabs}
+
+\usepackage{parskip}
+\usepackage{titlesec}
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
+
+\titleformat*{\subsubsection}{\normalsize\itshape}
+
+\usepackage{titling}
+\setlength{\droptitle}{-.25cm}
+
+%\setlength{\parindent}{0pt}
+%\setlength{\parskip}{6pt plus 2pt minus 1pt}
+%\setlength{\emergencystretch}{3em}  % prevent overfull lines 
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{lastpage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.0pt} 
+\lhead{\footnotesize Mestrado Profissional em Administração}
+\chead{}
+\rhead{\footnotesize Introdução à Ciência dos Dados -- 2022}
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{\footnotesize IFMG - Campus Formiga}
+
+\fancypagestyle{firststyle}
+{
+\renewcommand{\headrulewidth}{0pt}%
+   \fancyhf{}
+   \fancyfoot[C]{\small \thepage/\pageref*{LastPage}}
+}
+
+%\def\labelitemi{--}
+%\usepackage{enumitem}
+%\setitemize[0]{leftmargin=25pt}
+%\setenumerate[0]{leftmargin=25pt}
+
+
+
+
+\makeatletter
+\@ifpackageloaded{hyperref}{}{%
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+}
+\@ifpackageloaded{color}{
+    \PassOptionsToPackage{usenames,dvipsnames}{color}
+}{%
+    \usepackage[usenames,dvipsnames]{color}
+}
+\makeatother
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={ ()},
+             pdfkeywords = {},  
+            pdftitle={Introdução à Ciência dos Dados},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+
+
+\setcounter{secnumdepth}{0}
+
+
+
+
+
+\usepackage{setspace}
+
+\title{Introdução à Ciência dos Dados}
+\author{Prof.~Washington Santos da Silva}
+\date{2022}
+
+
+\begin{document}  
+
+		\maketitle
+		
+	
+		\thispagestyle{firststyle}
+
+%	\thispagestyle{empty}
+
+
+	\noindent \begin{tabular*}{\textwidth}{ @{\extracolsep{\fill}} lr @{\extracolsep{\fill}}}
+
+
+E-mail: \texttt{\href{mailto:washington.silva@ifmg.edu.br}{\nolinkurl{washington.silva@ifmg.edu.br}}} & Web: \href{http://ead2.ifmg.edu.br/formiga/}{\tt ead2.ifmg.edu.br/formiga/}\\
+Aulas: Quinta-Feira - 18:30 - 22:30 & Sala de Aula: Laboratório de
+Informática 3 - Bloco B - 2 Andar\\
+	&  \\
+	\hline
+	\end{tabular*}
+	
+\vspace{2mm}
+	
+
+
+\hypertarget{objetivo-geral}{%
+\section{Objetivo Geral}\label{objetivo-geral}}
+
+Capacitar os mestrandos na aplicação de modelos econométricos a
+problemas de áreas de finanças. O conteúdo principal do curso
+concentra-se na aquisição e estruturação de dados, análise exploratória
+de dados, visualização de dados, modelagem econométrica e comunicação
+eficaz de resultados, utilizando-se a linguagem R. Trata-se de um curso
+do tipo ``hands-on''. O objetivo do curso é levar os mestrandos do zero
+à capacidade de trabalhar em um projeto econométrico-computacional
+reproduzível usando a linguagem R, analisando um conjunto de dados e
+respondendo a questões de interesse.
+
+\hypertarget{objetivos-c}{%
+\section{Objetivos c}\label{objetivos-c}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Tornar o mestrando em um usuário da linguagem R para a importação,
+  organização, visualização e modelagem econométrica de dados;
+\item
+  Introduzir o mestrando na aplicação de modelos econométricos na área
+  de finanças;
+\item
+  Tornar o mestrando capacitado para o desenvolvimento de pesquisas
+  empíricas reproduzíveis na área de finanças;
+\end{enumerate}
+
+\hypertarget{pruxe9-requisitos}{%
+\section{Pré-Requisitos}\label{pruxe9-requisitos}}
+
+Não há pré-requisitos formais. Será importante rever conceitos
+matemáticos, de estatística básica conforme necessário, sendo importante
+que os mestrandos se envolvam no domínio de conceitos básicos
+ativamente. Algum letramento computacional também será importante.
+
+\hypertarget{bibliografia}{%
+\section{Bibliografia}\label{bibliografia}}
+
+Referência principal
+
+BROOKS, Chris. (2019). \textbf{Introductory Econometrics for Finance}. 4
+ed. Cambridge University Press.
+
+Referências Complementares
+
+\hypertarget{linguagem-r}{%
+\subsection{Linguagem R}\label{linguagem-r}}
+
+HANCK, Christoph; ARNOLD, Martin; GERBER, Alexander; SCHMELZER, Martin.
+\textbf{Introduction to Econometrics with R}. Disponível em:
+\url{https://www.econometrics-with-r.org/}
+
+Rodgers, Taylor. \textbf{R Programming in Plain English}. Disponível em:
+\url{https://www.rprogramminginplainenglish.com/index.html}
+
+SMAY, Chester; KIM, Albert Y. \textbf{Statistical inference via data
+science: A Modern Dive into R and the tidyverse}. Chapman and Hall/CRC,
+2019. Disponível em: \url{https://moderndive.com/}
+
+GUERRA, Saulo; OLIVEIRA, Paulo Felipe de; MCDONNEL, Robert; GONZAGA,
+Sillas. Ciência de Dados com R - Introdução. Disponível em:
+\url{http://sillasgonzaga.com/material/cdr/}
+
+WICKHAM Hadley; GROLEMUND, Garrett. (2017). \textbf{R for data science.
+import, tidy, transform, visualize, and model data}. O'Reilly Media,
+Inc.~Disponível em: \url{https://r4ds.had.co.nz/}.
+
+\hypertarget{econometria}{%
+\subsection{Econometria}\label{econometria}}
+
+WOOLDRIDGE, Jeffrey M. \textbf{Introdução à econometria: uma abordagem
+moderna}. São Paulo: Thomson, 2006.
+
+JAMES, G.; WITTEN, D.; HASTIE, T. \& TIBSHRANI, R. \textbf{An
+introduction to statistical learning}. 2 edition. New York: Springer,
+2021. Disponível em: \url{https://www.statlearning.com/}
+
+HILL, R. Carter; GRIFFITHS, William E.; JUDGE, George G.
+\textbf{Econometria}. 3 ed.~ São Paulo: Saraiva, 2010.
+
+MADDALA, G. S. \textbf{Introdução à Econometria}. 3 ed.~Rio de Janeiro:
+LTC, 2003.
+
+PERLIN, Marcelo S. (2021). \textbf{Análise de Dados Financeiros e
+Econômicos com o R}. self published. Disponível em:
+\url{https://www.msperlin.com/adfeR/}.
+
+\hypertarget{poluxedticas-do-curso}{%
+\section{Políticas do Curso}\label{poluxedticas-do-curso}}
+
+Use as informações abaixo como referência sobre como o curso será
+conduzido. Analise essas informações atentamente antes de entrar em
+contato com alguma dúvida.
+
+\hypertarget{distribuiuxe7uxe3o-das-notas}{%
+\subsection{Distribuição das Notas}\label{distribuiuxe7uxe3o-das-notas}}
+
+Os pontos referentes à avaliação foram distribuídos da seguinte forma:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Lista de Exercícios 1 realizada pelo Ambiente Virtual de Aprendizagem
+  = 10 pontos
+\item
+  Lista de Exercícios 2 realizada pelo Ambiente Virtual de Aprendizagem
+  = 10 pontos
+\item
+  Lista de Exercícios 3 realizada pelo Ambiente Virtual de Aprendizagem
+  = 10 pontos
+\item
+  Exame 1 = 35 pontos
+\item
+  Exame 2 = 35 pontos
+\end{enumerate}
+
+Sendo que para aprovação é necessário a obtenção de pelo menos 60
+pontos.
+
+\hypertarget{prazos}{%
+\subsection{Prazos}\label{prazos}}
+
+Se um evento fora de seu controle fizer com que você perca a data de um
+evento ou prazo de entrega, envie-me um e-mail assim que possível para
+que eu analise a questão. Como regra, não está planejada a reprogramação
+de atividades.
+
+\hypertarget{comunicauxe7uxe3o-e-ambiente-virtual-de-aprendizagem}{%
+\subsection{Comunicação e Ambiente Virtual de
+Aprendizagem}\label{comunicauxe7uxe3o-e-ambiente-virtual-de-aprendizagem}}
+
+Após a liberação do acesso à sala virtual da disciplina no Ambiente
+Virtural de Aprendizagem do IFMG (Moodle), nossa comunicação será
+realizada prioritariamente por esta sala virtual.
+
+\hypertarget{poluxedtica-de-honestidade-acaduxeamica}{%
+\subsection{Política de Honestidade
+Acadêmica}\label{poluxedtica-de-honestidade-acaduxeamica}}
+
+O plágio mina o próprio cerne da missão desta disciplina, que é que cada
+mestrando cresça como um acadêmico emergente em pesquisas empíricas na
+área de concentração do curso. Sem buscar completar todas as atividades
+de forma autonôma, você nunca será capaz de atingir um nível de
+proficiência adequado para um mestre. Pior ainda, o plágio reduz a
+confiança mútua no trabalho, um componente necessário do empreendimento
+científico.
+
+O plágio inclui a cópia no todo ou em parte de trabalhos acadêmicos
+publicados anteriormente sem a devida citação, mas também abrange fazer
+com que o trabalho de outra pessoa seja seu, independentemente de ter
+sido publicado ou não.
+
+Contratar alguém para escrever um ensaio para você é tão plágio quanto
+se você copiasse um artigo existente para o seu trabalho. Se houver
+evidência consistente de que um mestrando voluntariamente plagiou uma
+tarefa, será atribuída a nota zero na tarefa, sendo que o envolvido
+poderá ser reprovado na disciplina e/ou receber outras medidas
+disciplinares de acordo com as normas institucionais aplicáveis.
+
+\hypertarget{planejamento-do-curso}{%
+\section{Planejamento do Curso}\label{planejamento-do-curso}}
+
+Espero que os mestrandos tentem estudar as leituras indicadas,
+preferencialmente antes das aulas. Isso não significa apenas ler
+superficialmente, mas envolver-se praticamente e criticamente com o
+estudo. Especificamente, no que concerne à linguagem R, recomendo
+fortemente que busquem fazer todos os exercícios e utilizar efetivamente
+a linguagem. É necessário destacar que trata-se de um planejamento e,
+como todo planejamento, está sujeito a alterações.
+
+\hypertarget{aula-1---1703}{%
+\subsection{Aula 1 - 17/03}\label{aula-1---1703}}
+
+\begin{itemize}
+\tightlist
+\item
+  Apresentação da Disciplina
+\item
+  Introdução à Linguagem R
+\item
+  Brooks (2019): Chapter 1
+\end{itemize}
+
+\hypertarget{aula-2---2403}{%
+\subsection{Aula 2 - 24/03}\label{aula-2---2403}}
+
+\begin{itemize}
+\tightlist
+\item
+  Introdução à Linguagem R
+\end{itemize}
+
+\hypertarget{aula-3---3103}{%
+\subsection{Aula 3 - 31/03}\label{aula-3---3103}}
+
+\begin{itemize}
+\tightlist
+\item
+  Fundamentos de Estatística
+\item
+  Tipos de Dados
+\item
+  Brooks (2019): Chap. 2
+\end{itemize}
+
+\hypertarget{aula-4---0704}{%
+\subsection{Aula 4 - 07/04}\label{aula-4---0704}}
+
+\begin{itemize}
+\tightlist
+\item
+  Fundamentos de Estatística
+\item
+  Tipos de Dados
+\item
+  Brooks (2019): Chap. 2
+\end{itemize}
+
+\hypertarget{lista-de-exercuxedcios-1}{%
+\subsection{Lista de Exercícios 1}\label{lista-de-exercuxedcios-1}}
+
+Entrega via Moodle até 15/04
+
+\hypertarget{aula-5---2804}{%
+\subsection{Aula 5 - 28/04}\label{aula-5---2804}}
+
+\begin{itemize}
+\tightlist
+\item
+  Modelos de Regressão
+\item
+  Brooks (2019): Chaps. 3, 4.
+\end{itemize}
+
+\hypertarget{aula-6---0505}{%
+\subsection{Aula 6 - 05/05}\label{aula-6---0505}}
+
+\begin{itemize}
+\tightlist
+\item
+  Modelos de Regressão
+\item
+  Brooks (2019): Chaps 3, 5
+\end{itemize}
+
+\hypertarget{aula-7---1205}{%
+\subsection{Aula 7 - 12/05}\label{aula-7---1205}}
+
+\begin{itemize}
+\tightlist
+\item
+  Introdução a Modelos para Séries Temporais
+\item
+  Brooks (2019): Chap. 6
+\end{itemize}
+
+\hypertarget{lista-de-exercuxedcios-2}{%
+\subsection{Lista de Exercícios 2}\label{lista-de-exercuxedcios-2}}
+
+Entrega via Moodle até 19/05
+
+\hypertarget{aula-8---1905}{%
+\subsection{Aula 8 - 19/05}\label{aula-8---1905}}
+
+\begin{itemize}
+\tightlist
+\item
+  Exame 1
+\end{itemize}
+
+\hypertarget{aula-9---2605}{%
+\subsection{Aula 9 - 26/05}\label{aula-9---2605}}
+
+\begin{itemize}
+\tightlist
+\item
+  Modelos para Dados em Painel
+\item
+  Brooks (2019): Chap. 11
+\end{itemize}
+
+\hypertarget{aula-10---0206}{%
+\subsection{Aula 10 - 02/06}\label{aula-10---0206}}
+
+\begin{itemize}
+\tightlist
+\item
+  Modelos para Dados em Painel
+\item
+  Brooks (2019): Chap. 11
+\end{itemize}
+
+\hypertarget{aula-11---0906}{%
+\subsection{Aula 11 - 09/06}\label{aula-11---0906}}
+
+\begin{itemize}
+\tightlist
+\item
+  Modelos para Variáveis Dependentes Limitadas
+\item
+  Brooks (2019): Chap. 12
+\end{itemize}
+
+\hypertarget{lista-de-exercuxedcios-3}{%
+\subsection{Lista de Exercícios 3}\label{lista-de-exercuxedcios-3}}
+
+Entrega via Moodle até 16/06
+
+\hypertarget{aula-12---2306}{%
+\subsection{Aula 12 - 23/06}\label{aula-12---2306}}
+
+\begin{itemize}
+\tightlist
+\item
+  Modelos para Variáveis Dependentes Limitadas
+\item
+  Brooks (2019): Chap. 12
+\item
+  Exame 2
+\end{itemize}
+
+
+
+
+\end{document}
+
+\makeatletter
+\def\@maketitle{%
+  \newpage
+%  \null
+%  \vskip 2em%
+%  \begin{center}%
+  \let \footnote \thanks
+    {\fontsize{18}{20}\selectfont\raggedright  \setlength{\parindent}{0pt} \@title \par}%
+}
+%\fi
+\makeatother

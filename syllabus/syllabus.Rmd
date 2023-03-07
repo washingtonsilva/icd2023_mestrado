@@ -1,0 +1,278 @@
+---
+output: 
+  pdf_document:
+    keep_tex: true
+    fig_caption: yes
+    latex_engine: pdflatex
+    template: svm-latex-syllabus.tex
+geometry: margin = 1in
+
+title: "Introdução à Ciência dos Dados"
+author: Prof. Washington Santos da Silva
+date: "2022"
+
+email: "washington.silva@ifmg.edu.br"
+web: "ead2.ifmg.edu.br/formiga/"
+classroom: "Laboratório de Informática 3 - Bloco B - 2 Andar"
+classhours: "Quinta-Feira - 18:30 - 22:30"
+
+fontfamily: mathpazo
+fontsize: 11pt
+header-includes:
+   - \linespread{1.05}
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=FALSE, dev='pdf')
+mon <- as.Date("2021-03-01")
+# fri <- as.Date("2016-01-08")
+
+advdate <- function(obj, adv) {
+ tmon <- obj + 7*(adv-1)
+ tfri <- obj + 4 + 7*(adv-1)
+ tmon <- format(tmon, format="%d/%m")
+ tfri <- format(tfri, format="%d/%m")
+ zadv <- sprintf("%02d", adv)
+ tmp <- paste("Semana ", zadv , sep='',", ", tmon," - ", tfri)
+ return(tmp)
+}
+
+library(RefManageR)
+bib <- ReadBib("biblio.bib", check = F)
+myopts <- BibOptions(bib.style = "authoryear", style="latex", 
+                     first.inits = FALSE, max.names = 20)
+
+```
+
+# Objetivo Geral
+
+Capacitar os mestrandos na aplicação de modelos econométricos a 
+problemas de áreas de finanças. O conteúdo principal do curso concentra-se na 
+aquisição e estruturação de dados, análise exploratória de dados, visualização 
+de dados, modelagem econométrica e comunicação eficaz de resultados, utilizando-se 
+a linguagem R. Trata-se de um curso do tipo "hands-on". O objetivo do curso é 
+levar os mestrandos do zero à capacidade de trabalhar em um projeto 
+econométrico-computacional reproduzível usando a linguagem R, analisando um 
+conjunto de dados e respondendo a questões de interesse.
+
+# Objetivos c
+
+1. Tornar o mestrando em um usuário da linguagem R para a importação, 
+   organização, visualização e modelagem econométrica de dados;
+
+3. Introduzir o mestrando na aplicação de modelos econométricos na área de 
+   finanças;
+
+2. Tornar o mestrando capacitado para o desenvolvimento de pesquisas 
+   empíricas reproduzíveis na área de finanças;
+
+
+# Pré-Requisitos
+
+Não há pré-requisitos formais. Será importante rever conceitos matemáticos, 
+de estatística básica conforme necessário, sendo importante que os mestrandos se envolvam no domínio de conceitos básicos ativamente. Algum letramento 
+computacional também será importante.
+
+
+# Bibliografia
+
+
+Referência principal  
+
+BROOKS, Chris. (2019). **Introductory Econometrics for Finance**. 4 ed.
+Cambridge University Press.
+
+
+Referências Complementares
+
+## Linguagem R
+
+HANCK, Christoph; ARNOLD, Martin; GERBER, Alexander; SCHMELZER, Martin. 
+**Introduction to Econometrics with R**. Disponível em: https://www.econometrics-with-r.org/
+
+Rodgers, Taylor. **R Programming in Plain English**. Disponível em: https://www.rprogramminginplainenglish.com/index.html
+
+SMAY, Chester; KIM, Albert Y. **Statistical inference via data science: A Modern Dive into R and the tidyverse**. Chapman and Hall/CRC, 2019. Disponível em: 
+https://moderndive.com/
+
+GUERRA, Saulo; OLIVEIRA, Paulo Felipe de; MCDONNEL, Robert; GONZAGA, Sillas. 
+Ciência de Dados com R - Introdução. Disponível em: http://sillasgonzaga.com/material/cdr/
+
+WICKHAM Hadley; GROLEMUND, Garrett. (2017). **R for data science. import, tidy, transform, visualize, and model data**. O’Reilly Media, Inc. Disponível em: https://r4ds.had.co.nz/.
+
+
+## Econometria
+
+WOOLDRIDGE, Jeffrey M. **Introdução à econometria: uma abordagem moderna**. 
+São Paulo: Thomson, 2006.
+
+JAMES, G.; WITTEN, D.; HASTIE, T. & TIBSHRANI, R. **An introduction to statistical learning**. 2 edition. New York: Springer, 2021. Disponível em: https://www.statlearning.com/
+
+HILL, R. Carter; GRIFFITHS, William E.; JUDGE, George G. **Econometria**. 3 ed. 
+São Paulo: Saraiva, 2010.
+
+MADDALA, G. S. **Introdução à Econometria**. 3 ed. Rio de Janeiro: LTC, 2003.
+
+PERLIN, Marcelo S. (2021). **Análise de Dados Financeiros e Econômicos com o R**. 
+self published. Disponível em: https://www.msperlin.com/adfeR/.
+
+ 
+# Políticas do Curso
+
+Use as informações abaixo como referência sobre como o curso será conduzido. 
+Analise essas informações atentamente antes de entrar em contato com 
+alguma dúvida. 
+
+## Distribuição das Notas
+
+Os pontos referentes à avaliação foram distribuídos da seguinte forma:
+
+1) Lista de Exercícios 1 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
+2) Lista de Exercícios 2 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
+3) Lista de Exercícios 3 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
+4) Exame 1 = 35 pontos
+5) Exame 2 = 35 pontos
+
+Sendo que para aprovação é necessário a obtenção de pelo menos 60 pontos.
+
+
+## Prazos
+
+Se um evento fora de seu controle fizer com que você perca a data de um
+evento ou prazo de entrega, envie-me um e-mail assim que possível para que eu 
+analise a questão. Como regra, não está planejada a reprogramação de 
+atividades.
+
+## Comunicação e Ambiente Virtual de Aprendizagem
+
+Após a liberação do acesso à sala virtual da disciplina no Ambiente Virtural de 
+Aprendizagem do IFMG (Moodle), nossa comunicação será realizada prioritariamente 
+por esta sala virtual.
+
+
+## Política de Honestidade Acadêmica
+
+O plágio mina o próprio cerne da missão desta disciplina, que é que cada 
+mestrando cresça como um acadêmico emergente em pesquisas empíricas na área de 
+concentração do curso. Sem buscar completar todas as atividades de 
+forma autonôma, você nunca será capaz de atingir um nível de proficiência 
+adequado para um mestre. Pior ainda, o plágio reduz a confiança mútua no 
+trabalho, um componente necessário do empreendimento científico.
+
+O plágio inclui a cópia no todo ou em parte de trabalhos acadêmicos publicados 
+anteriormente sem a devida citação, mas também abrange fazer com que o trabalho 
+de outra pessoa seja seu, independentemente de ter sido publicado ou não. 
+
+Contratar alguém para escrever um ensaio para você é tão plágio quanto se você 
+copiasse um artigo existente para o seu trabalho. Se houver evidência 
+consistente de que um mestrando voluntariamente plagiou uma tarefa, será 
+atribuída a nota zero na tarefa, sendo que o envolvido poderá ser 
+reprovado na disciplina e/ou receber outras medidas disciplinares de acordo com 
+as normas institucionais aplicáveis.
+
+
+# Planejamento do Curso
+
+Espero que os mestrandos tentem estudar as leituras indicadas, 
+preferencialmente antes das aulas. Isso não significa apenas ler 
+superficialmente, mas envolver-se praticamente e criticamente com o estudo. Especificamente, no que concerne à linguagem R, recomendo fortemente que 
+busquem fazer todos os exercícios e utilizar efetivamente a linguagem.
+É necessário destacar que trata-se de um planejamento e, como todo 
+planejamento, está sujeito a alterações.
+
+
+## Aula 1 - 17/03
+
+- Apresentação da Disciplina
+- Introdução à Linguagem R
+- Brooks (2019): Chapter 1
+
+
+## Aula 2 - 24/03
+
+- Introdução à Linguagem R
+
+
+## Aula 3 - 31/03
+
+- Fundamentos de Estatística
+- Tipos de Dados
+- Brooks (2019): Chap. 2
+
+
+## Aula 4 - 07/04
+
+- Fundamentos de Estatística 
+- Tipos de Dados
+- Brooks (2019): Chap. 2
+
+
+## Lista de Exercícios 1
+
+Entrega via Moodle até 15/04
+
+
+## Aula 5 - 28/04  
+
+- Modelos de Regressão
+- Brooks (2019): Chaps. 3, 4.
+
+
+## Aula 6 - 05/05
+
+- Modelos de Regressão
+- Brooks (2019): Chaps 3, 5
+
+
+## Aula 7 - 12/05
+
+- Introdução a Modelos para Séries Temporais
+- Brooks (2019): Chap. 6
+
+
+## Lista de Exercícios 2
+
+Entrega via Moodle até 19/05
+
+
+## Aula 8 - 19/05
+
+- Exame 1
+
+
+## Aula 9 - 26/05
+
+- Modelos para Dados em Painel
+- Brooks (2019): Chap. 11
+
+
+## Aula 10 - 02/06 
+
+- Modelos para Dados em Painel
+- Brooks (2019): Chap. 11
+
+
+## Aula 11 - 09/06
+
+- Modelos para Variáveis Dependentes Limitadas
+- Brooks (2019): Chap. 12
+
+
+## Lista de Exercícios 3
+
+Entrega via Moodle até 16/06
+
+
+## Aula 12 - 23/06
+
+- Modelos para Variáveis Dependentes Limitadas
+- Brooks (2019): Chap. 12
+- Exame 2
+
+
+
+
+
+

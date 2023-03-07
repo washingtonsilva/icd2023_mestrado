@@ -1,0 +1,97 @@
+# Avaliacao
+
+Os pontos referentes à avaliação foram distribuídos da seguinte forma:
+
+1) Lista de Exercícios 1 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
+2) Lista de Exercícios 2 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
+3) Lista de Exercícios 3 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
+4) Exame 1 = 35 pontos
+5) Exame 2 = 35 pontos
+
+Sendo que para aprovação é necessário a obtenção de pelo menos 60 pontos.
+
+# Ementa
+Introdução à Linguagem R. Fundamentos de Estatística. Tipos de Dados. Modelos de Regressão. 
+Modelos de Séries Temporais. Modelos para Dados em Painel. Modelos para Variáveis Dependentes Limitadas.
+
+# Bibliografia Basica
+
+BROOKS, Chris. (2019). Introductory Econometrics for Finance. Cambridge University Press.
+
+
+# Bibliografia Complementar
+
+WICKHAM Hadley; GROLEMUND, Garrett. (2017). R for data science. import, tidy, transform, visualize, and model data. 
+O’Reilly Media, Inc. Disponível em: https://r4ds.had.co.nz/.
+
+WOOLDRIDGE, Jeffrey M. Introdução à econometria: uma abordagem moderna. São Paulo: Thomson, 2006.
+
+JAMES, G.; WITTEN, D.; HASTIE, T. & TIBSHRANI, R. An introduction to statistical learning. 2 edition. New York: Springer, 
+2021. Disponível em: https://www.statlearning.com/
+
+HILL, R. Carter; GRIFFITHS, William E.; JUDGE, George G. Econometria. 3 ed. São Paulo: Saraiva, 2010.
+
+MADDALA, G. S. Introdução à Econometria. 3 ed. Rio de Janeiro: LTC, 2003.
+
+PERLIN, Marcelo S. (2021). Análise de Dados Financeiros e Econômicos com o R. self published. Disponível em: https:
+//www.msperlin.com/adfeR/.
+
+
+# Objetivo Geral
+
+Capacitar os mestrandos na aplicação de modelos estatísticos e econométricos a 
+problemas de áreas de finanças. O conteúdo principal do curso concentra-se na 
+aquisição e estruturação de dados, análise exploratória de dados, visualização de dados, 
+modelagem econométrica e comunicação eficaz de resultados 
+utilizando-se a linguagem R. Trata-se de um curso do tipo "hands-on". SO objetivo do curso é levar 
+os mestrandos do zero à capacidade de trabalhar em um projeto empírico reproduzível 
+usando a linguagem R, analisando um conjunto de dados e respondendo a questões de interesse.
+
+# Objetivos Especificos
+
+1) Tornar o mestrando em um usuário da linguagem R para a importação, organização, visualização e 
+   modelagem econométrica de dados;
+3) Introduzir o mestrando na aplicação de modelos econométricos na área de finanças;
+2) Tornar o mestrando capacitado para o desenvolvimento de pesquisas reproduzíveis na área de finanças.
+.
+# Conteudo Programatico
+Parte 1 - Introdução à Linguagem R e ao RStudio.
+1.1 Introdução
+1.2  Introdução à Linguagem R
+1.3 Fundamentos de Estatística. Tipos de Dados 
+
+Parte 2 - Modelos Lineares
+2.1 Modelos de Regressão Linear Simples
+2.2 Modelos de Regressão Linear Múltipla
+2.3 Diagnóstico dos Modelos de Regressão Linear
+
+Parte 3 - Introdução a Modelos de Séries Temporais e para Dados em Painel
+3.1 Séries Temporais: Conceitos. Procecssos de Médias Móveis. Processos Autorregressivos.
+3.2 Séries Temporais: Função de Autocorrelação Parcial. Processos ARMA.
+3.3 Dados em Painel: Modelos de Efeitos Fixos
+3.4 Dados em Painel: Modelos de Efeitos Aleatórios
+
+
+Parte IV - Modelos para Variáveis Dependentes Limitadas
+4.1 Modelo Logit
+4.2 Modelo Probit
+4.3 Diagnóstico dos Modelos
+
+
+# Recursos Didaticos
+Recursos computacionais para análise de dados (a linguagem R) serão apresentados e utilizados 
+intensivamente durante o curso. Entre os recursos didáticos teremos: bibliotecas digitais, 
+aulas práticas, tutoriais, entre outros.
+
+# Metodologia de Ensino
+Trata-se de um curso do tipo “hands-on” e baseado no conceito de aprendizagem ativa, nesse 
+sentido e dados os objetivos do curso, faremos uso intensivo de aulas práticas nas quais 
+os alunos deverão praticar a programação e análise de dados usando a linguagem R em cada aula.
+​
+
+
+
+
+
+
+
