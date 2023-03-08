@@ -12,11 +12,11 @@ format:
 
 ## Logística
 
-Ambiente Virtual de Aprendizagem: \url{ead2.ifmg.edu.br/formiga/} 
+Ambiente Virtual de Aprendizagem: \url{https://ead.ifmg.edu.br/formiga/} 
 
 Local das Aulas: **Laboratório de Informática 3 - Bloco B - 2 Andar**
 
-Dia/Horário: **Quinta-Feira - 18:30 - 22:30**
+Dia/Horário: **Quinta-Feira: 18:30 - 22:30**
 
 
 ## Objetivo Geral
@@ -109,7 +109,7 @@ reprovado na disciplina e receber outras medidas disciplinares de acordo com
 as normas institucionais aplicáveis.
 
 
-## Bibliografia
+## Referências Bibliográficas
 
 *Referências principais*:
 
@@ -194,15 +194,15 @@ JAMES, G.; WITTEN, D.; HASTIE, T. & TIBSHRANI, R. **An introduction to statistic
 - Ensaio - Aula 16/03
 
     - Atividade no Ambiente Virtual de Aprendizagem 
-    - Deve ser enviado até XX/XX/2023
+    - Previsão de envio: até XX/XX/2023
 
 - Lista de Exercícios 1 - Aula 22/06
 
     - Atividade no Ambiente Virtual de Aprendizagem 
-    - Deve ser finalizada em XX/XX/2023
+    - Previsão de envio: até XX/XX/2023
 
 - Lista de Exercícios 2 - Aula 29/06
 
     - Atividade no Ambiente Virtual de Aprendizagem
-    - Deve ser finalizada em XX/XX/20233
+    - Previsão de envio: até XX/XX/20233
 

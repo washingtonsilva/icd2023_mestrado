@@ -9,7 +9,7 @@ geometry: margin = 1in
 
 title: "Introdução à Ciência dos Dados"
 author: Prof. Washington Santos da Silva
-date: "2022"
+date: "2023"
 
 email: "washington.silva@ifmg.edu.br"
 web: "ead2.ifmg.edu.br/formiga/"
@@ -46,18 +46,17 @@ myopts <- BibOptions(bib.style = "authoryear", style="latex",
 
 ```
 
+
 # Objetivo Geral
 
 Capacitar os mestrandos na aplicação de modelos econométricos a 
 problemas de áreas de finanças. O conteúdo principal do curso concentra-se na 
 aquisição e estruturação de dados, análise exploratória de dados, visualização 
-de dados, modelagem econométrica e comunicação eficaz de resultados, utilizando-se 
-a linguagem R. Trata-se de um curso do tipo "hands-on". O objetivo do curso é 
-levar os mestrandos do zero à capacidade de trabalhar em um projeto 
-econométrico-computacional reproduzível usando a linguagem R, analisando um 
-conjunto de dados e respondendo a questões de interesse.
+de dados, modelagem estatística e econométrica e comunicação eficaz de resultados, utilizando-se a linguagem R. Trata-se de um curso do tipo 
+"hands-on". O objetivo do curso é levar os mestrandos do zero à capacidade de trabalhar em um projeto econométrico-computacional reproduzível usando a linguagem R, analisando um conjunto de dados para respondenr à questões de interesse científico.
 
-# Objetivos c
+
+# Objetivos específicos
 
 1. Tornar o mestrando em um usuário da linguagem R para a importação, 
    organização, visualização e modelagem econométrica de dados;
@@ -73,50 +72,27 @@ conjunto de dados e respondendo a questões de interesse.
 
 Não há pré-requisitos formais. Será importante rever conceitos matemáticos, 
 de estatística básica conforme necessário, sendo importante que os mestrandos se envolvam no domínio de conceitos básicos ativamente. Algum letramento 
-computacional também será importante.
+computacional também será muito importante. Além disso, curiosidade, pensamento analítico e determinação são competências pessoais fundamentais para a 
+disciplina, e para qualquer aspirante a pesquisador.
 
 
 # Bibliografia
 
-
-Referência principal  
+*Referências principais*:
 
 BROOKS, Chris. (2019). **Introductory Econometrics for Finance**. 4 ed.
 Cambridge University Press.
 
-
-Referências Complementares
-
-## Linguagem R
-
-HANCK, Christoph; ARNOLD, Martin; GERBER, Alexander; SCHMELZER, Martin. 
-**Introduction to Econometrics with R**. Disponível em: https://www.econometrics-with-r.org/
-
-Rodgers, Taylor. **R Programming in Plain English**. Disponível em: https://www.rprogramminginplainenglish.com/index.html
-
-SMAY, Chester; KIM, Albert Y. **Statistical inference via data science: A Modern Dive into R and the tidyverse**. Chapman and Hall/CRC, 2019. Disponível em: 
-https://moderndive.com/
-
-GUERRA, Saulo; OLIVEIRA, Paulo Felipe de; MCDONNEL, Robert; GONZAGA, Sillas. 
-Ciência de Dados com R - Introdução. Disponível em: http://sillasgonzaga.com/material/cdr/
-
-WICKHAM Hadley; GROLEMUND, Garrett. (2017). **R for data science. import, tidy, transform, visualize, and model data**. O’Reilly Media, Inc. Disponível em: https://r4ds.had.co.nz/.
+WICKHAM Hadley; GROLEMUND, Garrett. (2023). **R for data science. import, tidy, transform, visualize, and model data**. 2nd. ed. O’Reilly Media, Inc. 
+Disponível em: https://r4ds.hadley.nz.
 
 
-## Econometria
+*Referências Complementares*:
 
 WOOLDRIDGE, Jeffrey M. **Introdução à econometria: uma abordagem moderna**. 
 São Paulo: Thomson, 2006.
 
-JAMES, G.; WITTEN, D.; HASTIE, T. & TIBSHRANI, R. **An introduction to statistical learning**. 2 edition. New York: Springer, 2021. Disponível em: https://www.statlearning.com/
-
-HILL, R. Carter; GRIFFITHS, William E.; JUDGE, George G. **Econometria**. 3 ed. 
-São Paulo: Saraiva, 2010.
-
-MADDALA, G. S. **Introdução à Econometria**. 3 ed. Rio de Janeiro: LTC, 2003.
-
-PERLIN, Marcelo S. (2021). **Análise de Dados Financeiros e Econômicos com o R**. 
-self published. Disponível em: https://www.msperlin.com/adfeR/.
+JAMES, G.; WITTEN, D.; HASTIE, T. & TIBSHRANI, R. **An introduction to statistical learning**. 2nd. edition. New York: Springer, 2021. Disponível em: https://www.statlearning.com/
 
  
 # Políticas do Curso
@@ -125,25 +101,38 @@ Use as informações abaixo como referência sobre como o curso será conduzido.
 Analise essas informações atentamente antes de entrar em contato com 
 alguma dúvida. 
 
-## Distribuição das Notas
 
-Os pontos referentes à avaliação foram distribuídos da seguinte forma:
+## Avaliações de Aprendizagem
 
 1) Lista de Exercícios 1 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
-2) Lista de Exercícios 2 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
-3) Lista de Exercícios 3 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
-4) Exame 1 = 35 pontos
-5) Exame 2 = 35 pontos
 
-Sendo que para aprovação é necessário a obtenção de pelo menos 60 pontos.
+2) Lista de Exercícios 2 realizada pelo Ambiente Virtual de Aprendizagem = 10 pontos
+
+3) Ensaio sobre 4 artigos o qual deverá ser enviado pelo Ambiente Virtual de Aprendizagem = 10 pontos. Os artigos são os seguintes
+
+    - HARKNESS, T. The history of the data economy: Part I: The birth of 
+      customer insight. Significance, v. 18, n. 2, p. 12–15, a2021.
+
+    - HARKNESS, T. The history of the data economy: Part II: Analytics arrives.        Significance, v. 18, n. 4, p. 16–19, b2021.
+
+    - HARKNESS, T. The history of the data economy: Part III: The new kings and 
+      queens of data. Significance, v. 18, n. 5, p. 16–19, c2021.
+
+    - HARKNESS, T. The history of the data economy: Part IV: The future. 
+      Significance, v. 18, n. 6, p. 12–15, d2021.
+
+4) Exame intermediário presencial = 35 pontos
+
+5) Exame Final presencial = 35 pontos
+
+Para aprovação na disciplina é necessária a obtenção de pelo menos 
+60 pontos.
 
 
 ## Prazos
 
-Se um evento fora de seu controle fizer com que você perca a data de um
-evento ou prazo de entrega, envie-me um e-mail assim que possível para que eu 
-analise a questão. Como regra, não está planejada a reprogramação de 
-atividades.
+Como regra, não está planejada a reprogramação de atividades.
+
 
 ## Comunicação e Ambiente Virtual de Aprendizagem
 
@@ -175,101 +164,102 @@ as normas institucionais aplicáveis.
 
 # Planejamento do Curso
 
-Espero que os mestrandos tentem estudar as leituras indicadas, 
-preferencialmente antes das aulas. Isso não significa apenas ler 
-superficialmente, mas envolver-se praticamente e criticamente com o estudo. Especificamente, no que concerne à linguagem R, recomendo fortemente que 
-busquem fazer todos os exercícios e utilizar efetivamente a linguagem.
 É necessário destacar que trata-se de um planejamento e, como todo 
 planejamento, está sujeito a alterações.
 
 
-## Aula 1 - 17/03
+## Aula 1 - 09/03
 
-- Apresentação da Disciplina
+- Apresentação do Programa da Disciplina
 - Introdução à Linguagem R
 - Brooks (2019): Chapter 1
 
 
-## Aula 2 - 24/03
+## Aula 2 - 23/03
 
-- Introdução à Linguagem R
-
-
-## Aula 3 - 31/03
-
-- Fundamentos de Estatística
+- Fundamentos
 - Tipos de Dados
 - Brooks (2019): Chap. 2
 
 
-## Aula 4 - 07/04
+## Aula 3 - 30/03
 
-- Fundamentos de Estatística 
+- Fundamentos
 - Tipos de Dados
 - Brooks (2019): Chap. 2
 
 
-## Lista de Exercícios 1
-
-Entrega via Moodle até 15/04
-
-
-## Aula 5 - 28/04  
+## Aula 4 - 13/04  
 
 - Modelos de Regressão
 - Brooks (2019): Chaps. 3, 4.
 
 
-## Aula 6 - 05/05
+## Aula 5 - 20/04
 
 - Modelos de Regressão
 - Brooks (2019): Chaps 3, 5
 
 
-## Aula 7 - 12/05
+## Aula 6 - 27/04
 
 - Introdução a Modelos para Séries Temporais
 - Brooks (2019): Chap. 6
 
 
-## Lista de Exercícios 2
+## Aula 7 - 04/05
 
-Entrega via Moodle até 19/05
-
-
-## Aula 8 - 19/05
-
-- Exame 1
+- Exame Intermediário
 
 
-## Aula 9 - 26/05
+## Aula 8 - 11/05
 
 - Modelos para Dados em Painel
 - Brooks (2019): Chap. 11
 
 
-## Aula 10 - 02/06 
+## Aula 9 - 18/05 
 
 - Modelos para Dados em Painel
 - Brooks (2019): Chap. 11
 
 
-## Aula 11 - 09/06
+## Aula 10 - 25/05
 
 - Modelos para Variáveis Dependentes Limitadas
 - Brooks (2019): Chap. 12
 
 
-## Lista de Exercícios 3
-
-Entrega via Moodle até 16/06
-
-
-## Aula 12 - 23/06
+## Aula 11 - 01/06
 
 - Modelos para Variáveis Dependentes Limitadas
 - Brooks (2019): Chap. 12
 - Exame 2
+
+
+## Aula 12 - 15/06
+
+Exame Final
+
+
+## Ensaio - Aula 16/03
+
+- Atividade no Ambiente Virtual de Aprendizagem 
+- Deve ser enviado até XX/XX/2023
+
+
+## Lista de Exercícios 1 - Aula 22/06
+
+- Atividade no Ambiente Virtual de Aprendizagem 
+- Deve ser finalizada em XX/XX/2023
+
+
+## Lista de Exercícios 2 - Aula 29/06
+
+- Atividade no Ambiente Virtual de Aprendizagem
+- Deve ser finalizada em XX/XX/20233
+
+
 
 
 
