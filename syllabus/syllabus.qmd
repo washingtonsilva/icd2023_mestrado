@@ -14,7 +14,7 @@ format:
 
 Ambiente Virtual de Aprendizagem: \url{https://ead.ifmg.edu.br/formiga/} 
 
-Local das Aulas: **Laboratório de Informática 3 - Bloco B - 2 Andar**
+Local das Aulas: **Laboratório de Informática 2 - Bloco B - 2 Andar**
 
 Dia/Horário: **Quinta-Feira: 18:30 - 22:30**
 
@@ -63,16 +63,18 @@ alguma dúvida.
 
 3) Ensaio sobre 4 artigos o qual deverá ser enviado pelo Ambiente Virtual de Aprendizagem = 10 pontos. Os artigos são:
 
-    - HARKNESS, T. The history of the data economy: Part I: The birth of 
-      customer insight. Significance, v. 18, n. 2, p. 12–15, a2021.
+    - HARKNESS, T. \href{https://doi.org/10.1111/1740-9713.01504}{The history of       the data economy: Part I: The birth of customer insight}. Significance, v. 
+      18, n. 2, p. 12–15, a2021.
 
-    - HARKNESS, T. The history of the data economy: Part II: Analytics arrives.        Significance, v. 18, n. 4, p. 16–19, b2021.
+    - HARKNESS, T. \href{https://doi.org/10.1111/1740-9713.01547}{The history of 
+      the data economy: Part II: Analytics arrives}. Significance, v. 18, n. 4,  
+      p. 16–19, b2021.
 
-    - HARKNESS, T. The history of the data economy: Part III: The new kings and 
-      queens of data. Significance, v. 18, n. 5, p. 16–19, c2021.
+    - HARKNESS, T. \href{https://doi.org/10.1111/1740-9713.01567} {The history of       the data economy: Part III: The new kings and queens of data}. 
+      Significance, v. 18, n. 5, p. 16–19, c2021.
 
-    - HARKNESS, T. The history of the data economy: Part IV: The future. 
-      Significance, v. 18, n. 6, p. 12–15, d2021.
+    - HARKNESS, T. \href{https://doi.org/10.1111/1740-9713.01586}{The history of       the data economy: Part IV: The future}. Significance, v. 18, n. 6, p. 
+      12–15, d2021.
 
 4) Exame intermediário presencial = 35 pontos
 
