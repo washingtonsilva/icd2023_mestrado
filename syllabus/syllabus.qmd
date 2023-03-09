@@ -44,7 +44,7 @@ de dados, modelagem estatística e econométrica e comunicação eficaz de resul
 
 Não há pré-requisitos formais. Será importante rever conceitos matemáticos, 
 de estatística básica conforme necessário, sendo importante que os mestrandos se envolvam no domínio de conceitos básicos ativamente. Algum letramento 
-computacional também será muito importante. Além disso, curiosidade, pensamento analítico e determinação são competências pessoais fundamentais para a 
+computacional também será muito importante. Além disso, curiosidade, pensamento analítico e determinação são habilidades fundamentais para a 
 disciplina, e para qualquer aspirante a pesquisador.
 
  
@@ -124,13 +124,15 @@ Disponível em: \url{https://r4ds.hadley.nz}.
 
 *Referências Complementares*:
 
+JAMES, G.; WITTEN, D.; HASTIE, T. & TIBSHRANI, R. **An introduction to statistical learning**. 2nd. edition. New York: Springer, 2021. Disponível em: \url{https://www.statlearning.com/}
+
 WOOLDRIDGE, Jeffrey M. **Introdução à econometria: uma abordagem moderna**. 
 São Paulo: Thomson, 2006.
 
-JAMES, G.; WITTEN, D.; HASTIE, T. & TIBSHRANI, R. **An introduction to statistical learning**. 2nd. edition. New York: Springer, 2021. Disponível em: \url{https://www.statlearning.com/}
-
 
 ## Cronograma
+
+Obs. Trata-se apenas de um planejamento.
 
 - Aula 1 - 09/03
 
@@ -193,18 +195,18 @@ JAMES, G.; WITTEN, D.; HASTIE, T. & TIBSHRANI, R. **An introduction to statistic
 
     - Exame Final
 
-- Ensaio - Aula 16/03
+- Ensaio 
 
     - Atividade no Ambiente Virtual de Aprendizagem 
-    - Previsão de envio: até XX/XX/2023
+    - Previsão de envio: até 30/03/2023
 
-- Lista de Exercícios 1 - Aula 22/06
+- Lista de Exercícios 1
 
     - Atividade no Ambiente Virtual de Aprendizagem 
-    - Previsão de envio: até XX/XX/2023
+    - Previsão de envio: até 19/04/2023
 
-- Lista de Exercícios 2 - Aula 29/06
+- Lista de Exercícios 2 
 
     - Atividade no Ambiente Virtual de Aprendizagem
-    - Previsão de envio: até XX/XX/20233
+    - Previsão de envio: até 15/05/20233
 

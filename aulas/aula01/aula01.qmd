@@ -3,7 +3,7 @@ title: "Introdução à Ciência dos Dados - Aula 1"
 subtitle: "Mestrado Profissional em Administração"
 author: "Prof. Washington Santos da Silva"
 institute: "IFMG - Campus Formiga"
-date: 06/03/2023
+date: 03/09/2023
 date-format: long
 lang: "pt"
 format: 
@@ -41,14 +41,6 @@ knitr::include_graphics("img/nytimes.png")
 ```
 
 
-## The History of Data Economy
-
-- @harkness2021p01
-- @harkness2021p02
-- @harkness2021p03
-- @harkness2021p04
-
-
 # Informações sobre o Curso
 
 ## Ciência dos Dados
@@ -83,10 +75,10 @@ analisando um conjunto de dados e respondendo a questões de interesse.
    finanças;
 
 2. Tornar o mestrando capacitado para o desenvolvimento de pesquisas 
-   empíricas reproduzíveis na área de finanças;
+   empíricas **reproduzíveis** na área de finanças;
 
 
-## Pré-Requisitos
+## Pré-Requisitos {.scrollable}
 
 - Não há pré-requisitos formais. 
 
@@ -96,20 +88,27 @@ analisando um conjunto de dados e respondendo a questões de interesse.
 
 - Algum letramento computacional também será importante.
 
+- Curiosidade, pensamento analítico e determinação são habilidades fundamentais    para a disciplina, e para qualquer aspirante a pesquisador.
 
-## Política de Notas
+
+## Avaliações {.scrollable}
 
 Os pontos referentes à avaliação foram distribuídos da seguinte forma:
 
-1. Lista de Exercícios 1 = 10 pontos
-2. Lista de Exercícios 2 = 10 pontos
-3. Lista de Exercícios 3 = 10 pontos
-4. Exame 1 = 35 pontos
-5. Exame 2 = 35 pontos
-6. Sendo que para aprovação é necessário a obtenção de pelo menos 60 pontos.
+- Ensaio sobre 4 artigos = 10 pontos
+    - @harkness2021p01
+    - @harkness2021p02
+    - @harkness2021p03
+    - @harkness2021p04
+- Lista de Exercícios 2 = 10 pontos
+- Lista de Exercícios 3 = 10 pontos
+- Exame 1 = 35 pontos
+- Exame 2 = 35 pontos
+
+**Obs.** para aprovação é necessário a obtenção de pelo menos 60 pontos.
 
 
-## Planejamento do Curso
+## Recomendações
 
 - Espero que vocês estudem as leituras indicadas, preferencialmente 
   antes das aulas. 
@@ -117,23 +116,34 @@ Os pontos referentes à avaliação foram distribuídos da seguinte forma:
 - Isso não significa apenas ler superficialmente, mas envolver-se praticamente e 
   criticamente com o estudo
 
-- Busquem fazer todos os exercícios e utilizar efetivamente a linguagem.
+- Busquem fazer todos os exercícios e utilizar efetivamente a linguagem R.
 
 
-## Referência Básica
+## Referências Básicas
 
 ```{r fig_brooks, out.width = "40%", echo = FALSE, fig.align = 'center'}
 knitr::include_graphics("img/brooks.png")
 ```
 
+@brooks4e
 
-## Referência Básica em 2021
+
+## Referências Básicas
 
 ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width=300, style="float:right"}
 
 
 @r4ds: Versão digital (2 edição) gratuita disponível em: 
 [https://r4ds.hadley.nz](https://r4ds.hadley.nz)
+
+
+## Referências Complementares
+
+```{r fig_islr, out.width = "40%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/islr2.png")
+```
+
+@islr2
 
 
 ## O Modelo de Projeto de Ciência dos Dados
@@ -281,7 +291,7 @@ instalação ser concluída.
 
 ## Softwares Básico para o curso
 
-Para instalar o RStudio versão 2022.02.0+443
+Para instalar a versão gratuita atual do RStudio:
 
 1. Acesse [https://posit.co/products/open-source/rstudio/](https://posit.co/products/open-source/rstudio/)
 
@@ -292,7 +302,6 @@ a página para baixo até chegar à opção RStudio Desktop **Free**, logo abaix
 
 5. Feito o download basta ir clicando em próximo/next até a instalação ser 
    concluída.
-
 
   
 # Econometria Financeira
@@ -380,7 +389,6 @@ knitr::include_graphics("img/steps.png")
 
 - As conclusões tiradas são apropriadas em função dos resultados, ou a 
   importância dos resultados do artigo foi exagerada? 
-
 
 
 # A Linguagem R
@@ -497,15 +505,10 @@ knitr::include_graphics("img/rst03.png")
 ```
 
 
-## RStudio: Help
+## RStudio: Recursos
 
-- Acesse [RStudio IDE - Folha de Referência](https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/portuguese/rstudio-ide_pt.pdf)
-
-- [Esta página contém diversas folhas de referência](https://www.rstudio.com/resources/cheatsheets/) muito úteis sobre 
+- [Esta página contém diversas folhas de referência](https://posit.co/resources/cheatsheets/) muito úteis sobre 
 diversos aspectos da linguagem R/Pacotes/RStudio
-
-- [RStudio Webinars](https://www.rstudio.com/resources/webinars/)
-
 
 
 # Introdução ao R
