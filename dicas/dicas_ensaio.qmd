@@ -1,0 +1,93 @@
+---
+title: "Dicas sobre o Ensaio"
+author: "Prof. Washington Santos da Silva"
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+---
+
+## Esclarendo dúvidas sobre a data de envio e o editor de texto.
+
+A previsão correta de envio é o dia **30/03** e como disse na primeira aula, trata-se de uma previsão. Assim, caso eu altere esta data, o que é bastante 
+provável, será para uma data mais à frente, em função da necessidade de 
+aprenderem o suficiente sobre a linguagem que solicitarei que vocês usem para escrever a versão final do ensaio.
+
+Lembrando ainda o que disse em aula, façam as versões utilizando o editor 
+de texto de sua preferência, que muito provavelmente é o MS Word. Após vermos 
+em aula a linguagem do sistema Quarto, solicitarei a vocês apenas que copiem o 
+texto (feito no editor de texto de sua preferência) que já deverá estar pronto 
+para o RStudio e façam as adaptações necessárias.
+
+
+## Ensaio/Síntese sobre os artigos indicados.
+
+Uma descrição mais precisa desta atividade seria uma síntese, pois um 
+ensaio tem um propósito mais específico e amplo, mas mesmo sabendo desta 
+distinção, vamos manter o uso do termo ensaio para este exercício.
+
+Ao escrever um ensaio (síntese) de um artigo, o objetivo é compor uma visão 
+geral concisa e objetiva do artigo original. 
+
+A síntese deve se concentrar apenas nas ideias principais do artigo e nos 
+pontos importantes que sustentam essas ideias.
+
+
+## Diretrizes para um ensaio (ou síntese de um artigo):
+
+- Identifique e descreva as ideias principais.
+
+- Identifique os pontos mais importantes que suportam as ideias principais.
+
+- Resuma com suas próprias palavras.
+
+- Não copie frases ou sentenças, a menos que estejam sendo usadas como citações   
+  diretas.
+  
+- Expresse o significado subjacente do artigo, mas não critique ou analise.
+
+- Cada ensaio deverá ter, no máximo, três páginas. Certamente, a expressão 
+"no máximo" indica que o número de páginas pode ser menor que três.
+
+- Com são quatro artigos, vocês deverão elaborar um ensaio (com no máximo 
+três páginas) para cada um dos artigos indicados, sendo que o formato 
+final deverá ser em *.pdf*. 
+
+- Outros detalhes sobre como fazer o upload dos arquivos para o AVA serão 
+fornecidos posteriormente em aula.
+
+- Cada um dos 4 ensaios terá o valor de 2,5 pontos, totalizando os 10 
+ pontos previstos para esta atividade.
+
+
+## Estrutura Lógica do Ensaio 
+
+Cada ensaio deverá incluir as seguintes seções:
+
+### Introdução
+
+- Forneça uma visão geral do artigo, incluindo o título e o nome do autor.
+
+- Forneça uma descrição da ideia(s) principal(is) do artigo.
+         
+### Síntese
+     
+- Use os parágrafos desta seção para explicar os argumentos de apoio da ideia 
+  ou ideias principais do artigo.
+         
+- O número de parágrafos dependerá da extensão do artigo original, mas 
+  busque utilizar apenas um número suficiente de parágrafos que corresponda 
+  ao número de argumentos de apois que você identificou.
+     
+- Use palavras e frases de transição para conectar as ideias.
+     
+### Conclusão 
+
+- Resuma a tese e o significado subjacente do artigo em um ou dois parágrafos.
+
+
+## Referência
+
+Adaptado de 
+\href{http://academics.smcvt.edu/cbauer-ramazani/AEP/EN104/summary.htm}{Guidelines for Using In-Text Citations in a Summary} por Christine Bauer-Ramazani, 2020.

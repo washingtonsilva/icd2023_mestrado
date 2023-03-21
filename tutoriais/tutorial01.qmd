@@ -1,0 +1,467 @@
+---
+title: "Tutorial"
+subtitle: "Configurando um Projeto Reproduzível no RStudio"
+lang: "pt"
+date: "`r format(Sys.time(), '%d/%m/%y')`"
+author:
+  - name: Prof. Washington Santos da Silva 
+    affiliation: IFMG - Campus Formiga - Mestrado Profissional em Administração.
+    affiliation-url: https://www.formiga.ifmg.edu.br/mestrado
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc-location: left
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+
+Este breve tutorial irá apresentá-lo à configuração e gerenciamento de um projeto no RStudio para facilitar pesquisas robustas e reprodutíveis. Também 
+abordaremos a criação de uma estrutura de diretório organizada, dando nomes 
+úteis aos arquivos, documentando dados e fluxos de trabalho e boas práticas 
+de scripting.
+
+Eu estimo que este tutorial deve levar cerca de 30 minutos a 1 hora para ser concluído de uma só vez.
+
+Este tutorial pressupõe que você já tenha instalado as versões mais recentes do 
+R e do RStudio.
+
+\  
+
+## Por que se importar?
+
+\  
+
+Como acontece com a maioria das coisas na vida, quando se trata de lidar com 
+dados e análise de dados, as coisas são muito mais simples se você for 
+organizado. A organização clara do projeto torna mais fácil para você (especialmente o futuro você) e seus colaboradores entenderem o que você fez. Não há nada mais frustrante do que voltar a um projeto meses (às vezes anos) depois 
+e ter que passar dias (ou semanas) tentando descobrir onde está tudo, o que você fez e por que fez. 
+
+Um projeto bem documentado que tenha uma estrutura consistente e lógica aumenta 
+a probabilidade de você continuar de onde parou com o mínimo de confusão, não importa quanto tempo tenha passado. Além disso, é muito mais fácil escrever 
+código para automatizar tarefas quando os arquivos estão bem organizados e com nomes sensatos. Isso é ainda mais relevante hoje em dia, pois nunca foi tão fácil coletar uma grande quantidade de dados que podem ser salvos em 1.000 ou até 100.000 arquivos de dados separados. 
+
+Por fim, ter um projeto bem organizado reduz o risco de introduzir bugs ou 
+erros em seu fluxo de trabalho e, se eles ocorrerem (o que inevitavelmente acontecerá em algum momento), será mais fácil rastrear esses erros e tratá-los 
+com eficiência.
+
+Felizmente, existem alguns recursos interessantes no RStudio que 
+facilitam bastante o gerenciamento de um projeto. Existem também algumas etapas simples que você pode seguir logo no início de qualquer projeto para ajudar a manter as coisas em ordem.
+
+\  
+
+## Projects no RStudio
+
+\  
+
+Uma ótima maneira de manter as coisas organizadas é usar os *RStudio Projects*. 
+Um projeto RStudio mantém todos os seus documentos computacionais R, 
+funções R e arquivos de dados juntos em um só lugar. O bom em um RStudio 
+Projects é que cada projeto tem seu próprio diretório, área de trabalho, 
+histórico e documentos de origem, de modo que as diferentes análises nas quais 
+você está trabalhando são mantidas completamente separadas umas das outras. 
+Isso significa que você pode ter várias instâncias do RStudio abertas ao mesmo tempo (se for o seu caso) ou pode alternar facilmente entre os projetos sem 
+medo de que eles interfiram uns nos outros.
+
+Para criar um projeto, abra o RStudio e selecione `File` -> `New Project...` 
+a partir do menu. Você pode criar um projeto totalmente novo, um projeto de um diretório existente ou um projeto com controle de versão (veja o [Git e Github tutorial](https://kbroman.org/github_tutorial/) para detalhes). Neste tutorial vamos criar um projeto em um novo diretório (ou pasta).
+
+\  
+
+```{r new_proj, echo=FALSE, out.width="60%", fig.align="center"}
+knitr::include_graphics(path = "images/new_proj.png")
+```
+
+\
+
+Você também pode criar um novo projeto clicando no botão `Project` no canto superior direito do RStudio e selecionando `New Project...`
+
+\  
+
+```{r new_proj1, echo=FALSE, out.width="30%", fig.align="center"}
+knitr::include_graphics(path = "images/new_proj1.png")
+```
+
+\  
+
+Na janela seguinte selecione `New Project`.  
+
+\  
+
+```{r new_proj2, echo=FALSE, out.width="60%", fig.align="center"}
+knitr::include_graphics(path = "images/new_proj2.png")
+```
+
+\  
+
+Agora digite o nome do diretório que você deseja criar no campo 
+`Directory name:` (vamos nomeá-lo `first_project` neste tutorial). Se 
+voce desejar mudar a localização do  diretório no seu computador, clique no 
+botão `Browse...` e navegue para onde deseja criar o diretório. Eu sempre 
+marco a caixa `Open in new session`. Por fim, clique em  `Create Project` 
+para criar o novo projeto.
+
+\  
+
+```{r new_proj3, echo=FALSE, out.width="60%", fig.align="center"}
+knitr::include_graphics(path = "images/new_proj3.png")
+```
+
+\  
+
+Assim que seu novo projeto for criado, você terá uma nova pasta em seu computador que contém um arquivo de projeto RStudio chamado `first_project.Rproj`. Este arquivo `.Rproj` contém várias opções de projeto (mas você realmente não deve interagir com ele) e também pode ser usado como um atalho para abrir o projeto diretamente do sistema de arquivos (basta clicar duas vezes nele). Você pode verificar isso no menu `File` do RStudio.
+
+\  
+
+```{r new_proj4, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics(path = "images/new_proj4.png")
+```
+
+\  
+
+A última coisa que sugiro que você faça é selecionar `Tools` -> `Project Options...` no menu. Clique na guia `General` no lado esquerdo e altere os valores de `Restore .RData into workspace at startup`  e 'Save workspace to .RData on exit' de `Default` to `No`. Isso garante que toda vez que você abrir seu projeto, comece com uma sessão R limpa. Você não precisa fazer isso (muitas pessoas não fazem), mas prefiro começar com um espaço de trabalho completamente limpo sempre que abro meus projetos para evitar possíveis conflitos com coisas que fiz em sessões anteriores. A desvantagem disso é que você precisará executar novamente seu código R toda vez que abrir seu projeto.
+
+\  
+
+```{r new_proj5, echo=FALSE, out.width="60%", fig.align="center"}
+knitr::include_graphics(path = "images/new_proj5.png")
+```
+
+\  
+
+Agora que você tem um projeto RStudio configurado, pode começar a criar scripts R (ou documentos computacionais como notebooks, R markdown e quarto) ou o que for necessário para concluir seu projeto. Todos os documentos computacionais R agora estarão contidos no projeto RStudio e salvos na pasta do projeto.
+
+\  
+
+## Diretório ou Pasta de Trabalho
+
+\ 
+
+O diretório de trabalho é o local padrão onde o R buscará os arquivos que você deseja carregar e onde colocará todos os arquivos salvos. Uma das grandes coisas sobre o uso do RStudio Projects é que, quando você abre um projeto, ele define automaticamente seu diretório de trabalho para o local apropriado. Você pode verificar o caminho do arquivo de seu diretório de trabalho observando a barra na parte superior do painel Console. Nota: o símbolo `~` acima é uma abreviação de `/Users/nhy163/` no meu computador Mac (o mesmo em computadores Linux).
+
+\  
+
+```{r dir_struct, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics(path = "images/dir_struct.png")
+```
+
+\ 
+
+Você também pode usar a função `getwd()` no console, ela retorna o caminho do arquivo do diretório de trabalho atual.
+
+\  
+
+```{r dir_struct2, echo=FALSE, out.width="60%", fig.align="center"}
+knitr::include_graphics(path = "images/dir_struct2.png")
+```
+
+\ 
+
+No exemplo acima, meu diretório de trabalho é uma pasta chamada `first_project` 
+que é uma subpasta de `Teaching` na minha pasta `Alex` que por sua vez está em uma pasta `Documents` localizada na pasta `nhy163` que está em a pasta `Users`. Em um computador com Windows, meu diretório de trabalho também incluiria uma letra de unidade (ou seja, `C:/Users/nhy163/Documents/Alex/Teaching/first_project`).
+
+Se você não estivesse usando um projeto RStudio, teria que definir seu diretório de trabalho usando a função `setwd()` no início de cada script R (algo que fiz por muitos anos).
+
+\  
+
+```{r wd, echo=TRUE, eval=FALSE}
+setwd('/Users/nhy163/Documents/Alex/Teaching/first_project')
+```
+
+\  
+
+Entretanto, o problema com `setwd()` é que ele usa um caminho de arquivo *absoluto* que é específico para o computador em que você está trabalhando. Se você quiser enviar seu script para outra pessoa (ou se estiver trabalhando em um computador diferente), esse caminho de arquivo absoluto não funcionará no computador de seu amigo/colega, pois a configuração do diretório será diferente (é improvável que você tenha uma estrutura de diretório `/Users/nhy163/Documents/Alex/Teaching/` em seu computador). 
+
+Isso resulta em um projeto que não é independente e não é facilmente portátil. O RStudio resolve esse problema permitindo que você use caminhos de arquivo *relativos* que são relativos ao diretório do projeto *Raiz*. O diretório do projeto raiz é apenas o diretório que contém o arquivo `.Rproj` (`first_project.Rproj` em nosso caso). Se você quiser compartilhar sua análise com outra pessoa, basta salvar todo o diretório do projeto e enviar para seu colaborador. 
+
+Eles precisariam apenas abrir o arquivo do projeto e quaisquer scripts R que contenham referências a caminhos de arquivo relativos funcionarão. Por exemplo, digamos que você criou um subdiretório chamado `raw_data` em seu diretório de projeto raiz que contém um arquivo de dados delimitado por tabulação chamado `mydata.txt` (abordaremos as estruturas de diretório abaixo). Para importar este arquivo de dados em um projeto RStudio, tudo o que você precisa incluir em seu script R é:
+
+\  
+
+```{r rel-fp1, echo=TRUE, eval=FALSE}
+dataf <- read.table('raw_data/mydata.txt', header = TRUE, sep = '\t')
+```
+
+\  
+
+Como o caminho do arquivo `raw_data/mydata.txt` é relativo ao diretório do 
+projeto, não importa onde seu colaborador salva o diretório do projeto em seu computador, ele ainda funcionará.
+
+Se você não estiver usando um projeto RStudio, terá que usar qualquer uma das opções abaixo, nenhuma das quais funcionaria em um computador diferente:
+
+\  
+
+```{r rel-fp2, echo=TRUE, eval=FALSE, tidy=TRUE}
+setwd('/Users/nhy163/Documents/Alex/Teaching/first_project/')
+
+dataf <- read.table('raw_data/mydata.txt', header = TRUE, sep = '\t')
+
+# ou
+
+dataf <- read.table('/Users/nhy163/Documents/Alex/Teaching/first_project/raw_data/mydata.txt', header = TRUE, sep = '\t')
+```
+
+\  
+
+Para aqueles que desejam levar a noção de caminhos de arquivo relativos um passo adiante, dê uma olhada na função `here ()` no [pacote] `here` (https://github.com/r-lib/here). A função `here()` permite que você crie automaticamente caminhos de arquivo para qualquer arquivo relativo ao diretório raiz do projeto que também seja independente do sistema operacional (funciona em uma máquina Mac ou Windows). Por exemplo, para importar nosso arquivo `mydata.txt` do diretório `raw_data` basta usar
+
+\  
+
+```{r rel-fp23, echo=TRUE, eval=FALSE}
+library(here)  # instale o pacote antes
+
+dataf <- read.table(here("raw_data", "mydata.txt"), header = TRUE, sep = '\t')
+
+# ou sem carreagar o pacote here
+
+dataf <- read.table(here::here("raw_data", "mydata.txt"), header = TRUE, sep = '\t')
+```
+
+\  
+
+## Estrutura de um Diretório
+
+\  
+
+Além de usar o RStudio Projects, também é uma boa prática estruturar seu 
+diretório de maneira consistente e lógica para ajudar você e seus 
+colaboradores. Eu frequentemente uso a seguinte estrutura de diretórios 
+em meus projetos baseados na linguagem R
+
+\  
+
+```
+
+    Raíz
+     |
+     |__dados
+     |    |_raw_data
+     |    |_processed_data
+     |    |_metadata
+     |
+     |_R (opcional)
+     |
+     |_Rmd (ou qmd)
+     |
+     |_scripts
+     |
+     |_output
+ 
+```
+
+\  
+
+No meu diretório de trabalho, tenho os seguintes diretórios:
+
+   - **Raíz** - Este é o diretório do seu projeto contendo o arquivo .Rproj.
+  
+   - **dados** - armazeno todos os meus dados neste diretório. O subdiretório chamado `raw_data` contém arquivos de dados brutos e apenas arquivos de dados brutos. Esses arquivos devem ser tratados como **somente leitura** e não devem ser alterados de forma alguma. Se você precisar processar/limpar/modificar seus dados, faça isso em R (não no MS Excel), pois você pode documentar (e justificar) quaisquer alterações feitas. Quaisquer dados processados devem ser salvos em um arquivo separado e armazenados no subdiretório `processed_data`. Informações sobre métodos de coleta de dados, detalhes de download de dados e quaisquer outros metadados úteis devem ser salvos em um documento de texto (consulte os arquivos de texto README abaixo) no subdiretório `metadata`.
+  
+   - **R** - Este é um diretório opcional onde salvo todas as minhas funções R personalizadas que escrevi para a análise atual. Estes podem então ser originados em R usando a função `source()`.
+  
+   - **Rmd** - Um diretório opcional onde salvo meus documentos R Markdown ou 
+   qmd.
+  
+   - **scripts** - Todos os principais scripts R que escrevi para o projeto 
+   atual são salvos aqui.
+  
+   - **output** - Os resultados dos meus scripts R, como gráficos, arquivos HTML e resumos de dados, são salvas neste diretório. Isso ajuda a mim e meus colaboradores a distinguir quais arquivos são saídas e quais são arquivos de origem.
+
+\  
+
+Obviamente, a estrutura descrita acima é o que funciona para mim na maioria das vezes e deve ser vista como um ponto de partida para suas próprias necessidades. Costumo ter uma estrutura de diretório bastante consistente em meus projetos, pois isso me permite orientar-me rapidamente quando volto a um projeto depois de um tempo. Dito isto, projetos diferentes terão requisitos diferentes, então, felizmente, adiciono e removo diretórios conforme necessário.  
+
+\  
+
+Você pode criar sua estrutura de diretórios usando o Windows Explorer (ou o Finder em um Mac) ou no RStudio clicando no botão `New Folder` no painel `Files`.
+
+\  
+
+```{r dir_struct3, echo=FALSE, out.width="60%", fig.align="center"}
+knitr::include_graphics(path = "images/dir_struct3.png")
+```
+
+\  
+
+Uma abordagem alternativa é usar a função `dir.create()` no Console R: 
+
+\  
+
+```{r dir, echo=TRUE, eval=FALSE}
+
+# cria a pasta'data'
+dir.create('data')
+
+# cria subpasta raw_data dentro da pasta data 
+dir.create('data/raw_data')
+
+# lista os arquivos e pastas
+list.files(recursive = TRUE, include.dirs = TRUE)
+
+# [1] "data"                "data/raw_data"       "first_project.Rproj"
+
+```
+
+\  
+
+## Nomes de Arquivos
+
+\  
+
+O que você chama de seus arquivos é mais importante do que você imagina. Nomear arquivos também é mais difícil do que você pensa. O principal requisito para um 'bom' nome de arquivo é que seja informativo e, ao mesmo tempo, relativamente curto. Isso nem sempre é um compromisso fácil e geralmente requer alguma reflexão. Idealmente, você deve tentar evitar o seguinte!:
+
+\  
+
+```{r fn, echo=FALSE, out.width="30%", fig.align="center", fig.cap="source:https://xkcd.com/1459/"}
+knitr::include_graphics(path = "images/xkcd_files.png")
+```
+
+\  
+
+Embora não haja realmente uma abordagem padrão reconhecida para nomear arquivos (na verdade [existe] (https://en.wikipedia.org/wiki/Filename), apenas nem todo mundo a usa), há algumas coisas a serem lembradas .
+
+\  
+ 
+  - Em primeiro lugar, evite usar espaços em nomes de arquivo, substituindo-os por sublinhados ou até hífens. Por que isso importa? Um motivo é que a maioria das linguagens e softwares de linha de comando não reconhecem um nome de arquivo 
+com um espaço e você terá que passar por todos os tipos de travessuras usando caracteres de escape para garantir que os espaços sejam tratados corretamente. Mesmo se você acha que nunca usará software de linha de comando, pode estar fazendo isso indiretamente. Pegue o markdown do R, por exemplo, se você deseja renderizar um documento de markdown do R para pdf usando o pacote `rmarkdown`, na verdade, estará usando um mecanismo `LaTeX` de linha de comando sob o capô. Outro bom motivo para não usar espaços em nomes de arquivos é que isso facilita a pesquisa de nomes de arquivos (ou partes de nomes de arquivos) usando [expressões regulares](https://en.wikipedia.org/wiki/Regular_expression) em R, ou em qualquer outra línguagem.
+
+  - Pelas razões dadas acima e outras, não utilize caracteres especiais (i.e. @£$%^&*():;<>?{}/) nos nomes dos arquivos.
+  
+  - Se você estiver criando versões de seus arquivos com números sequenciais (ou seja, arquivo1, arquivo2, arquivo3 ...) e tiver mais de 9 arquivos, deverá usar 01, 02, 03 .. 10, pois isso garantirá que os arquivos sejam impressos na ordem correta (veja o que acontece se não o fizer). Se você tiver mais de 99 arquivos, use 001, 002, 003 ... etc.
+  
+  - Se os nomes dos seus arquivos incluírem datas, use o formato ISO 8601 YYYY-MM-DD (ou YYYYMMDD)para garantir que seus arquivos sejam classificados em ordem cronológica adequada.
+  
+  - Nunca utilize a palavra **final** em um nome de arquivo - nunca é!
+
+\  
+
+Seja qual for a convenção de nomenclatura de arquivos que você decidir usar, 
+tente adotá-la o quanto antes, cumpri-la e ser consistente. Você vai me agradecer!
+
+\  
+
+## Documentação de um Project
+
+\  
+
+Uma ou duas notas rápidas sobre como escrever código R e criar scripts R: 
+
+A menos que você esteja fazendo algo realmente rápido e sujo, sugiro que você sempre escreva seu código R como um script oR. Os scripts R são o que torna o R tão útil. Você não apenas tem um registro completo de sua análise, desde a manipulação de dados, visualização e análise estatística, como também pode compartilhar esse código (e dados) com colegas e, principalmente, quando envia e publica sua pesquisa em um periódico. 
+
+Com isso em mente, certifique-se de incluir em seu script R todas as informações necessárias para tornar seu trabalho reprodutível (nomes dos autores, datas, design de amostragem, etc.). Essas informações podem ser incluídas como uma série de comentários `#` ou, ainda melhor, misturando código executável com narrativa 
+em um `R Notebook`, `R markdown` ou `quarto` . 
+
+Também é uma boa prática incluir a saída da função `sessionInfo()` no final de qualquer script que imprima a versão R, detalhes do sistema operacional e também pacotes utilizados
+
+A seguir está um exemplo de inclusão de metainformações no início de um 
+script R:
+
+\  
+
+```{r, echo=TRUE, eval=FALSE}
+# Titulo: Análise de séries temporais de snouters
+
+# Finalidade: Este script executa uma análise de série temporal nos dados de 
+# contagem de baleias 
+
+# Os dados consistem em contagens de espécies de baleias coletadas em 18 ilhas
+# no arquipélago Hy-yi-yi entre 1950 e 1957.
+
+# Número do projeto: #007
+
+# Arquivo de dados: '/Users/Another/snouter_analysis/snouter_pop.txt'
+
+# Autor: Washington S. Silva
+# Detalhes de contato: wsilva@gmail.com
+
+# Data de criação do script: segunda-feira, 2 de dezembro 16:06:44 2019 ------------------------------
+# Data da última modificação do script: quinta-feira, 12 de dezembro 16:07:12 2019 ----------------------
+
+# package dependencies
+library(tseries)
+library(ggplot2)
+
+print('Hello R')
+
+# boa pratica incluir sessionInfo
+
+sessionInfo()
+```
+
+\  
+
+Este é apenas um exemplo e não há regras rígidas e rápidas, portanto, sinta-se à vontade para desenvolver um sistema que funcione para você. Um atalho realmente útil no RStudio é incluir automaticamente um carimbo de data e hora em seu script R. Para fazer isso, escreva `ts` onde deseja inserir o carimbo de data/hora em seu script R e, em seguida, pressione as teclas `shift + tab`. O RStudio converterá magicamente `ts` na data e hora atuais e também comentará automaticamente esta linha com um `#`. 
+
+Outro atalho realmente útil do RStudio é comentar várias linhas em seu script com um símbolo `#`. Para fazer isso, destaque as linhas de texto que deseja comentar e pressione `ctrl + shift + c`. Para descomentar as linhas basta usar 
+`ctrl + shift + c` novamente.
+
+Além de incluir metadados em seus scripts R, também é prática comum criar um arquivo de texto separado para registrar informações importantes. Por convenção, esses arquivos de texto são denominados `README`. Costumo incluir um arquivo `README` no diretório onde mantenho meus dados brutos. Neste arquivo, incluo detalhes sobre quando os dados foram coletados (ou baixados), como os dados foram coletados, informações sobre linguagens e softwares utilizados etc. Você pode criar um arquivo README para seu projeto no RStudio clicando nos seguintes menus `File` -> `New File` -> `Text File` 
+
+\  
+
+## R style guide
+
+\  
+
+A forma como você escreve seu código depende mais ou menos de você, embora seu objetivo seja torná-lo o mais fácil de ler possível (para você e outros). Embora não haja regras (e nenhuma polícia de código), encorajo você a adquirir o hábito de escrever código R legível adotando um estilo particular. 
+
+Sugiro que você siga o [guia de estilo R](https://google.github.io/styleguide/Rguide.html) do Google sempre que 
+possível. Este guia de estilo irá ajudá-lo a decidir onde usar espaços, como indentar o código e como usar colchetes `[ ]` e chaves `{ }` entre outras coisas.
+
+Se tudo isso parecer muito trabalhoso, você pode instalar o pacote `styler`, que inclui um RStudio `Addin` para permitir que você redefina automaticamente o código selecionado (ou arquivos e projetos inteiros) com o clique do mouse. Você pode encontrar mais informações sobre o pacote `styler` incluindo como instalar [aqui](https://www.tidyverse.org/blog/2017/12/styler-1.0.0/). Depois de instalado, você pode destacar o código que deseja reestilizar, clicar no botão `Addins` na parte superior do RStudio e selecionar a opção `Style selection`. Aqui está um exemplo de código R mal formatado
+
+\  
+
+```{r poor_code, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics(path = "images/before_rcode.png")
+```
+
+\  
+
+Agora destaque o código e use o pacote `styler` para reformatar
+
+\  
+
+```{r styler, echo=FALSE, out.width="60%", fig.align="center"}
+knitr::include_graphics(path = "images/styler.png")
+```
+
+\  
+
+Para produzir um código bem formatado
+
+\  
+
+```{r better_code, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics(path = "images/after_rcode.png")
+```
+
+\  
+
+## Back up de Projetos
+
+\  
+
+Não seja aquela pessoa que perde dados e análises produzidos com muito 
+esforço (e muitas vezes caros). Não seja aquela pessoa que pensa que nunca vai acontecer comigo - vai! Sempre pense no pior cenário, algo que faça você acordar suando frio à noite, e faça tudo o que puder para garantir que isso nunca 
+aconteça. Apenas para esclarecer, se você está contando com a cópia de seus preciosos arquivos para um disco rígido externo ou pendrive, esta **NÃO** é uma estratégia de backup eficaz. Essas coisas dão errado o tempo todo quando você as joga na mochila ou na "bolsa" e depois as carrega entre o escritório e a casa. Mesmo se você deixá-los conectados ao seu computador, o que acontece quando o prédio pega fogo (eu disse o pior caso!)? 
+
+Idealmente, seus backups devem ser externos e incrementais. Felizmente, existem inúmeras opções para fazer backup de seus arquivos. uma boa opção são os serviços baseados em nuvem, como OneDrive, Google Drive e Dropbox (para citar apenas alguns), mas verifique se você não está armazenando dados confidenciais nesses serviços e se está confortável com as políticas de privacidade. 
+
+Embora esses serviços baseados em nuvem sejam muito bons para armazenar arquivos, eles realmente não ajudam com backups incrementais. Encontrar versões 
+anteriores de arquivos geralmente envolve gastar uma quantidade excessiva 
+de tempo vasculhando vários arquivos chamados *'final.doc'*, *'final_v2.doc'* e *'final_useeste.doc'* etc. Até encontrar o que estava procurando. 
+
+A melhor maneira que conheço para fazer backup de arquivos e gerenciar diferentes versões de arquivos é usar o software de controle de versão [git](https://git-scm.com/downloads) e o [GitHub](https://github.com). Para 
+saber mais sobre o uso do Git e do GitHub juntos, 
+veja este [tutorial](https://kbroman.org/github_tutorial/).        
+
+\  
+
+\  
