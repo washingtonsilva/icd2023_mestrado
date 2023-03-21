@@ -1,0 +1,519 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## Configurações Globais e Pacotes Necessários
+
+```{r setup, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(digits = 4, scipen = 999)
+
+# pacotes utilizados
+library(tidyverse)
+library(skimr)
+library(gapminder)
+```
+
+
+# Atribuicao/Variaveis 
+
+
+```{r}
+x <- 3*4 # boa pratica
+x
+
+x = 3*4  # pratica ruim
+x
+```
+
+
+
+# Sintáxe da Linguagem 
+
+```{r}
+r_rocks <- 2^3
+```
+
+
+## Qual o problema ao visualizar o objeto?
+
+```{r}
+r_rock
+R_rocks
+```
+
+
+# Operacoes Matematicas 
+
+## Diversas
+
+```{r}
+2 + 18               # adição
+2 - 18               # subtração
+50821/6              # divisão
+21*4                 # multiplicação
+exp(10)              # função e^10
+log(10)              # log natural de 10
+choose(10, 8)        # comb(n,k)
+factorial(100)       # !100
+cos(pi)              # cosseno 
+sin(pi)              # tangente 
+round(pi, digits=2)  # arredondamento
+```
+
+
+## Precedencia de operacoes
+
+```{r}
+1/200*30        # divisao depois multiplicacao
+1/(200*30)      # deve-se usar parenteses para alterar/definir a precedencia
+(59 + 73 + 2)/3
+```
+
+
+# Operadores Logicos 
+
+## Exemplos
+
+```{r}
+a <- 5; b <- 7
+
+a < b     # menor que       
+a <= b    # menor ou igual  = no máximo
+a > b     # maior que   
+a >= b    # maior ou igual = pelo menos  
+a == b    # exatamente igual          
+a != b    # não igual a
+```
+
+
+```{r}
+x <- TRUE; y <- FALSE
+
+!x        # negação de x
+x & y     # x e y               
+x | y     # x ou y 
+```
+
+```{r}
+z <- 12
+z > 5 & z < 15
+```
+
+
+## Desafio 1
+
+
+# Tipos de Dados 
+
+## classe numeric: tipo double 
+
+
+```{r}
+a <- 1.23
+a
+class(a)
+typeof(a)     # fornece o tipo atomico do dado
+is.numeric(a) # testa se o dado e numerico
+```
+
+
+## integer 
+
+```{r}
+b <- 2L
+b
+class(b)
+typeof(b)
+```
+
+
+## character 
+
+```{r}
+d <- "João" 
+d
+class(d)
+typeof(d)
+```
+
+
+## logical 
+
+```{r}
+e <- TRUE
+e
+f <- FALSE
+f
+class(e)
+typeof(e)
+typeof(f)
+is.logical(e)
+is.logical(f)
+```
+
+
+## coercao de logical para numeric
+
+```{r}
+as.numeric(e) 
+as.numeric(f)
+```
+
+
+## complex 
+
+```{r}
+c <- 1 + 3i
+c
+class(c)
+typeof(c)
+```
+
+
+## NA = Not Available 
+
+## em geral reservado para dados faltantes
+
+```{r}
+g <- c(0, NA, 4, 7, NA)
+g
+is.na(g)
+sum(is.na(g)) # quantos dados faltantes há no vetor g?
+```
+
+
+## NaN = Not a Number 
+
+```{r}
+h <- c(0/0, 2, 100)
+h
+```
+
+
+## Inf = infinity 
+
+```{r}
+i <- c(1, 100/0, -10/0)
+i
+```
+
+
+# Estruturas de Dados 
+
+## Vector 
+
+### Criando vetores 
+
+```{r}
+vec1 <- c(0.5, 0.6, 0.1, 0.8, 2, 1.5) # numeric
+vec1
+vec2 <- c(TRUE, FALSE)                # logical
+vec2
+as.numeric(vec2)                      # coercao para vetor numerico
+vec3 <- c("a", "b", "c")              # character
+vec3
+vec4 <- 9:29                          # integer
+vec4
+vec5 <- c(1+0i, 2+4i)                 # complex
+vec5
+```
+
+
+## Data Frame 
+
+### Criando uma data frame I 
+
+```{r}
+df1 <- data.frame(x1 = c(7.1, 2.5, 8.4, 3.2, 3.8, 7.3),        
+                  x2 = c("H", "M", "M", "H", "M", "H"),
+                  x3 = c(0, 0, 1, 1, 0, 1)
+                  )
+df1
+```
+
+
+### criando uma data frame II
+
+```{r}
+custo = c(120, 180, 348, 125, 290)
+preco = c(152, 239, 487, 145, 345)
+produto = c("A","B","C","D","E")
+dataf = data.frame(produto, custo, preco)
+class(dataf)
+dataf
+```
+
+
+## Factor 
+
+### problemas ao usar vetores de caracteres
+
+```{r}
+x1 <- c("Dez", "Abr", "Jan", "Mar")
+x1
+x2 <- c("Dez", "Abr", "Jam", "Mar")
+x2
+sort(x1)
+sort(x2)
+```
+
+
+### definindo os niveis do fator 
+
+```{r}
+month_levels <- c(
+  "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+  "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+)
+```
+
+
+### criando o fator 
+
+```{r}
+y1 <- factor(x1, levels = month_levels)
+y1
+sort(y1)
+```
+
+
+```{r}
+y2 <- factor(x2, levels = month_levels)
+y2
+sort(y2)
+```
+
+
+### acessando os niveis 
+
+```{r}
+levels(y1)
+```
+
+
+## Matrix 
+
+### Criando uma Matriz 
+
+```{r}
+m <- matrix(c(0, 2, 1, 0), nrow = 2, ncol = 2, byrow = TRUE)
+m
+dim(m)   # dimensoes da matriz
+```
+
+
+### Algebra Matricial
+
+```{r}
+m + m    # adicao 
+m - m    # subtracaco
+2*m      # multiplicacao por escalar
+m %*% m  # multiplicacao de matrizes
+m * m    # element-wise multplication
+t(m)     # transposta
+solve(m) # inversa de m1 (se existir)
+```
+
+
+# verificando a validade da inversa
+# A^(-1) %*% A = I
+
+```{r}
+solve(m) %*% m == diag(nrow = nrow(m), ncol = ncol(m))
+```
+
+
+# autovalores e autovetores
+
+```{r}
+eigen(m)
+```
+
+
+## List 
+
+### criando uma lista 
+
+```{r}
+lista_1 <- list(vec1, df1, m)
+lista_1
+```
+
+
+# Manipulacao de Dados 
+
+## Vetores 
+
+```{r}
+ls() # lista os objetos ativos na secao
+```
+
+
+### Extracao de elementos de Vetores
+
+
+```{r}
+vec1
+vec1[1]        # seleciona o primeiro elemento
+vec1[6]		     # seleciona o sexto elemento
+vec1[-1]       # todos menos o primeiro elemento
+vec1[c(-1,-2)] # todos menos o primeiro e o segundo elementos
+vec1[c(2,4)]   # segundo e quarto elementos
+vec1[c(2:4)]   # do segundo até o quarto elemento
+```
+
+
+### Substituindo um elemento de um vetor
+
+```{r}
+vec1[3] <- 500 # O terceiro elemento passa a ser 500
+vec1
+```
+
+
+### Funções Matemáticas e Estatísticas para vetores
+
+```{r}
+length(vec1)   # tamanho/numero de elementos do vetor
+unique(vec1)   # todos os elementos únicos
+sort(vec1)     # ordena os elementos em ordem ascendente
+sort(vec1, decreasing = TRUE) # ordena em ordem decrescente
+sum(vec1)      # somas dos elementos do vetor
+prod(vec1)     # produto dos elementos do vetor
+min(vec1)      # mínimo dos elementos do vetor
+max(vec1)      # máximo dos elementos do vetor
+mean(vec1)     # média dos elementos
+median(vec1)   # mediana dos elementos
+range(vec1)    # minimo e maximo do vetor
+sd(vec1)       # desvio padrão
+var(vec1)      # variância (n-1)
+cov(vec1,vec1) # covariância (cov(x,y))
+cor(vec1,vec1) # correlação (cor(x,y))
+summary(vec1)  # estatíticas descritivas
+```
+
+
+## data frames
+
+### Dados utilizados
+
+```{r}
+data("gapminder")
+head(gapminder) # exibe as primeiras 6 linhas da data frame
+```
+
+
+### Analise Exploratoria dos Dados
+
+```{r}
+skimr::skim(hotels)
+```
+
+
+### Pacote dplyr: select()
+
+### selecao por inclusao
+
+```{r}
+dados <- select(gapminder, year, country, gdpPercap)
+```
+
+### selecao por exclusao
+
+```{r}
+smaller_gapminder_data <- select(gapminder, -continent)
+```
+
+### Boa pratica com dplyr
+
+```{r}
+dados <- gapminder %>% select(year, country, gdpPercap)
+```
+
+### Pacote dplyr: filter()
+
+
+```{r}
+dados <- gapminder %>%
+  filter(continent == "Europe") %>%
+  select(year, country, gdpPercap)
+```
+
+
+### Pacote dplyr: filter()
+
+```{r}
+dados_lifexp2007 <- gapminder %>%
+  filter(continent == "Europe", year == 2007) %>%
+  select(country, lifeExp)
+```
+
+
+## Desafio 2
+
+
+
+### Pacote dplyr: group_by() e summarise()
+
+
+```{r}
+rmp_continente <- gapminder %>%
+  group_by(continent) %>%
+  summarize(gdpPercap_media = mean(gdpPercap))
+rmp_continente
+```
+
+
+### Desafio 3
+
+### agrupando por mais de uma coluna/variavel
+
+```{r}
+rmp_continente_ano <- gapminder %>%
+  group_by(continent, year) %>%
+  summarize(gdpPercap_media = mean(gdpPercap))
+rmp_continente_ano
+```
+
+
+### Sumarizando dados por mais de uma estatistica 
+
+```{r}
+rmp_continente_pop_ano <- gapminder %>%
+  group_by(continent, year) %>%
+  summarize(gdpPercap_media = mean(gdpPercap),
+            gdpPercap_dp = sd(gdpPercap),
+            pop_media = mean(pop),
+            pop_dp = sd(pop))
+rmp_continente_pop_ano
+```
+
+
+### Pacote dplyr: count()
+
+```{r}
+gapminder %>%
+  filter(year == 2002) %>%
+  count(continent, sort = TRUE)
+```
+
+
+### Pacote dplyr: mutate()
+### adicionando uma nova variavel: pib_bilhoes
+
+```{r}
+pib_pop_continente_ano <- gapminder %>%
+  mutate(pib_bilhoes = gdpPercap*pop/10^9) %>%
+  group_by(continent,year) %>%
+  summarize(gdpPercap_media = mean(gdpPercap),
+            gdpPercap_dp = sd(gdpPercap),
+            pop_media = mean(pop),
+            pop_dp = sd(pop),
+            pib_bilhoes_media = mean(pib_bilhoes),
+            pib_bilhoes_dp = sd(pib_bilhoes))
+pib_pop_continente_ano
+```
+
+
+### Desafio 4
