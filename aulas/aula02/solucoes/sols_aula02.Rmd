@@ -1,0 +1,201 @@
+---
+title: "Introdução à Ciência dos Dados - Soluções Aulas 1 e 2"
+subtitle: "Mestrado Profissional em Administração"
+author: "Prof. Washington Santos da Silva"
+date: "31/03/2022"
+output:
+  ioslides_presentation:
+    logo: logo.jpg
+    incremental: false
+    widescreen: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE,  
+                      warning = FALSE)
+options(digits = 6, scipen = 999)
+library(tidyverse)
+library(skimr)
+library(gapminder)
+library(countdown)
+```
+
+
+# Soluções do Desafio - Aulas 1 {.smaller}
+
+
+## Solução do Desafio contido no scritp `aula01.R`
+
+- Importe o arquivo UKHP.xls e Faca um grafico de linha
+
+```{r, eval=FALSE}
+# Importando o arquivo
+ukhp <- read_excel("C:/icd2022/dados_brutos/UKHP.xls",
+                    col_types = c("date", "numeric"))
+head(ukhp) 
+dplyr::glimpse(ukhp)
+```
+
+
+## Solução do Desafio contido no scritp `aula01.R`
+
+```{r, eval=FALSE}
+## grafico de linha
+ukhp %>%
+  ggplot(aes(x = Month, y = `Average House Price`)) +
+  geom_line(color = "#69b3a2") +
+  labs(
+    title = "Preço Médio de Casas",
+    subtitle = "em Libras",
+    caption = "Fonte: Brooks (2019)",
+    x = "Mês",
+    y = "Preço Médio de Casas (Libras)"
+  ) +
+  theme_minimal
+```
+
+
+
+
+# Soluções dos Desafios - Aulas 2
+
+## Desafio 1
+
+Considere os seguintes vetores:
+
+```{r}
+linkedin <- c(16, 9, 13, 5, 2, 17, 14)
+facebook <- c(17, 7, 5, 16, 8, 13, 14)
+```
+
+O vector `linkedin` representa as visualizações do seu perfil no Linkedin dos últimos 7 dias, e o vetor `facebook` representa as visualizações do seu perfil no Facebook dos últimos 7 dias.
+
+Determine quando as visualizações do `linkedin` excederam 10 e as visualizações 
+do `facebook` não conseguiram chegar a 10 para um determinado dia. Use os vetores do `linkedin` e do `facebook`. 
+
+
+
+## Desafio 1
+
+Considerando o mesmo vetor `Linkedin` do exercício anterior, determine se 
+`last` é menor que 5 ou maior que 10.
+
+```{r}
+linkedin <- c(16, 9, 13, 5, 2, 17, 14)
+last <- tail(linkedin, 1)
+```
+
+
+
+## Desafio 1: Solução
+
+```{r}
+# linkedin excede 10 e facebook menor que 10
+linkedin > 10 & facebook < 10
+
+# last esta entre 15 (exclusive) e 20 (inclusive)?
+last <- tail(linkedin, 1) # tail(x, n) exibe os 6 ultimos elementos de um objeto
+                          # neste caso exibe apenas o ultimo (n=1)
+last
+last > 15 & last <= 20
+```
+
+
+
+## Desafio 2
+
+Escreva um único comando (que pode abranger várias linhas e inclui pipes) que 
+produzirá uma `data.frame` que tenha os valores dos países africanos para 
+`lifeExp`, `country` e `year`, mas não para outros países e continentes.
+
+```{r}
+dados_africa <- gapminder %>%
+  filter(continent == "Africa") %>%
+  select(lifeExp, country, year)
+dados_africa
+```
+
+
+
+## Desafio 3
+
+1. Calcule a esperança média de vida por país. 
+
+```{r}
+## esperanca media de vida por pais
+lifexp_pais_maior <- gapminder %>%
+   group_by(country) %>%
+   summarize(lifeExp_media = mean(lifeExp))
+lifexp_pais_maior
+```
+
+
+## Desafio 3: Solução
+
+2. Qual tem a esperança média de vida mais longa e qual tem a esperança média 
+   de vida mais curta? 
+
+```{r}
+## esperanca media de vida mais longa
+lifexp_pais_maior <- gapminder %>%
+   group_by(country) %>%
+   summarize(lifeExp_media = mean(lifeExp)) %>%
+   arrange(lifeExp_media) %>%
+   head(1)
+lifexp_pais_maior
+```
+
+
+## Desafio 3: Solução
+
+```{r}
+## esperanca media de vida curta
+lifexp_pais_menor <- gapminder %>%
+   group_by(country) %>%
+   summarize(lifeExp_media = mean(lifeExp)) %>%
+   arrange(desc(lifeExp_media)) %>%
+   head(1)
+lifexp_pais_menor
+```
+
+## Desafio 4
+
+1. Calcule a Expectativa de vida média para cada continente no ano 2002 e 
+ordene a expectativa média em ordem decrescente.
+
+```{r}
+## 1. Por continente em 2002
+lifexp_continentes <- gapminder %>%
+   filter(year==2002) %>%
+   group_by(continent) %>%
+   summarize(lifeExp_media = mean(lifeExp)) %>%
+   arrange(desc(lifeExp_media))
+lifexp_continentes
+```
+
+
+## Desafio 4: Solução
+
+2. Calcule a Expectativa de vida média para cada país no ano 2002 e 
+ordene a expecativa média em ordem crescente.
+
+```{r}
+## 2. Por paises em 2002
+lifexp_paises <- gapminder %>%
+   filter(year==2002) %>%
+   group_by(country) %>%
+   summarize(lifeExp_media = mean(lifeExp)) %>%
+   arrange(desc(lifeExp_media))
+lifexp_paises
+```
+
+
+
+
+
+
+
+
+
+
+

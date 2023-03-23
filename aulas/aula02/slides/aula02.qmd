@@ -1,0 +1,373 @@
+---
+title: "Introdução à Ciência dos Dados - Aula 2"
+subtitle: "Mestrado Profissional em Administração"
+author: "Prof. Washington Santos da Silva"
+institute: "IFMG - Campus Formiga"
+date: today
+date-format: long
+lang: "pt"
+format: 
+  revealjs:
+    self-contained: true
+    incremental: true
+    transition: slide
+    slide-number: true
+    logo: logo.jpg
+bibliography: referencias.bib
+csl: associacao-brasileira-de-normas-tecnicas.csl
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE,  
+                      warning = FALSE)
+
+options(digits = 6, scipen = 999)
+
+
+library(dplyr)
+library(skimr)
+library(gapminder)
+```
+
+
+## Summário
+
+- Introdução à Linguagem R
+
+    - Workflow
+    - Sintáxe da Linguagem R
+    - Programação em R: Boas Práticas
+    - Tipos de Dados Atômicos
+    - Estruturas de Dados
+    - Manipulação de Dados: pacote dplyr
+    - Referências
+    
+    
+# Introdução à Linguagem R
+
+## Workflow: Basics {.scrollable}
+
+- Agora você tem alguma experiência **executando código R**.
+
+- Você não teve muitos detalhes, mas você certamente **descobriu o básico**.
+
+- A frustração é natural quando você começa a programar em R, a linguagem é 
+  muito exigente com a sintáxe, e **até mesmo um caractere fora do lugar gera  erros**.
+
+- Embora você deva estar um pouco frustrado, não desanime, é típico e 
+  temporário: acontece com todos, e **a única maneira de superar é continuar   explorando, praticando e estudando**. 
+
+- Antes de ir mais longe, vamos ter certeza de que você tem uma base sólida 
+  em executar código R, e que você sabe alguns dos recursos úteis do RStudio 
+  para programar em R.
+  
+- Referência: [Wickham & Grolemund (2017)](https://r4ds.had.co.nz/workflow-basics.html#workflow-basics)
+  
+  
+## Workflow: Basics
+
+- Atencao à estrutura de pastas para os projetos de análise de dados:
+
+- Estrutura de Pastas inicial recomendada para a disciplina:
+
+    - `C:/icd2023`:
+
+        - `/dados_analise`
+        - `/dados_brutos`
+        - `/scripts`
+        - `/notebooks`
+
+
+## Workflow: Code Folding and Sections {.smaller}
+
+- Vamos voltar ao script `aula01.R`
+
+- Saiba mais em [RStudio Support](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections)
+
+     <li><strong>Edit</strong> -&gt; <strong>Folding</strong>:
+     <ul>
+     <li><strong>Collapse</strong> — Alt+L</li>
+     <li><strong>Expand</strong> — Shift+Alt+L</li>
+     <li><strong>Collapse All</strong> —&nbsp;Alt+O</li>
+     <li><strong>Expand All</strong> — Shift+Alt+O</li>
+     </ul>
+     </li>
+
+    <li><strong>Code</strong>:
+    <ul>
+    <li><strong>Insert Section</strong> — Ctrl+Shift+R </li>
+    <li><strong>Jump To</strong> — Shift+Alt+J</li>
+    </ul>
+    </li>
+
+
+## Sintáxe da linguagem: Atribuição
+
+- Podemos criar objetos com `<-`
+
+```{r}
+x <- 3*4
+```
+
+- Todas as instruções R com as quais criamos objetos (declarações de atribuição) 
+tem o mesmo formato:
+
+```{r, eval = FALSE}
+### <b>
+nome_objeto <- valor
+### </b>
+```
+
+- como ler esse código?
+
+- >> `valor é atribuído a nome_objeto`
+
+- Obs: `nome_objeto = valor` funciona mas não é uma boa prática!
+
+
+## Funções em R
+
+- R tem uma grande coleção de funções internas que são executadas como a 
+seguinte sintaxe:
+
+```{r, eval = FALSE, echo=TRUE}
+function_name(arg1 = val1, arg2 = val2, ...)
+```
+
+- Exemplos com a função `seq()`
+
+```{r, echo=TRUE}
+y <- seq(1, 10, length.out = 5)
+y
+```
+
+- Exemplos de *autocompletion* com `TAB` 
+
+
+## Funções em R
+
+para que o resultado seja exibido diretamente envolva toda a expressão entre 
+parênteses:
+
+```{r, echo=TRUE}
+(y <- seq(1, 10, length.out = 5))
+```
+
+
+## Sintáxe da linguagem: Atribuição (cont.)
+
+- Faremos muitas atribuições com `<-`, e não é agradável digitar!
+
+- Solução? 
+
+- shortcut: `Alt + -`
+
+- Observe que o RStudio magicamente envolve `<-` com **espaços**, que é uma boa   prática de formatação de código. 
+
+- É terrível ler código, então **dêaosseusolhosumapausa** e use `espaços`.
+
+
+## Programando em R: Boas Práticas
+
+- nomes de objetos devem começar com uma letra e podem conter `letras`, 
+  `números`, `_` e `.`
+  
+- Queremos nomes de objetos **descritivos**, então precisamos de uma 
+  convenção (`code style`).
+  
+- [Wickham & Grolemund (2017)](https://r4ds.had.co.nz/workflow-basics.html#whats-in-a-name) recomendam o estilo `snake_case`.
+
+```{r codg, eval = FALSE}
+### <b>
+i_use_snake_case
+OtherPeopleUseCamelCase
+some.people.use.periods
+And_aFew.People_RENOUNCEconvention
+### </b>
+```
+
+
+## Programando em R: Guias de Estilo
+
+- [Google’s R Style Guide](https://google.github.io/styleguide/Rguide.html)
+
+- [Tidyverse Style Guide](https://style.tidyverse.org/)
+
+
+## Sintáxe da linguagem (cont.)
+
+- Há um contrato implícito entre nós e a linguagem R.
+
+- R fará o cálculo tedioso para nós, mas em troca, **devemos ser completamente preciso nas instruções**. 
+
+- `Erros de digitação` (`typos`) importam. 
+
+- `Case` (Maiúscula/Minúscula) importa. 
+
+
+## Desafio 1
+
+Considere os seguintes vetores:
+
+```{r}
+linkedin <- c(16, 9, 13, 5, 2, 17, 14)
+facebook <- c(17, 7, 5, 16, 8, 13, 14)
+```
+
+O vector `linkedin` representa as visualizações do seu perfil no Linkedin dos últimos 7 dias, e o vetor `facebook` representa as visualizações do seu perfil no Facebook dos últimos 7 dias.
+
+Determine quando as visualizações do `linkedin` excederam 10 e as visualizações 
+do `facebook` não conseguiram chegar a 10 para um determinado dia. Use os vetores do `linkedin` e do `facebook`. 
+
+
+## Desafio 1
+
+Considerando o mesmo vetor `Linkedin` do exercício anterior, determine se 
+`last` é menor que 5 ou maior que 10.
+
+```{r}
+linkedin <- c(16, 9, 13, 5, 2, 17, 14)
+last <- tail(linkedin, 1)
+```
+
+
+# Tipos de Dados (Atômicos)
+
+## Principais Tipos
+
+                  Descrição    
+-----------       ---------------------------------------------  
+`double`          a vector containing real values
+`integer`         a vector containing integer values
+`character`       a vector containing character values
+`logical`         a vector containing logical values
+`complex`         a vector containing complex values              
+
+
+## Tipos Especiais
+
+                  Descrição    
+-----------       ---------------------------------------------  
+`NA`              `Not Available`: dados faltantes
+`NaN`             `Not a Number`: 0/0 
+`Inf`             $+ \infty$ ou $- \infty$
+
+               
+## Documentação: Definições daLinguagem R 
+
+[R Language Definition](https://cran.r-project.org/doc/manuals/r-release/R-lang.html) 
+
+
+# Estruturas de Dados
+
+
+## Estruturas de Dados: Visão Geral
+
+```{r fig1, out.width = "80%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/struct.png")
+```
+
+
+## Factors: `forcats` package
+
+```{r fig2, out.width = "20%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/forcats.png")
+```
+
+Encorajo vocês a explorararem o pacotte `forcats`:
+
+[forcats website](https://forcats.tidyverse.org/)
+
+[Cheat Sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/factors.pdf)
+
+
+## Data Frames: Manipulação com o pacote `dplyr`
+
+- O pacote [`dplyr`](https://dplyr.tidyverse.org/) pertence a um metapacote (família de pacotes) projetado especificamente para Ciência dos Dados chamado [Tidyverse](https://www.tidyverse.org/). 
+
+- Alguns desses pacotes serão abordados ao longo deste curso, mas você pode encontrar informações mais completas em: [https://www.tidyverse.org/](https://www.tidyverse.org/).
+
+- o pacote `dplyr` é uma gramática de manipulação de dados. 
+
+- O pacote fornece um conjunto consistente de **verbos** que ajudam a resolver os    desafios mais comuns de manipulação de dados.
+
+
+## Pacote `dplyr`: Principais Verbos
+
+Verbos            Descrição    
+-----------       -------------------------------------------------------------
+`select()`        picks variables based on their names.
+`filter()`        picks cases based on their values.
+`mutate()`        adds new variables that are functions of existing variables
+`arrange()`       changes the ordering of the rows
+`summarise()`     reduces multiple values down to a single summary.
+`group_by()`      allows you to perform any operation “by group”
+
+
+## Tutorial sobre o Pacote `dplyr`
+
+- Para demonstrar o uso dos verbos, vamos utilizar os dados denominados 
+`gapminder` que estão disponíveis no próprio pacote `gapminder`.
+
+
+## Pacote `dplyr`: Verbos
+
+```{r fig-verbos, out.width = "90%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/dplyr.png")
+```
+
+
+## Desafio 2
+
+Escreva um único comando (que pode abranger várias linhas e inclui pipes) que 
+produzirá uma `data.frame` que tenha os valores dos países africanos para 
+`lifeExp`, `country` e `year`, mas não para outros países e continentes.
+
+
+## Pacote `dplyr`: `group_by()` e `summarise()`
+
+```{r fig-gs, out.width = "55%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/gs.png")
+```
+
+## Desafio 3
+
+1. Calcule a esperança média de vida por país. 
+
+2. Qual tem a esperança média de vida mais longa e qual tem a esperança média 
+   de vida mais curta? 
+ 
+
+## Desafio 4
+
+1. Calcule a Expectativa de vida média para cada continente no ano 2002 e 
+ordene a expectativa média em ordem decrescente.
+
+2. Calcule a Expectativa de vida média para cada país no ano 2002 e 
+ordene a expecativa média em ordem crescente.
+
+
+## O que não foi tratado sobre a Linguagem R?
+
+- **Controle de Fluxo**
+- **Funções**
+- **Gráficos**
+- **Outros Documentos Computacionais**
+- Iremos tratar alguns destes itens ao longo do curso.
+
+
+## Referência Adicional
+
+- Rapp, Albert. **Yet Again: R + Data Science**. Disponível em: [https://yards.albert-rapp.de/index.html](https://yards.albert-rapp.de/index.html)
+
+
+
+
+
+
+
+
+
+
+
