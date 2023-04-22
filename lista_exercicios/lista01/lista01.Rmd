@@ -1,0 +1,353 @@
+---
+title: "Lista de Exercícios 1"
+subtitle: "MPA - Discipplina: Introdução à Ciência dos Dados 2023"
+author: "Prof. Washington S. Silva"
+date: "19/04/2023"
+output: 
+  html_document:
+    theme: readable
+    toc: true
+    toc_float: true
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+options(digits = 4, scipen = 999)
+```
+
+
+## 1. Instruções e Data para envio
+
+**1.1 Instruções**
+
+- Baixe o arquivo compactado `notebook_lista01.zip` disponibilizado na 
+sala virtual da disciplina. Este arquivo contém o notebook R que vocês 
+utilizarão para resolver as questões, chamado `modelo_resolucao.Rmd` e 
+um arquivo de dados `retornos_xts.rds` necessário para a questão 9.  
+
+- Crie uma pasta chamada `listas_exercicios` dentro do projeto `icd2023`.
+
+- Em seguinda, dentro da pasta `listas_exercicios` crie uma subpasta 
+chamada `lista01`, mova o notebook `modelo_resolucao.Rmd` para esta 
+subpasta.
+
+- Ainda na pasta `lista01`, crie uma subpasta chamada `dados` e mova 
+o arquivo `retornos_xts.rds` para esta subpasta. 
+
+- Finalizados os passos anteriores, utilize o notebook R 
+  `modelo_resolucao.Rmd` para resolver as questões: 
+
+- O procedimento recomendado é resolver cada questão individualmente,
+observando o resultado da tentativa de resolução de cada questão,
+interativamente, isto é, no próprio notebook.
+
+- Após resolver todas as questões que conseguir, processe o notebook para
+criar um arquivo em um dos seguintes formatos possíveis: `HTML`, `PDF` ou
+`Word`. Para criar um desses formatos, basta clicar no botão `Knit` e, em
+seguida, clicar na opção correspondente ao formato escolhido: `Knit to HTML`, 
+`Knit to PDF` ou `Knit to Word`. 
+
+- Vocês devem fazer o upload de um arquivo em um dos formatos possíveis 
+(`.html`, `.pdf` ou `.docx`) no local apropriado da sessão da sala 
+virtual da disciplna sobre a Lista de Exercícios 1, somente um desses formatos 
+será aceito pelo ambiente virtual. 
+
+- Após gerar o arquivo final, contendo a resolução das questões, renomeie o 
+arquivo gerado com o seguinte padrão: `nome_sobrenome.html` ou 
+`nome_sobrenome.html` ou  `nome_sobrenome.docx`.
+
+
+**1.2 Data Limite para entrega na Sala Virtual**
+
+- O ambiente virtual está configurado para aceitar o envio do arquivo contendo 
+  a resolução desta lita até as **22:00 horas do dia 08/05/2023**.
+
+
+## Questão 1
+
+a. Crie um objeto chamando `x` e atribua a este objeto o resultado da multiplicação de 10*30. Em seguida, escreva um comando que exibe o conteúdo 
+de `x`.
+
+b. Analise o a ajuda sobre a função `seq`. Em seguida, escreva 
+um comando que cria uma sequência regular de números entre 1 e 100 e 
+atribua o resultado à variável `y`. Após o passo anterior, aplique 
+a função que retorna o número de elementos de `y`.
+
+c. A função `ls()` exibe os nomes dos objetos ativos em sua sessão. 
+Aplique a função `ls()` para que sejam exibidos os objetos ativos 
+em sua sessão.
+
+d. A função `rm()` remove os objetos ativos na sessão cujos nomes são inseridos como argumentos da função. Assim, remova os objetos `x` e `y`. Em seguida, 
+aplique novamente a função `ls()` para verificar se os vetores foram de fato removidos da sessão. (Obs.: O comando `rm(list = ls())` remove todos os objetos ativos na sessão).
+
+
+## Questão 2
+
+a. Quais os principais tipos atômicos para representação de dados 
+na linguagem R? 
+
+b. Quais as principais classes de objetos na linguagem R?
+
+
+## Questão 3
+
+Você acabou de iniciar um pequeno negócio de varejo e está operando há 
+exatamente uma semana. A tabela mostra sua receita diária de vendas e o 
+custo. Você está tentando descobrir suas margens de lucro e uma estratégia 
+operacional com base nesses dados:
+
+Dia                Vendas (R$)       Custo (R$)
+----------------   --------------   -----------------
+Segunda             653             243
+Terça               552             218
+Quarta              748             283
+Quinta              658             284
+Sexta               502             212
+Sábado              310             98
+Domingo             160             110
+
+a. Crie manualmente dois vetores para representar as variáveis `vendas` e 
+   `custo`.
+b. Execute os comandos para exibir o número de elementos em cada vetor.
+c. Gere um novo vetor chamado `lucro` para armazenar a diferença entre a 
+   receita diária de vendas e o custo.
+d. Você acabou de verificar suas contas e descobriu que inseriu incorretamente 
+   a receita de vendas de sábado como R\$ 310,00 ao invés de R\$ 130,00. 
+   Corrija este valor no vetor de vendas usando recursos de indexação do vetor 
+   (ou seja, não gere o vetor inteiro novamente). Em seguida, recalcule o vetor 
+   de lucro.
+e. Calcule o lucro total ao longo da semana e o lucro médio diário.
+
+
+
+## Questão 4
+
+Suponha que um revendedor de automóveis promova duas opções para a compra de 
+um carro, cujo valor ele afirma ser de R\$ 20.000. A primeira opção é o 
+cliente pagar adiantado e receber um desconto de R\$ 1.000. A segunda opção é 
+“financiamento com juro 0”, na qual o cliente faz 20 pagamentos mensais de 
+R\$ 1.000 a partir de um mês. 
+
+Por causa da opção 1, o preço efetivo do carro é R\$ 19.000 na verdade, então o revendedor realmente está cobrando uma certa taxa de juros $i$ para a opção 2. 
+Como vocês viram no nivelamento em Matemática Financeira, podemos calcular 
+esse valor usando a fórmula para o valor presente de uma anuidade:
+
+$$
+19000 = 1000\Biggl(\frac{1 - (1 + i)^{-20}}{i}\Biggr)
+$$
+
+Multiplicando ambos os lados desta equação por $i$ e dividindo por $19.000$, obtemos a forma de um *problema de ponto fixo*:
+
+$$
+i = \frac{(1 − (1 + i)^{-20})}{19}.
+$$
+
+Um problema de ponto fixo surge quando queremos resolver uma equação da forma 
+$x = f(x)$, para alguma função $f(x)$, mas o valor desconhecido $i$, 
+está em ambos os lados da equação.
+
+Fazendo uma estimativa inicial para $i$ e inserindo-a no lado direito desta equação, podemos obter um valor “atualizado” para $i$ à esquerda. Por exemplo, 
+se começarmos com $i = 0,006$, nossa atualização será:
+
+$$
+i = \frac{(1 − (1 + 0.006)^{−20})}{19} = 0.00593.
+$$
+
+Ao inserir esse valor atualizado no lado direito da equação novamente, 
+obtemos uma nova atualização:
+
+$$
+i = \frac{(1 − (1 + 0.00593)^{-20})}{19} = 0.00586.
+$$
+
+Esse tipo de iteração de ponto fixo geralmente requer muitas iterações (repetições) antes que possamos ter certeza de que temos a solução para a 
+equação de ponto fixo. 
+
+Um problema de ponto fixo é uma ótima situação para ilustrar a aplicação de 
+estruturas de controle de fluxo de um programa, neste caso, um laço (*loop*, 
+em ingles) `for` é o operador adequado para a execucão repetitiva de uma 
+operação. 
+
+ A sintáxe básica de um laço `for` na linguagem é:
+ 
+ ```
+ for (nome in sequencia) expr
+ ```
+ 
+sendo `nome` a variável do loop, `sequencia` é geralmente uma sequência 
+de inteiros, como `1:100`, e `expr` geralmente é a expressão a ser avaliada repetidamente na medida que `nome` varia intervalos entre os valores 
+`nome in sequencia`.
+
+Por exemplo, no código R a seguir, estamos especificando no início do loop 
+`for` que queremos percorrer um vetor contendo dez elementos, do primeiro 
+elemento (ou seja, 1) ao último elemento (ou seja, 10).
+
+Dentro do corpo do loop `for`, estamos criando uma variável chamada `x1`, que 
+contém o *índice* (`i`) do nosso loop elevado ao quadro, além disso, o código 
+imprime o resultado de `x1 <- i^2 ` em cada iteração no console:
+
+```{r, echo = TRUE}
+for(i in 1:10) { 
+   x1 <- i^2   
+   print(x1)
+}
+```
+ 
+Isto posto, complete o seguinte código R para resolver o problema de ponto 
+fixo para calcular a taxa de juros efetiva cobrada na opção 2 oferecida pelo revendedor de carros, utilizando 1000 iterações:
+
+```{r, eval = FALSE}
+i <- 0.006
+for (j in 1:1000) {
+   i <- 
+}
+
+i
+```
+
+*Dica*: para completar o código, basta escrever a seguinte expressão, utilizando 
+a sintáxe da linguagem R, após o operador de atribuição ` <-`: 
+
+$$
+\frac{(1 − (1 + i)^{-20})}{19}.
+$$
+
+
+## Questão 5
+
+Usando os dados do pacote `gapminder` e as funções para manipulação de dados 
+do pacoe `dplyr`, escreva códigos que retornem os seguintes resultados:
+
+a. Os dados apenas para o `Brazil`.
+b. Os países com esperança de vida inferior a 30 anos.
+c. Os dados para `Brazil` ou `Argentina` (**dica**: quando queremos uma única 
+   combinação exata, usamos o operador lógico `==`. Quando há múltiplas 
+   condições, como nesse caso, usamos o operador `%in%`).
+d. Os dados sobre esperança de vida (`lifeExp`), população (`pop`) e 
+   Pib per capita (`gdpPercap`) apenas para o Brasil
+fe. A estimativa da esperança de vida média para o Brasil para o ano de 2007.
+
+  
+## Questão 6
+
+Simule 100 realizações de uma variável aleatória que segue uma distribuição 
+normal com média 51 e desvio padrão 5,2. Estime a média e o desvio padrão de 
+sua amostra simulada e compare com os valores teóricos.
+
+
+## Questão 7
+
+Simule 1.000 realizações de uma variável aleatória ($Z$) que segue uma 
+distribuição normal padronizada ($Z \sim N(\mu = 0, \sigma = 1)$) e use 
+sua amostra simulada para estimar as seguintes probabilidades:
+
+a. $P(Z > 2.5)$
+b. $P(-1.2 < Z < 1.3)$
+
+Compare os dois resultados com o valor exato que pode ser obtido com a função `pnorm()`.
+
+
+## Questão 8
+
+Use Simulação de Monte Carlo para estimar as seguintes integrais utilizando 
+1000 repetições. Compare com a resposta exata, a qual pode ser obtida com a 
+função `integrate()` da linguagem R.
+
+a. $\int_{1}^{3} x^2dx$.
+
+b. $\int_{0}^{\pi} sin(x)dx$
+
+
+## Questão 9
+
+A função `VaR()` do pacote `PerformanceAnalytics` permite o cálculo 
+automático do Valor-em-Risco para uma divesidade de casos e com usando 
+diversos métodos analíticos (simulação histórica, gaussiano (normal), 
+entre outros). 
+
+A sintáxe básica da função para calcular o VaR (p = 5%) de 1-dia 
+para uma carteira pelo método histórico (não-paramétrico) é:
+
+```
+VaR(objeto da classe xts, 
+    p = 0.95, 
+    method = "historical", 
+    weights = vetor de pesos, 
+    portfolio_method = "component")
+```
+
+O arquivo `retornos_xts.rds` contém as séries de retornos diários 
+de uma carteira composta por ações da Petrobrás (`PETR4.SA`), 
+Banco do Brasil (`BDORY`) e AMBEV (`ABEV`) obtidos no Yahoo Finance entre 
+02/03/2014 e 18/05/2022, sendo que o objeto `retornos_xts` é uma série 
+temporal multivariada já no formato `xts`, necessário para utilizarmos a 
+função `VaR`.Isto posto, 
+
+a. calcule o Valor-em-Risco (VaR) de 1-dia para esta carteira 
+(p = 0.05) considerando que o valor da carteria é de R$ 1.000.000,00 usando 
+o método Histórico utilizando a função `VaR()`. 
+
+b. Interprete o VaR calculado em uma sentença.
+
+
+**Obs.:** A funçaõ Var() com o argumento `portfolio_method = "component"` fornece, 
+além da estimativa do VaR para a carteira como um todo, a contribuição de cada 
+ação da carteira para o risco da carteira. Assim, qual a contribuição para 
+o VaR da carteira de cada uma das ações:
+
+**Dicas**:
+
+1. Para importar o arquivo `retornos_xts.rds`, utilize a função `read_rds` do 
+pacote `readr` (isto é, `retornos_xts <- read_rds(...)`)
+
+1. O VaR de 1-dia para a carteira é o valor abaixo de `hVaR 95%`. Este valor 
+é o VaR assumindo que o valor investido na carteira é de R$1,00. Para 
+obter o VaR para uma carteira com valor de R\$ 1.000.000,00, basta 
+multiplicar o valor abaixo de `hVaR 95%` por 1000000. 
+
+2. A contribuição para o risco da carteira de cada uma das ações são os 
+valores logo abaixo de `$contribution`.
+
+
+
+## Questão 10
+
+A missão da [Our World in Data](https://ourworldindata.org/), uma startup sem 
+fins lucrativos, é combinar dados e pesquisas acadêmicas sobre as tendências 
+que moldam o mundo como o conhecemos hoje. Não apenas isso, mas também 
+apresentá-las e explicá-las de forma clara e interativa. Esses esforços 
+renderam à startup milhões de visualizações, citações nos veículos de 
+comunicação mais populares do mundo (The New York Times e The Wall Street 
+Journal, para citar alguns).
+
+O pacote [`owidR`](https://github.com/piersyork/owidR) facilia a importação de 
+dados do [Our World in Data](https://ourworldindata.org/), oferecendo funções 
+fáceis de usar para pesquisar conjuntos de dados, importá-los para o R e visualizá-los.
+
+Após instalar o pacote, efetue as seguintes operações:
+
+a. Importe dados sobre a geração de energia solar (em terawatt por hora) 
+por ano para os países disponíveis. Para isso utilize a função `owid()` 
+tendo como argumento a expressão `"solar-energy-consumption-by-region"` e 
+atribua o resultado ao objeto `energia_solar`. Analise a estrutura 
+dos dados importados com `dplyr::glimpse()`.
+
+b. Utilzando a função `owid_map()`, crie um mapa mundi temático da geração de 
+energia solar por país.
+
+c. Utilizando a função `owid_plot()`, crie um gráfico de linha para a 
+série de geração de energia solar para os seguintes países: Brasil, Alemanha, 
+Estados Unidos e China. O gráfico deve cobrir o ano mais recente disponível 
+na série. (**dica**: Analise a ajuda da função `owid_plot()`).
+
+
+
+

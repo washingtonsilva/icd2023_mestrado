@@ -1,0 +1,205 @@
+---
+title: "Resolução da Lista de Exercícios 1"
+author: "Seu Nome"
+subtitle: "MPA - Discipplina: Introdução à Ciência dos Dados 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# opcoes globais para o arquivo a ser gerado
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+options(digits = 4, scipen = 999)
+
+# pacotes utilizados
+library(dplyr)
+library(readr)
+library(PerformanceAnalytics)
+library(owidR)
+```
+
+
+
+### Questão 1
+
+a.
+
+```{r}
+x <- 10*30
+x
+```
+
+b.
+
+```{r}
+
+```
+
+c.
+
+```{r}
+
+```
+
+d.
+
+```{r}
+
+```
+
+
+### Questão 2
+
+a.
+
+```{r}
+
+```
+
+b.
+
+```{r}
+
+```
+
+
+### Questão 3
+
+
+a.
+
+```{r}
+
+```
+
+b.
+
+```{r}
+
+```
+
+c.
+
+```{r}
+
+```
+
+d.
+
+```{r}
+
+```
+
+e.
+
+```{r}
+
+```
+
+
+### Questão 4
+
+```{r questao4, renv.ignore = TRUE}
+i <- 0.006
+for (j in 1:1000) {
+   i <- 
+}
+
+i
+```
+
+
+### Questão 5
+
+a. 
+
+```{r}
+
+```
+
+b.
+
+```{r}
+
+```
+
+c.
+
+```{r}
+
+```
+
+d.
+
+```{r}
+
+```
+
+
+### Questão 6
+
+```{r}
+
+```
+
+
+### Questão 7
+
+a.
+
+```{r}
+
+```
+
+
+b.
+
+```{r}
+
+```
+
+
+### Questão 8
+
+a.
+
+```{r}
+
+```
+
+
+b.
+
+```{r}
+
+```
+
+
+### Questão 9
+
+```{r}
+
+```
+
+
+### Questão 10
+
+a. 
+
+```{r}
+
+```
+
+b.
+
+```{r}
+
+```
+
+c.
+
+```{r}
+
+```
+
+
+

@@ -1,0 +1,13 @@
+Lista 1: Topicos
+======================================
+1 - Tipos de Dados Atomicos
+2 - Operacoes Matematicas
+3 - Estruturas de Dados: 
+       - Vetores 
+       - Data Frames 
+       - Matrizes
+4 - Insercao e Importação de Dados
+5 - Manipulação de Dados usando o Pacote dplyr
+6 - Conceitos Básicos de Analise Exploratoria de Dados
+      - Estatisticas Descritivas
+      - Graficos

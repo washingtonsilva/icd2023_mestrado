@@ -1,0 +1,91 @@
+---
+title: "Introdução à Ciência dos Dados - Aula 4"
+subtitle: "Mestrado Profissional em Administração"
+author: "Prof. Washington Santos da Silva"
+date: "20/04/2023"
+output:
+  slidy_presentation:
+    logo: logo.jpg
+    incremental: false
+    highlight: default
+    footer: "Copyright (c) 2023, Washington S. Silva"
+---
+
+```{r setup, include = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(xaringanExtra)
+```
+
+
+## Objetivos
+
+- Conceitos Iniciais sobre Valor-em-Risco (VaR)
+
+
+## Value-at_Risk (VaR) = Valor-em-Risco
+
+- O problema com o desvio padrão como medida de risco é que ele não se 
+concentra na cauda ruim da distribuição de lucros/prejuízos. 
+
+- Assim, para dar conta da assimetria, é natural buscar medidas de risco 
+relacionadas a *quantis*. 
+
+- A medida mais conhecida é o Valor-em-Risco.
+
+
+- **Distribuição Empírica dos Retornos de Ações**
+
+```{r, echo=TRUE}
+library(BatchGetSymbols)
+library(dplyr)
+library(xts)
+
+# set dates
+first.date <- Sys.Date() - 1000
+last.date <- Sys.Date()
+freq.data <- 'daily'
+# set tickers
+tickers <- c('PETR4.SA')
+
+l.out <- BatchGetSymbols(tickers = tickers, 
+                         first.date = first.date,
+                         last.date = last.date, 
+                         freq.data = freq.data,
+                         cache.folder = file.path(tempdir(), 
+                                                  'BGS_Cache'))
+tick <- l.out$df.tickers
+
+precos <- tick |> select(ref.date, price.close) 
+precos_xts <- as.xts(precos)
+plot(precos_xts, main = "PETR4.SA: Preços Diários da Ação")
+```
+
+
+```{r, echo=TRUE}
+library(PerformanceAnalytics)
+
+# retornos compostos continuamente
+retornos = Return.calculate(precos_xts, method = "log")
+
+# histograma da distribuicao empirica
+chart.Histogram(retornos,  
+                main = "PETR4.SA: Distribuição Empírica dos Retornos",
+                xlab = "retornos",
+                ylab = "densidade",
+                methods = c("add.density", "add.rug"))
+```
+
+- Repare a **assimetria negativa** da distribuição dos retornos
+
+
+- Informalmente, o VaR visa medir a perda máxima de uma carteira que se pode 
+sofrer, em um determinado horizonte de tempo, dentro de um determinado nível 
+de probabilidade.
+
+- Tecnicamente, o VaR é um quantil da distribuição de probabilidade de 
+lucros/prejuízos.
+
+
+
+
+

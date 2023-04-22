@@ -1,0 +1,50 @@
+---
+title: "Projeto icd2023 - Status"
+lang: "pt"
+date: today
+author:
+  - name: Prof. Washington Santos da Silva 
+    affiliation: IFMG - Campus Formiga - Mestrado Profissional em Administração.
+    affiliation-url: https://www.formiga.ifmg.edu.br/mestrado
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc-location: left
+    number-sections: true
+    smooth-scroll: true
+    anchor-sections: false
+    theme: default
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+
+::: {.callout-tip}
+## Estrutura do Projeto icd2023
+
+```
+    icd2023
+     |
+     |__dados
+     |    |_dados_brutos
+     |    |_dados_processados
+     |    |_metadados
+     |
+     |_R (opcional)
+     |
+     |_Rmd (ou qmd)
+     |
+     |_scripts
+     |
+     |_output
+```
+:::
+
+\  
+
