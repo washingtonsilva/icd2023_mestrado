@@ -1,0 +1,59 @@
+```{r xaringan-panelset13, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+### 2 paineis
+
+::::: {.panelset}
+
+
+::: {.panel}
+
+[1]{.panel-name}
+
+
+
+:::
+
+
+::: {.panel}
+
+[2]{.panel-name}
+
+
+:::
+
+::::
+
+
+
+### 3 paineis
+
+::::: {.panelset}
+
+
+::: {.panel}
+
+[1]{.panel-name}
+
+
+
+:::
+
+::: {.panel}
+
+[2]{.panel-name}
+
+
+
+:::
+
+::: {.panel}
+
+[3]{.panel-name}
+
+
+
+:::
+
+::::

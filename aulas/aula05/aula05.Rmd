@@ -1,0 +1,579 @@
+---
+title: "Introdução à Ciência dos Dados - Aula 5"
+subtitle: "Mestrado Profissional em Administração"
+author: "Prof. Washington Santos da Silva"
+date: "25/04/2023"
+output:
+  slidy_presentation:
+    logo: logo.jpg
+    incremental: false
+    highlight: default
+    footer: "Copyright (c) 2023, Washington S. Silva"
+---
+
+```{r setup, include = FALSE, warning = TRUE, message = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(skimr)
+library(ggplot2)
+library(patchwork)
+library(ggthemes)
+library(PerformanceAnalytics)
+
+carteira <- readr::read_rds("carteira.rds")
+```
+
+## Objetivos
+
+- Análise Exploratória de Dados (**Exploratory Data Analysis (EDA)**)
+   
+    - Análise Exploratória de Dados: Visão Geral
+    - Análise Exploratória Numérica
+    - Análise Exploratória Gráfica
+    
+
+## Análise Exploratória de Dados: Visão Geral
+
+- [Visualize: R for Data Science, 2 ed.](https://r4ds.hadley.nz/visualize.html)
+
+![](https://r4ds.hadley.nz/diagrams/data-science/visualize.png){width=90%}
+
+[*-- Wickham & Grolemund, Visualize*]{style="float:right"}
+
+**Import:** importar/inserir seus dados no R.
+
+**Tidy: **Armazenar seus dados em um formato consistente.
+
+**Transform: ** -- criando novas variáveis a partir das já existentes e 
+sumarizar informações.
+
+**Visualize:** Representar visualmente seus dados.
+
+Esta parte do livro mostra como usar a **visualização** e a **transformação** para explorar dados de maneira sistemática.
+
+  
+- **Exploratory Data Analysis (EDA)**
+
+EDA é um ciclo iterativo no qual:
+ 
+    - Geramos perguntas sobre os dados.
+
+    - Procuramos por respostas visualizando, transformando e modelando os 
+      dados.
+
+    - Usamos o que aprendemos para refinar as perguntas e/ou gerar novas      
+      perguntas.
+
+    - A EDA não é um processo formal com um conjunto estrito de regras.
+
+    - Durante as fases iniciais da EDA, devemos nos sentir livres para 
+      investigar quaisquer ideias que surjam.
+  
+    - Algumas ideias irão gerar frutos, outras serão descartadas.
+
+    - Na medida em que a exploração continua, devemos nos focar em algumas 
+      questões e áreas mais relevantes e produtivas.
+
+- **Sumário:** 
+
+A EDA é uma parte importante de qualquer análise de dados:
+
+- Para entender as **propriedades** dos dados
+- Para **estruturar os dados** no formato adequado para análise
+- Para encontrar **padrões** nos dados
+- Para **descrever** os dados/fenômeno
+- Para identificar **erros** nos dados
+- Para sugerir **estratégias de modelagem**
+- Para **depurar** análises 
+- Para **comunicar** resultados
+
+
+## Variabilidade/Variação
+
+- **Variação** é a tendência dos valores de uma variável aleatória de 
+   mudar o valor assumido de realização para 
+   realização.
+  
+- Variáveis categóricas também são aleatórias e podem variar se "medirmos" 
+  seus diferentes níveis.
+
+- Cada variável aleatória tem seu próprio **padrão de variação**, que pode  revelar informações importantes e interessantes. 
+  
+- A melhor maneira de entender um padrão é visualizar a **distribuição dos  valores da variável**.
+
+Dois tipos de perguntas sobre os dados sempre úteis para fazer descobertas:
+
+1. Que tipo de **variação** ocorre **dentro** das variáveis?
+
+2. Que tipo de **covariação** ocorre **entre** as variáveis? 
+
+O restante desta aula foca-se nestas duas perguntas.
+
+
+## Análise Exploratória Numérica
+
+
+
+## Análise Exploratória Gráfica
+
+```{r, out.width = "80%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/graphics_relations.jpeg")
+```
+
+
+## Análise Exploratória Gráfica: Visualizando distribuições
+
+Características observáveis na distribuição de variáveis numéricas
+
+- **Simetria/Assimetria**: A distribuição é simétrica: assimétrica a esquerda ou a direita?.
+
+- **Outliers**: Há um ou mais valores muito distantes da maioria dos dados?
+
+- **Multimodalidade**: A distribuição possui dois ou mais picos/clusters?
+
+- **Gaps**: Há intervalos de valores que não contém dados?
+
+- **Erros**: Há valores fora do intervalo factível?
+
+Por que visualizar a distribuição dos dados?
+
+```{r fig1, out.width = "60%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/dist.jpg")
+```
+
+
+```{r fig3, out.width = "60%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/prob.png")
+```
+
+- Para encontrar um modelo probabilístico para o fenômeno aleatório em 
+questão.
+
+
+## Visualizando distribuições: Histograma
+
+```{r, echo=TRUE, out.width = "60%"}
+h1 <- ggplot(carteira, aes(x = VALE)) + geom_histogram()
+h1
+```
+
+Customizando um Histograma
+
+```{r, echo=TRUE, out.width = "50%"}
+h1c <- ggplot(carteira, aes(x = VALE)) +
+  geom_histogram() +
+  labs(x = "Retornos",
+       y = "Frequência",
+       title = "Vale: Retornos das Ações") + 
+  xlim(-0.3, 0.3)
+h1c
+```
+
+Histograma
+
+```{r, echo=TRUE, out.width = "60%"}
+h2 <- ggplot(carteira, aes(x = PETR4.SA)) + geom_histogram() 
+h2
+```
+
+Customizando:
+
+```{r, echo=TRUE, out.width = "50%"}
+h2c <- ggplot(carteira, aes(x = PETR4.SA)) +
+  geom_histogram() +
+  labs(x = "Retornos",
+       y = "Frequência",
+       title = "Petrobrás: Retornos das Ações") + 
+  xlim(-0.3, 0.3)
+h2c
+```
+
+
+```{r, echo=TRUE, out.width = "60%"}
+h3 <- ggplot(carteira, aes(x = WEGE3.SA)) + geom_histogram()
+h3
+```
+
+Customizando
+
+```{r, echo=TRUE, out.width = "50%"}
+h3c <- ggplot(carteira, aes(x = WEGE3.SA)) +
+  geom_histogram() +
+  labs(x = "Retornos",
+       y = "Frequência",
+       title = "WEG: Retornos das Ações") + 
+  xlim(-0.3, 0.3)
+h3c
+```
+
+
+- Histograma: Múltiplos gráficos em um painel
+
+```{r,  echo = TRUE, out.width = "60%"}
+library(patchwork)
+painel01 <- h1c / h2c / h3c
+painel01
+```
+
+
+- Histograma: Múltiplos gráficos em um painel
+
+```{r,  echo = TRUE, out.width = "60%"}
+library(patchwork)
+painel01 <- (h1c + h2c + h3c) + plot_layout(nrow = 2)
+painel01
+```
+
+Densidade Empírica
+
+```{r, echo=TRUE, out.width = "60%"}
+d1 <- ggplot(carteira, aes(x = VALE)) + geom_density()
+d1
+```
+
+Customizando 
+
+```{r, echo=TRUE, out.width = "50%"}
+d1c <- ggplot(carteira, aes(x = VALE)) +
+  geom_density() +
+  labs(x = "Retornos",
+       y = "Densidade",
+       title = "Vale: Retornos das Ações") +
+  xlim(-0.3, 0.3)
+d1c
+```
+
+Densidade Empírica
+
+```{r, echo=TRUE, out.width = "60%"}
+d2 <- ggplot(carteira, aes(x = PETR4.SA)) + geom_density()
+d2
+```
+
+Customizando 
+
+```{r, echo=TRUE, out.width = "50%"}
+d2c <- ggplot(carteira, aes(x = PETR4.SA)) +
+  geom_density() +
+  labs(x = "Retornos",
+       y = "Densidade",
+       title = "Petrobrás: Retornos das Ações") + 
+  xlim(-0.3, 0.3)
+d2c
+```
+
+Densidade Empírica
+
+```{r, echo=TRUE, out.width = "60%"}
+d3 <- ggplot(carteira, aes(x = WEGE3.SA)) + geom_density()
+d3
+```
+
+Customizando 
+
+```{r, echo=TRUE, out.width = "50%"}
+d3c <- ggplot(carteira, aes(x = WEGE3.SA)) +
+  geom_density() +
+  labs(x = "Retornos",
+       y = "Densidade",
+       title = "WEG: Retornos das Ações") +
+  xlim(-0.3, 0.3)
+d3c
+```
+
+Densidade Empírica: Múltiplos gráficos em um painel
+
+```{r, echo = TRUE, out.width = "60%"}
+library(patchwork)
+painel02 <- d1c / d2c / d3c
+painel02
+```
+
+Densidade Empírica: Múltiplos gráficos em um painel
+
+```{r, echo = TRUE, out.width = "60%"}
+painel02 <- (d1c + d2c + d3c) + plot_layout(nrow = 2)
+painel02
+```
+
+Histograma com Densidade Empírica
+
+```{r, echo=TRUE, out.width = "60%"}
+h1_d <- ggplot(carteira, aes(x = VALE)) + 
+            geom_histogram(aes(y = ..density..)) +
+            geom_density(col = "blue", size = 1.5)
+h1_d
+```
+
+
+## Visualizando distribuições: Boxplot
+
+```{r fig, out.width = "70%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/bplot.png")
+```
+
+Boxplot
+
+```{r, echo=TRUE, out.width = "60%"}
+b1 <- ggplot(carteira, aes(x = VALE)) + geom_boxplot()
+b1
+```
+
+Boxplot: `coord_flip()` inverte a orientação
+
+```{r, echo=TRUE, out.width = "60%"}
+b1_inv <- ggplot(carteira, aes(x = VALE)) + geom_boxplot() + coord_flip()
+b1_inv
+```
+
+Customizando
+
+```{r, echo=TRUE, out.width = "50%"}
+b1c <- ggplot(carteira, aes(x = VALE)) +
+        geom_boxplot() +
+        labs(x = "Retornos",
+             y = NULL,
+             title = "Vale: Retornos das Ações") +
+        xlim(-0.3, 0.3)
+b1c
+```
+
+Boxplot
+
+```{r, echo=TRUE, out.width = "60%"}
+b2 <- ggplot(carteira, aes(x = PETR4.SA)) + geom_boxplot()
+b2
+```
+
+Customizando
+
+```{r, echo=TRUE, out.width = "50%"}
+b2c <- ggplot(carteira, aes(x = PETR4.SA)) +
+        geom_boxplot() +
+        labs(x = "Retornos",
+             y = NULL,
+             title = "Petrobrás: Retornos das Ações") + 
+       xlim(-0.3, 0.3)
+b2c
+```
+
+Boxplot
+
+```{r, echo=TRUE, out.width = "60%"}
+b3 <- ggplot(carteira, aes(x = WEGE3.SA)) + geom_boxplot()
+b3
+```
+
+Customizando
+
+```{r, echo=TRUE, out.width = "50%"}
+b3c <- ggplot(carteira, aes(x = WEGE3.SA)) +
+       geom_boxplot() +
+       labs(x = "Retornos",
+            y = NULL,
+            title = "WEG: Retornos das Ações") +
+       xlim(-0.3, 0.3)
+b3c
+```
+
+Boxplot: Múltiplos gráficos em um painel
+
+```{r,  echo = TRUE, out.width = "60%"}
+library(patchwork)
+painel03 <- b1c / b2c / b3c
+painel03
+```
+
+
+## Visualizando distribuições: Gráfico de Barras
+
+
+
+## Covariação entre Variáveis Numéricas
+
+Gráficos de Dispersão:
+
+```{r fig06, out.width = "95%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/dispcor.png")
+```
+
+Covariação: Dispersão e $r_{xy}$ 
+
+```{r fig07, out.width = "90%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/correlation.png")
+```
+
+- verbete na [wikipedia](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) 
+
+- Covariação: Quarteto de Ascombe
+
+```{r fig08, out.width = "60%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/ascombe.png")
+```
+
+- Analise o verbete na [wikipedia](https://en.wikipedia.org/wiki/Anscombe%27s_quartet)
+
+
+Covariação: Gráfico de Dispersão
+
+```{r, out.width = "60%", echo = TRUE, fig.align = 'center'}
+ggplot(data = carteira) +
+  geom_point(mapping = aes(x = VALE, y = PETR4.SA))
+```
+
+
+Covariação: Gráfico de Dispersão
+
+```{r, out.width = "60%", echo = TRUE, fig.align = 'center'}
+ggplot(data = carteira) +
+  geom_bin2d(mapping = aes(x = VALE, y = PETR4.SA))
+```
+
+Covariação: Gráfico de Dispersão
+
+```{r, out.width = "60%", echo = TRUE, fig.align = 'center'}
+ggplot(data = carteira) +
+  geom_point(mapping = aes(x = VALE, y = PETR4.SA)) +
+  geom_smooth(mapping = aes(x = VALE, y = PETR4.SA), method = "lm", se = FALSE)
+```
+
+Covariação: Gráfico de Dispersão
+
+```{r, out.width = "60%", echo = TRUE, fig.align = 'center'}
+ggplot(data = carteira) +
+  geom_point(mapping = aes(x = WEGE3.SA, y = PETR4.SA))
+```
+
+Covariação: Gráfico de Dispersão
+
+```{r, out.width = "60%", echo = TRUE, fig.align = 'center'}
+ggplot(data = carteira) +
+  geom_bin2d(mapping = aes(x = WEGE3.SA, y = PETR4.SA))
+```
+
+Covariação: Gráfico de Dispersão
+
+```{r, out.width = "60%", echo = TRUE, fig.align = 'center'}
+ggplot(data = carteira) +
+  geom_point(mapping = aes(x = WEGE3.SA, y = PETR4.SA)) +
+  geom_smooth(mapping = aes(x = WEGE3.SA, y = PETR4.SA), method = "lm", se = FALSE)
+```
+
+Covariação: Gráfico de Dispersão
+
+```{r, out.width = "60%", echo = TRUE, fig.align = 'center'}
+ggplot(data = carteira) +
+  geom_point(mapping = aes(x = WEGE3.SA, y = VALE))
+```    
+
+Covariação: Gráfico de Dispersão
+
+```{r, out.width = "60%", echo = TRUE, fig.align = 'center'}
+ggplot(data = carteira) +
+  geom_bin2d(mapping = aes(x = WEGE3.SA, y = VALE))
+```
+
+Covariação: Gráfico de Dispersão
+
+```{r, out.width = "60%", echo = TRUE, fig.align = 'center'}
+ggplot(data = carteira) +
+  geom_point(mapping = aes(x = WEGE3.SA, y = VALE)) +
+  geom_smooth(mapping = aes(x = WEGE3.SA, y = VALE), method = "lm", se = FALSE)
+```
+
+Tudo ao Mesmo Tempo 
+
+```{r, out.width = "80%", echo = TRUE, fig.align = 'center'}
+library(PerformanceAnalytics)
+chart.Correlation(carteira, histogram = TRUE)
+```
+
+
+## Gráficos de Linha para Séries Temporais
+
+Características observáveis em gráficos de séries temporais:
+
+- **Tendência**: É o crescimento ou decrescimento de longo prazo observado 
+                 nos dados. 
+
+- **Sazonalidade**: Um padrão sazonal ocorre quando uma série temporal é afetada                      por fatores sazonais, como a época do ano ou o dia da semana.
+
+- **Ciclos**: Um ciclo ocorre se observamos crescimentos e decrescimento nos 
+               dados não apresentam um período fixo.
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+plot(AirPassengers,
+     xlab = "Mês",
+     ylab = "Total de Passageiros (1000's)",
+     main = "Total de Passageiros entre 1949 e 1961", 
+     col = "blue")
+grid()
+```
+
+
+
+**Sistema Gerenciador de Séries do Banco Central do Brasil**
+
+- Todo pesquisador de finanças e economia deve conhecer o [Sistema Gerenciador 
+de Séries Temporais](https://www3.bcb.gov.br/sgspub/localizarseries/localizarSeries.do?method=prepararTelaLocalizarSeries) do Banco Central do Brasil.
+
+- Pacotes `R` que se comunicam com a API do Banco Central:
+
+    - [GetBCBData](https://github.com/msperlin/GetBCBData/)
+    - [BETS](https://cran.r-project.org/web/packages/BETS/vignettes/BETS_basic_usage.html)
+
+
+```{r, echo = TRUE, message = FALSE, eval = FALSE}
+library(GetBCBData)
+library(ggplot2)
+
+# define ids
+id.series <- c(utilizacao_capacidade_instalada = 1344)
+first.date = '2010-01-01'
+
+# obtem serie do bcb
+df_uci <- gbcbd_get_series(id = id.series,
+                            first.date = first.date,
+                            last.date = Sys.Date(), 
+                            use.memoise = FALSE)
+
+# grafico de linha via ggplot2
+ggplot(data = df_uci, aes(x = ref.date, y = value)) + 
+  geom_line(color = "blue") + 
+  labs(x = 'Trimestre', y = 'Utilização da Capacidade Instalada (%)', 
+       title  = 'Utilização da capacidade instalada - Geral (FGV)',
+       subtitle = "Periodicidade: Trimestral",
+       caption = "Fonte: Elaborado pelo Autor com dados da FGV") 
+```
+
+Gráfico de Linha para Séries Temporais
+
+```{r, echo = FALSE, message = FALSE, eval = TRUE}
+library(GetBCBData)
+library(ggplot2)
+
+# define ids
+id.series <- c(utilizacao_capacidade_instalada = 1344)
+first.date = '2002-01-01'
+
+# obtem serie do bcb
+df_uci <- gbcbd_get_series(id = id.series,
+                            first.date = first.date,
+                            last.date = Sys.Date(), 
+                            use.memoise = FALSE)
+
+# grafico de linha via ggplot2
+ggplot(data = df_uci, aes(x = ref.date, y = value)) + 
+  geom_line(color = "blue") + 
+  labs(x = 'Trimestre', y = 'Utilização da Capacidade Instalada (%)', 
+       title  = 'Utilização da capacidade instalada - Geral (FGV): 2002/2022',
+       subtitle = "Periodicidade: Trimestral",
+       caption = "Fonte: Elaborado pelo Autor com dados da FGV") 
+```
+
+
+
+
+
+
