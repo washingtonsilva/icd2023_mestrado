@@ -19,8 +19,8 @@ install.packages("readr", "readxl", "dplyr", "writexl", "xts", "ggplot2",
 ## Ativando pacotes/blbliotecas
 
 library(readr)  
-library(readxl)
 library(dplyr)
+library(readxl)
 library(tidyr)
 library(writexl)    
 library(xts)
@@ -28,7 +28,6 @@ library(ggplot2)
 library(ggthemes)   
 library(plotly)     
 library(dygraphs)   
-
 
 # Importando arquivo csv --------------------------------------------------
 
@@ -56,7 +55,6 @@ summary(cambio_csv)
 cambio_csv <- cambio_csv %>% select(dia, real_dolar) %>% drop_na()
 cambio_csv
 summary(cambio_csv)
-
 
 ## salvando o objeto como arquivo binario R
 path1 <- "dados_analise/cambio.rds"
@@ -96,7 +94,6 @@ summary(cambio_serie)
 
 ## Tentem retirar os dados faltantes!
 
-
 ## salvando o objeto como arquivo binario R
 path2 <- "dados_analise/cambio_serie.rds"
 write_rds(cambio_serie, path2)
@@ -105,10 +102,7 @@ write_rds(cambio_serie, path2)
 cambio <- read_rds(path3)
 cambio
 
-
-
 # Exploratory Data Analysis -----------------------------------------------
-
 
 ## grafico de linha basico
 
@@ -124,7 +118,6 @@ cambio_csv %>%
   ) +
   theme_minimal()
 
-
 ## grafico de linha + area
 
 p1 <- cambio_csv %>%
@@ -139,7 +132,6 @@ p1 <- cambio_csv %>%
   theme_minimal()
 p1
 
-
 ## grafico interativo com o pacote ggplotly
 
 p2 <- cambio_csv %>%
@@ -153,7 +145,6 @@ p2
 
 p2 <- ggplotly(p2)
 p2
-
 
 ## grafico interativo com o pacote dygraph
 
@@ -172,9 +163,8 @@ p3 <- dygraph(data,
   dyRangeSelector()
 p3
 
-
-
-# Importe o arquivo UKHP.xls e Faca um grafico de linha  ------------------
+## Exercicio: Sua Vez
+## Importe o arquivo UKHP.xls e faca um grafico de linha
 
 
 

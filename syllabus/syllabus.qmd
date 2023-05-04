@@ -9,7 +9,6 @@ format:
     colorlinks: true
 ---
 
-
 ## Logística
 
 Ambiente Virtual de Aprendizagem: \url{https://ead.ifmg.edu.br/formiga/} 
@@ -137,18 +136,23 @@ Obs. Trata-se apenas de um planejamento.
 - Aula 1 - 09/03
 
     - Apresentação do Programa da Disciplina
+    - Ambiente Virtual de Aprendizagem
     - Introdução à Linguagem R
-    - Brooks (2019): Chapter 1
+    - RStudio: Ambiente de Desenvolvimento Integrado
+    - Estudo: Brooks (2019): Chap. 1
+    - Estudo: Wicham & Grolemund (2021): Introduction, Whole Game, Data 
+      Visualization, Workflow: Basics. 
 
 - Aula 2 - 23/03
 
-    - Fundamentos
+    - Fundamentos De Estatística
     - Tipos de Dados
-    - Brooks (2019): Chap. 2
+    - Estudo: Brooks (2019): Chap. 2
+
 
 - Aula 3 - 30/03
 
-    - Fundamentos
+    - Fundamentos 
     - Tipos de Dados
     - Brooks (2019): Chap. 2
 

@@ -1,14 +1,14 @@
 ---
 title: "Introdução à Ciência dos Dados - Aula 3"
-subtitle: "Mestrado Profissional em Administração"
+subtitle: "Slides Revisados"
 author: "Prof. Washington Santos da Silva"
-date: "10/04/2023"
+date: "20/04/2023"
 output:
   slidy_presentation:
     logo: logo.jpg
     incremental: false
     highlight: default
-    footer: "Copyright (c) 2022, Washington S. Silva"
+    footer: "Copyright (c) 2023, Washington S. Silva"
 ---
 
 ```{r setup, include = FALSE, warning = FALSE, message = FALSE}
@@ -865,9 +865,12 @@ $$
 
 A implementação de uma simulação de Monte Carlo de P(A) requer três etapas:
 
-1. **Simule uma repetição**: modele ou traduza o experimento aleatório usando números aleatórios no computador. Uma iteração do experimento é chamada de “teste”.
+1. **Simule uma repetição**: modele ou traduza o experimento aleatório usando 
+números aleatórios no computador. Uma iteração do experimento é chamada de 
+“teste”.
 
-2. **Determine o sucesso**: Com base no resultado da repetição, determine se o evento $A$ ocorre ou não. Se sim, chame isso de "*sucesso*".
+2. **Determine o sucesso**: Com base no resultado da repetição, determine se 
+o evento $A$ ocorre ou não. Se sim, chame isso de "*sucesso*".
 
 3. **Replicação**: Repita as duas etapas mencionadas várias vezes.
 
@@ -877,7 +880,8 @@ A implementação de uma simulação de Monte Carlo de P(A) requer três etapas:
 Vejamos um exemplo inicial muito simples, até mesmo trivial.
 
 Considere simular a probabilidade de que uma moeda honesta resulte "cara" em 
-$n$ lançamentos. Pode-se fazer uma simulação física apenas jogando uma moeda várias vezes e tomando a proporção de caras para estimar $P(Caras)$.
+$n$ lançamentos. Pode-se fazer uma simulação física apenas jogando uma moeda 
+várias vezes e tomando a proporção de caras para estimar $P(Caras)$.
 
 Usando um computador, escolha o número de tentativas n (quanto maior, melhor) e utilize o seguinte comando R:
 
@@ -887,7 +891,8 @@ sample(0:1, n, replace = T)
 
 O comando faz uma amostragem com reposição de ${0, 1}$, $n$ vezes de forma que os resultados sejam igualmente prováveis. 
 
-Considerando que $0$ representa coroa e 1 representa cara, a saída é uma sequência de $n$ uns e zeros correspondentes a caras e coroas. 
+Considerando que $0$ representa coroa e 1 representa cara, a saída é uma 
+sequência de $n$ uns e zeros correspondentes a caras e coroas. 
 
 A média da sequência é precisamente a proporção de uns. Para simular $P(Cara)$ fazemos:
 
@@ -915,7 +920,8 @@ $$
 uma função real limitada e seja $E(f(U))$ uma função de interesse, sendo $U$ uma 
 VA com distribuição uniforme no intervalo $[0,1]$. 
 
-Pela lei dos grandes n?meros, se $(U_i, i\geq 1)$ é uma família de VAs uniformemente distribuídas em $[0,1]$, então:
+Pela lei dos grandes números, se $(U_i, i\geq 1)$ é uma família de VAs 
+uniformemente distribuídas em $[0,1]$, então:
 
 $$
 S_{N} = \frac{1}{N}\sum_{i=1}^{N} f(U_i) \rightarrow \int_{0}^{1} f(x)dx = E(f(U))
@@ -967,50 +973,83 @@ Vejamos como realizar uma análise de insovência usando o FI de Kanitz e a
 simulação de Monte Carlo no notebook da aula.
 
 
+## Aplicações: Value-at_Risk (VaR) = Valor-em-Risco (VaR)
+
+- O problema com o desvio padrão como medida de risco é que ele não se 
+concentra na cauda negativa da distribuição de lucros/prejuízos. 
+
+- Assim, para dar conta da assimetria, é natural buscar medidas de risco 
+relacionadas a *quantis*. 
+
+- A medida mais conhecida é o Valor-em-Risco, vejamos por que as 
+características da distribuição empírica dos retornos de 
+ativos arriscados implicam na utilização de medidas de 
+risco baseadas em quantis.
+
+- **Distribuição Empírica dos Retornos de Ações**
+
+```{r, echo=TRUE}
+library(BatchGetSymbols)
+library(dplyr)
+library(xts)
+
+# set dates
+first.date <- Sys.Date() - 1000
+last.date <- Sys.Date()
+freq.data <- 'daily'
+# set tickers
+tickers <- c('PETR4.SA')
+
+l.out <- BatchGetSymbols(tickers = tickers, 
+                         first.date = first.date,
+                         last.date = last.date, 
+                         freq.data = freq.data,
+                         cache.folder = file.path(tempdir(), 
+                                                  'BGS_Cache'))
+tick <- l.out$df.tickers
+
+precos <- tick |> select(ref.date, price.close) 
+precos_xts <- as.xts(precos)
+plot(precos_xts, main = "PETR4.SA: Preços Diários da Ação")
+```
+
+
+```{r, echo=TRUE}
+library(PerformanceAnalytics)
+
+# retornos compostos continuamente
+retornos = Return.calculate(precos_xts, method = "log")
+
+# histograma da distribuicao empirica
+chart.Histogram(retornos,  
+                main = "PETR4.SA: Distribuição Empírica dos Retornos",
+                xlab = "retornos",
+                ylab = "densidade",
+                methods = c("add.density", "add.rug"))
+```
+
+- Repare a **assimetria negativa** da distribuição dos retornos
+
+- Informalmente, o VaR visa medir a perda máxima de uma carteira que se pode 
+sofrer, em um determinado horizonte de tempo, dentro de um determinado nível 
+de probabilidade.
+
+- Tecnicamente, o VaR é um quantil da distribuição de probabilidade de lucros/prejuízos.
+
+
 ## Aplicações: Value-at_Risk (VaR)
 
-**Definição**: *o VaR é a perda em uma carteira tal que existe uma probabilidade* $p$ *de perdas iguais ou superiores ao VaR em um determinado período de negociação e uma probabilidade* $(1-p)$ *de perdas serem inferiores ao VaR*. 
+**Definição**: *o VaR é a perda em uma carteira tal que existe uma probabilidade* $p$ *de perdas iguais ou superiores ao VaR em um determinado período de negociação e uma probabilidade* $(1-p)$ *de perdas serem inferiores ao VaR. Ou, de forma equivalente, uma probabilidade $p$ de perdas serem superiotes ao VaR*. 
 
-- $VaR$ é a medida mais comum de risco depois da volatilidade.
-
-- Podemos escrever $VaR(p)$ ou $VaR^(100*p\%)$ para tornar a dependência do 
-  $VaR$ em relação à probabilidade ($p$) explícita. Os níveis mais comuns de 
-  probabilidade são 1% e 5% ($VaR(0.05)$ ou $VaR^{5\%}$).
+- Podemos escrever $VaR(1-p)$ ou $VaR^(100*(1-p)\%)$ para tornar a dependência 
+  do $VaR$ em relação à probabilidade ($p$) explícita. Os níveis mais comuns de 
+  probabilidade são 1% e 5% ($VaR(1 - 0.05)$ ou $VaR^{95\%}$).
   
 - $VaR$ é um **quantil** da distribuição de lucros e perdas ($P/L$).
 
-
-## Value-at_Risk (VaR)
-
-- O **nível de significância ou de confiança** do VaR, ou seja, 
-a probabilidade que está associada a uma medida do VaR ($p$), corresponde à frequência com que se espera que um determinado nível de perda ocorra.
-
-- Assim, um VaR de 1-dia com $p = 0.05 = 5\%$ corresponde a um nível de perda 
-que se espera exceder, em circunstâncias normais de mercado, um dia em 20.
-
-- E um VaR de 1-dia com $p = 0.01 = 1\%$ é o nível de perda que pode ser 
-esperado um dia em 100. 
-
-**Definição**: O VaR de h-dias com $100p\%$ é um número $VaR_{p,h}$ tal que a 
-probabilidade de perder $VaR_{p,h}$ ou mais, nos próximos h-dias, é igual 
-$100p\%$.
-
-
-## Value-at_Risk (VaR): Método Paramétrico (distribuição normal)
-
-**Exemplo**: 
-
-- Suponha que $\vartheta = 1$ e $\sigma = 1$, considerando que 
-os retornos são normalmente distribuídos aproximadamente;
-
-- Se $p = 0.05$, temos: $VaR = - \Phi^{-1}(0.05) = 1.64$
-
-- Se $\sigma \neq 1$, temos: $VaR^{5\%} = \sigma (1.64)$
-
-- Se $\sigma \neq 1$ e $\vartheta \neq 1$, temos: $VaR^{5\%} = \sigma(1.64)\vartheta$
-
-
-## Value-at_Risk (VaR)
+```{r var, out.width = "80%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/var.jpeg")
+```
 
 - Se indicamos os lucros e perdas ($P/L$) de uma carteira de investimentos 
 pela variável aleatória $Q$, com uma realização particular denotada por $q$. 
@@ -1027,17 +1066,17 @@ $$
 densidade de $Q$ é denotada por $f_q(\cdot)$, o $VaR$ é então dado por:
 
 $$
-P[Q \leq -VaR(p)] = p = \int_{-\infty}^{-VaR(p)} f_q(x)dx
+P[Q \leq -VaR(1-p)] = 1 - p = \int_{-\infty}^{-VaR(1-p)} f_q(x)dx
 $$
 
-## Derivando o VaR
+- Derivando o VaR
 
 $$
 \begin{align*}
- p &= P[Q \leq -VaR(p)], \\
-   &= P(P_t - P_{t-1} \leq -VaR(p)), \\
-   &= P(P_{t-1} R_t \leq -VaR(p)), \\
-   &= (\frac{R_t}{\sigma} \leq - \frac{VaR(p)}{P_{t-1}\sigma})
+ p &= P[Q \leq -VaR(1-p)], \\
+   &= P(P_t - P_{t-1} \leq -VaR(1-p)), \\
+   &= P(P_{t-1} R_t \leq -VaR(1-p)), \\
+   &= (\frac{R_t}{\sigma} \leq - \frac{VaR(1 - p)}{P_{t-1}\sigma})
 \end{align*}
 $$
 
@@ -1046,10 +1085,63 @@ a distribuição inversa por $F_{R}^{-1}(\cdot)$, então:
 
 $$
 \begin{align*}
-VaR(p) &= -\sigma F_{R}^{-1}(p) P_{t-1}, \\
-       &= -\sigma F_{R}^{-1}(p) \vartheta
+VaR(p) &= -\sigma F_{R}^{-1}(1-p) P_{t-1}, \\
+       &= -\sigma F_{R}^{-1}(1-p) \vartheta
 \end{align*}
 $$
+
+## Value-at_Risk (VaR)
+
+- O **nível de confiança** (probabilidade) do VaR, ou seja, 
+a probabilidade que está associada a uma medida do VaR ($p$), corresponde à frequência com que se espera que um determinado nível de perda ocorra.
+
+- Assim, um VaR de 1-dia com $p = 0.05 = 5\%$ corresponde a um nível de perda 
+que se espera exceder, em circunstâncias normais de mercado, um dia em 20.
+
+- E um VaR de 1-dia com $p = 0.01 = 1\%$ é o nível de perda que pode ser 
+esperado um dia em 100. 
+
+**Definição**: O VaR de h-dias com $100(1-p)\%$ é um número $VaR_{1-p,h}$ tal que a probabilidade de perder $VaR_{1-p,h}$ ou mais, nos próximos h-dias, é igual 
+$100(1-p)\%$.
+
+
+## Value-at_Risk (VaR): Método Paramétrico (distribuição normal)
+
+**Exemplo 1**:
+
+Se foram investidos R\$ 100.000,00 em ações da XYZ SA, cuja volatilidade 
+diária ($\sigma$ = desvio-padão) é de 2%. Então, o VaR no nível de 5% é:
+
+$$
+\begin{align*}
+VaR(p) &= \sigma F_{R}^{-1}(p) \vartheta \\
+       &= \sigma Z_{0.95} \vartheta \\
+       &= 0.02 (1.6449)(100.000) \\
+       &= 3289.8
+\end{align*}
+$$
+Isto é, $VaR_{1, 0.95}$ de 1-dia = R\$ 3.289,80, implica que temos 95% de confiança de que a perda da carteira não será superior a R\$ 3.289,80 em um dia. 
+
+Lembrando que podemos calcular o quantil $Z_{0.95} = P(Z \leq z^{\ast}) = 0.95$ em R usando a função: `qnorm(0.95) = 1.644854`
+
+**Exemplo 2**:
+
+Se desejássemos um VaR de um 1 dia com 99% de confiança, teríamos:
+
+$$
+\begin{align*}
+VaR(p) &= \sigma F_{R}^{-1}(p) \vartheta \\
+       &= \sigma Z_{0.99} \vartheta \\
+       &= 0.02(2.3263)(100.000) \\
+       &= 4652.6
+\end{align*}
+$$
+
+$VaR_{1, 0.99}$ de 1-dia = R\$ 4.652,60, implica que temos 99% de confiança de 
+que a perda da carteira não será superior a R\$ 4.652,60 em um dia.
+
+Claramente, aumentar o nível de confiança em 4% tem um efeito significativo.
+
 
 ## Métodos para obtenção de estimativas do VaR
 
@@ -1058,6 +1150,7 @@ $$
  
     - Método Histórico (ou de Simulação Histórica) 
     - Métodos Paramétricos (assumindo distribuição normal)
+    - Simulação de Monte Carlo
     
 - Simulação Histórica: é um **método não-paramétrico** para a estimação 
 do Risco (VaR), isto é, não assumimos que os dados (retornos) seguem uma 
@@ -1071,7 +1164,7 @@ modelagem de retornos financeiros.
 
 
 
-## Simulação Histórica
+## Simulação Histórica ou Método Histórico
 
 - Simulação Histórica é um método simples para a previsão de risco. 
   Baseia-se na hipótese de que a história se repete, isto é, espera-se que os 

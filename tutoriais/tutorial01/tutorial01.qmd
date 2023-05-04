@@ -2,7 +2,7 @@
 title: "Tutorial"
 subtitle: "Configurando um Projeto Reproduzível no RStudio"
 lang: "pt"
-date: "`r format(Sys.time(), '%d/%m/%y')`"
+date: today
 author:
   - name: Prof. Washington Santos da Silva 
     affiliation: IFMG - Campus Formiga - Mestrado Profissional em Administração.
@@ -12,6 +12,10 @@ format:
     self-contained: true
     toc: true
     toc-location: left
+    number-sections: true
+    smooth-scroll: true
+    anchor-sections: false
+    theme: default
 ---
 
 <style type="text/css">
@@ -69,8 +73,16 @@ você está trabalhando são mantidas completamente separadas umas das outras.
 Isso significa que você pode ter várias instâncias do RStudio abertas ao mesmo tempo (se for o seu caso) ou pode alternar facilmente entre os projetos sem 
 medo de que eles interfiram uns nos outros.
 
+::: {.callout-tip}
+## Dica: Criando um project a partir do Menu
+
 Para criar um projeto, abra o RStudio e selecione `File` -> `New Project...` 
-a partir do menu. Você pode criar um projeto totalmente novo, um projeto de um diretório existente ou um projeto com controle de versão (veja o [Git e Github tutorial](https://kbroman.org/github_tutorial/) para detalhes). Neste tutorial vamos criar um projeto em um novo diretório (ou pasta).
+a partir do menu. Você pode criar um projeto totalmente novo, um projeto de um diretório existente ou um projeto com controle de versão. 
+
+Para saber mais sobre um sistema de controle de versão chamado `git`, veja 
+o [Git e Github tutorial](https://kbroman.org/github_tutorial/) para detalhes. Neste tutorial vamos criar um projeto em um novo diretório (ou pasta).
+:::
+
 
 \  
 
@@ -125,7 +137,11 @@ knitr::include_graphics(path = "images/new_proj4.png")
 
 \  
 
+::: {.callout-tip}
+## Dica: Boas práticas em um projeto no RStudio
+
 A última coisa que sugiro que você faça é selecionar `Tools` -> `Project Options...` no menu. Clique na guia `General` no lado esquerdo e altere os valores de `Restore .RData into workspace at startup`  e 'Save workspace to .RData on exit' de `Default` to `No`. Isso garante que toda vez que você abrir seu projeto, comece com uma sessão R limpa. Você não precisa fazer isso (muitas pessoas não fazem), mas prefiro começar com um espaço de trabalho completamente limpo sempre que abro meus projetos para evitar possíveis conflitos com coisas que fiz em sessões anteriores. A desvantagem disso é que você precisará executar novamente seu código R toda vez que abrir seu projeto.
+:::
 
 \  
 
@@ -209,7 +225,13 @@ dataf <- read.table('/Users/nhy163/Documents/Alex/Teaching/first_project/raw_dat
 
 \  
 
-Para aqueles que desejam levar a noção de caminhos de arquivo relativos um passo adiante, dê uma olhada na função `here ()` no [pacote] `here` (https://github.com/r-lib/here). A função `here()` permite que você crie automaticamente caminhos de arquivo para qualquer arquivo relativo ao diretório raiz do projeto que também seja independente do sistema operacional (funciona em uma máquina Mac ou Windows). Por exemplo, para importar nosso arquivo `mydata.txt` do diretório `raw_data` basta usar
+::: {.callout-tip}
+## Dica: Pacote `here` 
+
+Para aqueles que desejam levar a noção de caminhos de arquivo relativos um passo adiante, dê uma olhada na função `here ()` no [pacote `here`]  (https://github.com/r-lib/here). 
+
+A função `here()` permite que você crie automaticamente caminhos de arquivo para qualquer arquivo, relativo ao diretório raiz do projeto que também seja independente do sistema operacional (funciona em uma máquina Mac ou Windows). Por exemplo, para importar nosso arquivo `mydata.txt` do diretório `raw_data` basta usar
+:::
 
 \  
 
@@ -236,14 +258,16 @@ em meus projetos baseados na linguagem R
 
 \  
 
-```
+::: {.callout-tip}
+## Estrutura de Pastas de um Projeto
 
+```
     Raíz
      |
      |__dados
-     |    |_raw_data
-     |    |_processed_data
-     |    |_metadata
+     |    |_dados_brutos
+     |    |_dados_processados
+     |    |_metadados
      |
      |_R (opcional)
      |
@@ -252,8 +276,8 @@ em meus projetos baseados na linguagem R
      |_scripts
      |
      |_output
- 
 ```
+:::
 
 \  
 
@@ -261,12 +285,12 @@ No meu diretório de trabalho, tenho os seguintes diretórios:
 
    - **Raíz** - Este é o diretório do seu projeto contendo o arquivo .Rproj.
   
-   - **dados** - armazeno todos os meus dados neste diretório. O subdiretório chamado `raw_data` contém arquivos de dados brutos e apenas arquivos de dados brutos. Esses arquivos devem ser tratados como **somente leitura** e não devem ser alterados de forma alguma. Se você precisar processar/limpar/modificar seus dados, faça isso em R (não no MS Excel), pois você pode documentar (e justificar) quaisquer alterações feitas. Quaisquer dados processados devem ser salvos em um arquivo separado e armazenados no subdiretório `processed_data`. Informações sobre métodos de coleta de dados, detalhes de download de dados e quaisquer outros metadados úteis devem ser salvos em um documento de texto (consulte os arquivos de texto README abaixo) no subdiretório `metadata`.
+   - **dados** - armazeno todos os meus dados neste diretório. O subdiretório chamado `dados_brutos` contém arquivos de dados brutos e apenas arquivos de dados brutos. Esses arquivos devem ser tratados como **somente leitura** e não devem ser alterados de forma alguma. Se você precisar processar/limpar/modificar seus dados, faça isso em R (não no MS Excel), pois você pode documentar (e justificar) quaisquer alterações feitas. Quaisquer dados processados devem ser salvos em um arquivo separado e armazenados no subdiretório `dados_processados`. Informações sobre métodos de coleta de dados, detalhes de download de dados e quaisquer outros metadados úteis devem ser salvos em um documento de texto (consulte os arquivos de texto README abaixo) no subdiretório `metadados`.
   
    - **R** - Este é um diretório opcional onde salvo todas as minhas funções R personalizadas que escrevi para a análise atual. Estes podem então ser originados em R usando a função `source()`.
   
-   - **Rmd** - Um diretório opcional onde salvo meus documentos R Markdown ou 
-   qmd.
+   - **Rmd** - Um diretório opcional onde salvo meus documentos `R Markdown` ou 
+   `qmd`.
   
    - **scripts** - Todos os principais scripts R que escrevi para o projeto 
    atual são salvos aqui.
@@ -352,10 +376,18 @@ tente adotá-la o quanto antes, cumpri-la e ser consistente. Você vai me agrade
 
 Uma ou duas notas rápidas sobre como escrever código R e criar scripts R: 
 
-A menos que você esteja fazendo algo realmente rápido e sujo, sugiro que você sempre escreva seu código R como um script oR. Os scripts R são o que torna o R tão útil. Você não apenas tem um registro completo de sua análise, desde a manipulação de dados, visualização e análise estatística, como também pode compartilhar esse código (e dados) com colegas e, principalmente, quando envia e publica sua pesquisa em um periódico. 
+- A menos que você esteja fazendo algo realmente rápido e "sujo", sugiro que 
+você sempre escreva seu código R como um script R. Os scripts R são o que 
+torna o R tão útil. Você não apenas tem um registro completo de sua análise, 
+desde a manipulação de dados, visualização e análise estatística, como também 
+pode compartilhar esse código (e dados) com colegas e, principalmente, quando 
+envia e publica sua pesquisa em um periódico. 
 
-Com isso em mente, certifique-se de incluir em seu script R todas as informações necessárias para tornar seu trabalho reprodutível (nomes dos autores, datas, design de amostragem, etc.). Essas informações podem ser incluídas como uma série de comentários `#` ou, ainda melhor, misturando código executável com narrativa 
-em um `R Notebook`, `R markdown` ou `quarto` . 
+- Com isso em mente, certifique-se de incluir em seu script R todas as 
+informações necessárias para tornar seu trabalho reprodutível (nomes dos 
+autores, datas, design de amostragem, etc.). Essas informações podem ser 
+incluídas como uma série de comentários `#` ou, ainda melhor, misturando 
+código executável com narrativa em um `R Notebook`, `R markdown` ou `quarto` . 
 
 Também é uma boa prática incluir a saída da função `sessionInfo()` no final de qualquer script que imprima a versão R, detalhes do sistema operacional e também pacotes utilizados
 
@@ -412,8 +444,12 @@ Além de incluir metadados em seus scripts R, também é prática comum criar um
 
 A forma como você escreve seu código depende mais ou menos de você, embora seu objetivo seja torná-lo o mais fácil de ler possível (para você e outros). Embora não haja regras (e nenhuma polícia de código), encorajo você a adquirir o hábito de escrever código R legível adotando um estilo particular. 
 
+::: {.callout-tip}
+## Dica:  Guia de Estilo para código R do Google
+
 Sugiro que você siga o [guia de estilo R](https://google.github.io/styleguide/Rguide.html) do Google sempre que 
 possível. Este guia de estilo irá ajudá-lo a decidir onde usar espaços, como indentar o código e como usar colchetes `[ ]` e chaves `{ }` entre outras coisas.
+:::
 
 Se tudo isso parecer muito trabalhoso, você pode instalar o pacote `styler`, que inclui um RStudio `Addin` para permitir que você redefina automaticamente o código selecionado (ou arquivos e projetos inteiros) com o clique do mouse. Você pode encontrar mais informações sobre o pacote `styler` incluindo como instalar [aqui](https://www.tidyverse.org/blog/2017/12/styler-1.0.0/). Depois de instalado, você pode destacar o código que deseja reestilizar, clicar no botão `Addins` na parte superior do RStudio e selecionar a opção `Style selection`. Aqui está um exemplo de código R mal formatado
 
@@ -459,10 +495,17 @@ Embora esses serviços baseados em nuvem sejam muito bons para armazenar arquivo
 anteriores de arquivos geralmente envolve gastar uma quantidade excessiva 
 de tempo vasculhando vários arquivos chamados *'final.doc'*, *'final_v2.doc'* e *'final_useeste.doc'* etc. Até encontrar o que estava procurando. 
 
+::: {.callout-tip}
+## Controle de Versão: Git e GitHub
+
 A melhor maneira que conheço para fazer backup de arquivos e gerenciar diferentes versões de arquivos é usar o software de controle de versão [git](https://git-scm.com/downloads) e o [GitHub](https://github.com). Para 
 saber mais sobre o uso do Git e do GitHub juntos, 
 veja este [tutorial](https://kbroman.org/github_tutorial/).        
+:::
 
 \  
 
-\  
+```{r versoes, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics(path = "images/versoes.png")
+```
+

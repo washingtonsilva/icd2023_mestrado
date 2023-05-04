@@ -1,6 +1,6 @@
 ---
 title: "Resolução da Lista de Exercícios 1"
-author: "Seu Nome"
+author: "Prof. Washington S. da Silva"
 subtitle: "MPA - Discipplina: Introdução à Ciência dos Dados 2023"
 output: html_document
 ---

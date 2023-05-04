@@ -1,10 +1,8 @@
 ---
 title: 'Aula 2: Introdução à Linguagem R'
 author: "Seu nome"
-subtitle: Introdução à Ciência dos Dados 2023  Mestrado Profissional em Administração
-output:
-  html_document:
-    df_print: paged
+subtitle: "Introdução à Ciência dos Dados 2023  Mestrado Profissional em Administração"
+output: html_document
 ---
 
 ## Configurações Globais e Pacotes Necessários
@@ -43,7 +41,7 @@ x
 ```
 
 
-## Sintáxe da Linguagem 
+## Sintáxe da Linguagem
 
 ```{r}
 r_rocks <- 2^3
@@ -100,9 +98,11 @@ round(pi, digits=2)  # arredondamento
 1/200*30        # (1/200)*30 - divisao tem precedencia
 ```
 
+
 ```{r}
 1/(200*30)      # deve-se usar parenteses para definir a precedencia
 ```
+
 
 definindo a precedencia com parênteses:
 
@@ -212,6 +212,7 @@ z > 5 & z < 15
 
 
 ## Tipos Atômicos de Dados 
+
 
 ### double 
 

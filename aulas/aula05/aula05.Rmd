@@ -13,14 +13,25 @@ output:
 
 ```{r setup, include = FALSE, warning = TRUE, message = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
-library(tidyverse)
+library(readr)
+library(readxl)
+library(dplyr)
+library(forcats)
 library(skimr)
+library(fBasics)
+library(janitor)
+library(modelsummary)
+library(gt)
+library(gtsummary)
+library(flextable)
 library(ggplot2)
-library(patchwork)
 library(ggthemes)
+library(patchwork)
 library(PerformanceAnalytics)
 
 carteira <- readr::read_rds("carteira.rds")
+risco <- readxl::read_xlsx('risco.xlsx')
+cotacoes <- readr::read_rds('cotacoes.rds')
 ```
 
 ## Objetivos
@@ -112,6 +123,390 @@ O restante desta aula foca-se nestas duas perguntas.
 
 ## Análise Exploratória Numérica
 
+**Parte 1: Arquivos de dados:**
+
+Retornos da carteira:
+
+```{r, echo=TRUE}
+dplyr::glimpse(carteira)
+```
+
+Estrutura do objeto:
+
+```{r}
+class(carteira)
+```
+
+Amostra de dados do projeto Gestão de Risco nos Institutos Federais:
+
+```{r, echo=TRUE}
+dplyr::glimpse(risco)
+```
+
+Estrutura do objeto:
+
+```{r, echo=TRUE}
+class(risco)
+```
+
+
+**Parte 2: Estatísticas Descritivas em R**
+
+1. Função `summary()`
+
+Retornos da carteira:
+
+```{r, echo=TRUE}
+summary(carteira)
+```
+
+Gestão de Risco - Questionário:
+
+```{r, echo=TRUE}
+summary(risco)
+```
+
+
+2. Função `skimr::skim()`
+
+Retornos da carteira:
+
+```{r, echo=TRUE}
+skimr::skim(carteira)
+```
+
+Gestão de Risco - Questionário:
+
+```{r, echo=TRUE}
+skimr::skim(risco)
+```
+
+
+**Parte 3: Preparando os dados para análise**
+
+- Retornos da carteira: retirando dados faltantes
+
+```{r, echo=TRUE}
+carteira_analise <- na.omit(carteira)
+summary(carteira_analise)
+```
+
+Criando uma estrutura de dados `longer`
+
+```{r, echo=TRUE}
+carteira_analise_longer <- carteira_analise %>% 
+      tidyr::pivot_longer(cols = c('VALE', 'WEGE3.SA', 'PETR4.SA'), 
+                          names_to = "acoes", 
+                          values_to = "retornos")
+
+head(carteira_analise_longer)
+```
+
+- Risco: Definindo classes apropriadas para as questões:
+
+```{r, echo=TRUE}
+risco_analise <- risco %>%
+  transmute(
+    q1_1 = factor(
+      q1_1,
+      levels = c(
+        "20-30 anos",
+        "31-40 anos",
+        "41-50 anos",
+        "51-60 anos",
+        "Mais de 60 anos"
+      ),
+      ordered = TRUE
+    ),
+    q1_2 = factor(q1_2),
+    q1_3 = factor(q1_3),
+    q1_4 = factor(q1_4),
+    q1_5 = factor(
+      q1_5,
+      levels =  c(
+        "Ensino fundamental",
+        "Ensino médio",
+        "Ensino superior",
+        "Especialização",
+        "Mestrado",
+        "Doutorado"
+      ),
+      ordered = TRUE
+    ),
+    q1_6 = factor(
+      q1_6,
+      levels = c(
+        "Até 5 anos",
+        "6-10 anos",
+        "11-15 anos",
+        "16-20 anos",
+        "Mais de 20 anos"
+      ),
+      ordered = TRUE
+    ),
+    q1_7 = factor(
+      q1_7,
+      levels = c(
+        "Até 5 anos",
+        "6-10 anos",
+        "11-15 anos",
+        "16-20 anos",
+        "Mais de 20 anos"
+      ),
+      ordered = TRUE
+    ),
+    q1_8 = factor(q1_8)
+  )
+```
+
+Verificando o novo objeto `risco_analise``:
+
+```{r, echo=TRUE}
+skimr::skim(risco_analise)
+```
+
+
+**Parte 4: Estatísticas Descritivas**
+
+- Retornos da carteira: dados numéricos
+
+```{r, echo=TRUE}
+fBasics::basicStats(carteira_analise)
+```
+
+- Gestão de Risco: dados categóricos 
+
+```{r, echo=TRUE}
+summary(risco_analise)
+```
+
+- Cotacoes
+
+```{r}
+summary(cotacoes)
+```
+
+Funções R:
+
+```{r}
+### renomeando as variaveis da data.frame carteira
+retornos_vale <- carteira$VALE
+retornos_weg <- carteira$WEGE3.SA
+retornos_petro <- carteira$PETR4.SA
+```
+
+
+- **Medidas de Posição**
+
+media amostral
+
+```{r}
+mean(retornos_petro, na.rm = TRUE)
+```
+
+mediana amostral
+
+```{r}
+median(retornos_petro, na.rm = TRUE)
+```
+
+minimo, quartis e maximo amostrais
+
+```{r}
+quantile(retornos_petro, na.rm = TRUE)
+```
+
+percentis especificos: $p_{32}$, $p_{57}$ e $p_{98}$
+
+```{r}
+quantile(retornos_petro, prob = c(.32, .57, .98), na.rm = TRUE)
+```
+
+minimo entre os elementos de um vetor
+
+```{r}
+min(retornos_petro, na.rm = TRUE)      # mínimo dos elementos do vetor
+```
+
+máximo dos elementos do vetor
+
+```{r}
+max(retornos_petro, na.rm = TRUE) 
+```
+
+- **Medidas de Variabilidade**
+
+variância amostral
+
+```{r}
+var(retornos_petro, na.rm = TRUE)
+```
+
+desvio-padrão amostral
+
+```{r}
+sd(retornos_petro, na.rm = TRUE)  
+```
+
+desvio-absoluto mediano amostral
+
+```{r}
+mad(retornos_petro, na.rm = TRUE) 
+```
+
+intervalo interquartil amostral
+
+```{r}
+IQR(retornos_petro, na.rm = TRUE) 
+```
+
+
+- Gestão de Risco: dados categóricos
+
+Tabelas de Frequência: Função `tabyl()` do pacote `janitor`
+
+```{r, echo=TRUE}
+tab1 <- risco_analise |> tabyl(q1_1)
+tab1
+```
+
+```{r, echo=TRUE}
+tab2 <- risco_analise |> tabyl(q1_2)
+tab2
+```
+
+```{r, echo=TRUE}
+tab3 <- risco_analise |> tabyl(q1_3)
+tab3
+```
+
+Customizando as tabelas:
+
+```{r, echo=TRUE}
+tab4 <- risco_analise |> tabyl(q1_1) |> 
+   adorn_totals(c("row")) |>
+  adorn_pct_formatting(rounding = "half up", digits = 0) |>
+  knitr::kable()
+       
+tab4
+```
+
+```{r, echo=TRUE}
+tab5 <- risco_analise |> tabyl(q1_2) |> 
+   adorn_totals(c("row")) |>
+   adorn_pct_formatting(rounding = "half up", digits = 0) |>
+   knitr::kable()
+
+tab5
+```
+
+```{r, echo=TRUE}
+tab5 <- risco_analise |> tabyl(q1_3) |> 
+  adorn_totals(c("row")) |>
+  adorn_pct_formatting(rounding = "half up", digits = 0) |>
+  knitr::kable()
+
+tab5
+```
+
+Tabulação cruzada:
+
+```{r, echo=TRUE}
+tab6 <- risco_analise |> tabyl(q1_2, q1_3)
+
+tab6
+```
+
+Customizando a tabela:
+
+```{r, echo=TRUE}
+tab7 <- risco_analise |> tabyl(q1_2, q1_3) |>
+  adorn_percentages("row") |>
+  adorn_pct_formatting(digits = 2) |>
+  adorn_ns() |>
+  knitr::kable()
+
+tab7
+```
+
+
+```{r, echo=TRUE}
+tab8 <- risco_analise |> 
+        tabyl(q1_1, q1_2, q1_3)
+
+tab8
+```
+
+
+**Tabelas para Publicação Usando os pacotes `gtsummary` e `flextable`** 
+
+Tabela: Variáveis Categóricas
+
+```{r}
+#| echo: true
+#| eval: true
+#| message: false
+
+# Pacote utilizado
+library(gtsummary)
+library(flextable)
+
+tabgt01 <-cotacoes %>%  
+  select(-c(item, ve, vh, percent, pt)) %>% 
+  tbl_summary(
+    by = ano,
+    statistic = list(
+      all_categorical() ~ "{n} ({p}%)"
+    ),
+    label = list(pe ~ "Grupo Licitado", 
+                 it ~ "Pesquisa de Preços (internet)",
+                 cb ~ "Pesquisa de Preços (combinada)",
+                 fn ~ "Pesquisa de Preços (fornecedores)",
+                 pa ~ "Pesquisa de Preços (painel)"
+                 ),
+    digits = all_continuous() ~ 2
+  ) %>%
+  modify_header(label ~ "**Variável**") %>%
+  modify_caption("TABELA 1. Estatísticas Descritivas: Variáveis Categóricas.") %>%
+  modify_footnote(all_stat_cols() ~ " N = total de observações do ano. n = (total de observações da variável categórica/nível) (%) = porcentagem do total de observações do ano")
+
+tabgt01
+
+as_gt(tabgt01) %>% 
+     gt::gtsave(filename = "tabs/tabgt01.rtf")
+```
+
+
+Tabela: Variáveis Numéricas
+
+```{r}
+#| echo: true
+#| eval: true
+#| message: false
+
+tabgt02 <- cotacoes %>% select(c(ano, ve, vh, percent, pt)) %>%
+  tbl_summary(
+    by = ano,
+    statistic = list(
+      all_continuous() ~ c("({median}, {mean}) ({p25}, {p75}), ({min}, {max}) ({IQR}, {sd})")
+    ),
+    label = list( 
+      ve ~ "Valor Estimado",
+      vh ~ "Valor Homologado",
+      percent ~ "Variação (%)", 
+      pt ~ "Total de Fornecedores Participantes"),
+    digits = all_continuous() ~ 2
+  ) %>%
+  modify_header(label ~ "**Variável**") %>%
+  modify_caption("TABELA 2. Estatísticas Descritivas: Variáveis Numéricas.") %>%
+  modify_footnote(all_stat_cols() ~ "(média, mediana) (p25, p75) (mín., máx.) (IIQ, desvio_padrão)"
+  )
+
+tabgt02
+
+as_gt(tabgt02) %>% 
+     gt::gtsave(filename = "tabs/tabgt02.rtf")
+```
 
 
 ## Análise Exploratória Gráfica
@@ -165,7 +560,8 @@ h1c <- ggplot(carteira, aes(x = VALE)) +
   labs(x = "Retornos",
        y = "Frequência",
        title = "Vale: Retornos das Ações") + 
-  xlim(-0.3, 0.3)
+  xlim(-0.3, 0.3) + 
+  theme_minimal()
 h1c
 ```
 
@@ -184,7 +580,8 @@ h2c <- ggplot(carteira, aes(x = PETR4.SA)) +
   labs(x = "Retornos",
        y = "Frequência",
        title = "Petrobrás: Retornos das Ações") + 
-  xlim(-0.3, 0.3)
+  xlim(-0.3, 0.3) + 
+  theme_minimal()
 h2c
 ```
 
@@ -202,7 +599,8 @@ h3c <- ggplot(carteira, aes(x = WEGE3.SA)) +
   labs(x = "Retornos",
        y = "Frequência",
        title = "WEG: Retornos das Ações") + 
-  xlim(-0.3, 0.3)
+  xlim(-0.3, 0.3) + 
+  theme_minimal()
 h3c
 ```
 
@@ -239,7 +637,9 @@ d1c <- ggplot(carteira, aes(x = VALE)) +
   labs(x = "Retornos",
        y = "Densidade",
        title = "Vale: Retornos das Ações") +
-  xlim(-0.3, 0.3)
+  xlim(-0.3, 0.3) + 
+  theme_minimal()
+
 d1c
 ```
 
@@ -258,7 +658,9 @@ d2c <- ggplot(carteira, aes(x = PETR4.SA)) +
   labs(x = "Retornos",
        y = "Densidade",
        title = "Petrobrás: Retornos das Ações") + 
-  xlim(-0.3, 0.3)
+  xlim(-0.3, 0.3) + 
+  theme_minimal()
+
 d2c
 ```
 
@@ -277,7 +679,8 @@ d3c <- ggplot(carteira, aes(x = WEGE3.SA)) +
   labs(x = "Retornos",
        y = "Densidade",
        title = "WEG: Retornos das Ações") +
-  xlim(-0.3, 0.3)
+  xlim(-0.3, 0.3) + 
+  theme_minimal()
 d3c
 ```
 
@@ -301,7 +704,8 @@ Histograma com Densidade Empírica
 ```{r, echo=TRUE, out.width = "60%"}
 h1_d <- ggplot(carteira, aes(x = VALE)) + 
             geom_histogram(aes(y = ..density..)) +
-            geom_density(col = "blue", size = 1.5)
+            geom_density(col = "blue", size = 1.5) + 
+            theme_minimal()
 h1_d
 ```
 
@@ -334,7 +738,9 @@ b1c <- ggplot(carteira, aes(x = VALE)) +
         labs(x = "Retornos",
              y = NULL,
              title = "Vale: Retornos das Ações") +
-        xlim(-0.3, 0.3)
+        xlim(-0.3, 0.3) + 
+       theme_minimal()
+
 b1c
 ```
 
@@ -353,7 +759,8 @@ b2c <- ggplot(carteira, aes(x = PETR4.SA)) +
         labs(x = "Retornos",
              y = NULL,
              title = "Petrobrás: Retornos das Ações") + 
-       xlim(-0.3, 0.3)
+       xlim(-0.3, 0.3) + 
+       theme_minimal()
 b2c
 ```
 
@@ -372,7 +779,9 @@ b3c <- ggplot(carteira, aes(x = WEGE3.SA)) +
        labs(x = "Retornos",
             y = NULL,
             title = "WEG: Retornos das Ações") +
-       xlim(-0.3, 0.3)
+       xlim(-0.3, 0.3) + 
+       theme_minimal()
+
 b3c
 ```
 
@@ -387,6 +796,93 @@ painel03
 
 ## Visualizando distribuições: Gráfico de Barras
 
+Continuando com a usar o sistema de visualização do pacote `ggplot2`
+
+```{r, echo=TRUE}
+ggplot(risco_analise, aes(x = q1_1)) + 
+  geom_bar() +
+  labs(title="Gráfico de Barra Simples",                 
+       x="Idade",                          
+       y="Frequência (n)") 
+```
+
+Invertendo os eixos usando `coord_flip()`:
+
+```{r, echo=TRUE}
+ggplot(risco_analise, aes(x = q1_1)) + 
+  geom_bar() +
+  labs(x="Idade",                          
+       y="Frequência (n)") + 
+  coord_flip() + 
+  theme_minimal()
+```
+
+reordenando os níveis do fator idade:
+
+```{r, echo=TRUE}
+ggplot(risco_analise, aes(x = fct_rev(q1_1))) + 
+  geom_bar() +
+  labs(x="Idade",                          
+       y="Frequência (n)") + 
+  coord_flip() + 
+  theme_minimal()
+```
+
+
+Diferenciando as categorias com cores:
+
+```{r, echo=TRUE}
+ggplot(risco_analise, aes(x = fct_rev(q1_1), fill = q1_1)) + 
+  geom_bar() +
+  labs(x= "Idade",                          
+       y = "Frequência (n)") + 
+  coord_flip() + 
+  theme_minimal()
+```
+
+Anotando as barras: porcentagens
+
+```{r, echo=TRUE}
+risco_anot <- risco_analise |>
+  group_by(q1_1) |>
+  summarize(n = n()) |>
+  mutate(
+         pct = n / sum(n),
+         lbls = scales::percent(pct)
+        )
+
+
+ggplot(risco_anot, aes(x = q1_1, y = pct, fill = q1_1)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = lbls),
+            vjust = -0.5,
+            size = 3) + 
+  labs(x = "Idade",
+       y = "Frequência (n)") +
+  theme_minimal()
+```
+
+Anotando as barras: totais
+
+```{r, echo=TRUE}
+risco_anot2 <- risco_analise |>
+  group_by(q1_1) |>
+  summarize(n = n()) |>
+  mutate(
+         total = n,
+         lbls = scales::number(total)
+        )
+
+
+ggplot(risco_anot2, aes(x = q1_1, y = total, fill = q1_1)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = lbls),
+            vjust = -0.5,
+            size = 3) + 
+  labs(x = "Idade",
+       y = "Frequência (n)") +
+  theme_minimal()
+```
 
 
 ## Covariação entre Variáveis Numéricas
