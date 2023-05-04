@@ -1,0 +1,31 @@
+---
+title: "Aula06 - Introdução à Ciência dos Dados"
+subtitle: "Escala de Likert"
+author: "Seu Nome"
+date: "2023-05-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# configuracoes globais
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, 
+                      digits = 3, scipen = 999)
+
+# pacotes utilizados
+library(readr)
+library(plyr)
+library(dplyr)
+library(likert)
+library(ggplot2)
+library(scales) 
+```
+
+
+# Importando o arquivo de dados 
+
+```{r}
+path_rds <- "dados/dados_categoricos_analise.rds"
+dados_questionario <- read_rds(path_rds)
+glimpse(dados_questionario)
+```
+
