@@ -1,0 +1,183 @@
+---
+title: "Aula06 - Introdução à Ciência dos Dados"
+subtitle: "Exercícios"
+author: "Seu Nome"
+date: "2023-05-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# configuracoes globais
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, 
+                      digits = 3, scipen = 999)
+
+# pacotes utilizados
+library(readr)
+library(readxl)
+library(plyr)
+library(dplyr)
+library(likert)
+library(ggplot2)
+library(forcats)
+library(scales) 
+```
+
+
+# Importando o arquivo de dados 
+
+```{r}
+risco <- readxl::read_xlsx('dados/risco.xlsx')
+glimpse(risco)
+```
+
+
+# Preparação dos Dados para Análise
+
+Definindo classes apropriadas para as questões:
+
+```{r, echo=TRUE}
+risco_analise <- risco %>%
+  transmute(
+    q1_1 = factor(
+      q1_1,
+      levels = c(
+        "20-30 anos",
+        "31-40 anos",
+        "41-50 anos",
+        "51-60 anos",
+        "Mais de 60 anos"
+      ),
+      ordered = TRUE
+    ),
+    q1_2 = factor(q1_2),
+    q1_3 = factor(q1_3),
+    q1_4 = factor(q1_4),
+    q1_5 = factor(
+      q1_5,
+      levels =  c(
+        "Ensino fundamental",
+        "Ensino médio",
+        "Ensino superior",
+        "Especialização",
+        "Mestrado",
+        "Doutorado"
+      ),
+      ordered = TRUE
+    ),
+    q1_6 = factor(
+      q1_6,
+      levels = c(
+        "Até 5 anos",
+        "6-10 anos",
+        "11-15 anos",
+        "16-20 anos",
+        "Mais de 20 anos"
+      ),
+      ordered = TRUE
+    ),
+    q1_7 = factor(
+      q1_7,
+      levels = c(
+        "Até 5 anos",
+        "6-10 anos",
+        "11-15 anos",
+        "16-20 anos",
+        "Mais de 20 anos"
+      ),
+      ordered = TRUE
+    ),
+    q1_8 = factor(q1_8)
+  )
+```
+
+
+# Gráficos de Barras
+
+Gráfico de barras básico:
+
+```{r, echo=TRUE}
+ggplot(risco_analise, aes(x = q1_5)) + 
+  geom_bar() +
+  labs(title="Gráfico de Barra Simples",                 
+       x="Formação Acadêmcia",                          
+       y="Frequência (n)") 
+```
+
+Invertendo os eixos usando `coord_flip()`:
+
+```{r, echo=TRUE}
+ggplot(risco_analise, aes(x = q1_5)) + 
+  geom_bar() +
+  labs(x="Formação Acadêmica",                          
+       y="Frequência (n)") + 
+  coord_flip() + 
+  theme_minimal()
+```
+
+reordenando os níveis do fator idade:
+
+```{r, echo=TRUE}
+ggplot(risco_analise, aes(x = fct_rev(q1_5))) + 
+  geom_bar() +
+  labs(x="Formação Acadêmica",                          
+       y="Frequência (n)") + 
+  coord_flip() + 
+  theme_minimal()
+```
+
+
+Diferenciando as categorias com cores:
+
+```{r, echo=TRUE}
+ggplot(risco_analise, aes(x = fct_rev(q1_5), fill = q1_5)) + 
+  geom_bar() +
+  labs(x= "Formação Acadêmica",                          
+       y = "Frequência (n)") + 
+  coord_flip() + 
+  theme_minimal()
+```
+
+Anotando as barras: porcentagens
+
+```{r, echo=TRUE}
+risco_anot <- risco_analise |>
+  group_by(q1_5) |>
+  summarize(n = n()) |>
+  mutate(
+         pct = n / sum(n),
+         lbls = scales::percent(pct)
+        )
+
+
+ggplot(risco_anot, aes(x = q1_5, y = pct, fill = q1_5)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = lbls),
+            vjust = -0.5,
+            size = 3) + 
+  labs(x = "Formação Acadêmica",
+       y = "Frequência (%)") +
+  theme_minimal()
+```
+
+Anotando as barras: totais
+
+```{r, echo=TRUE}
+risco_anot2 <- risco_analise |>
+  group_by(q1_5) |>
+  summarize(n = n()) |>
+  mutate(
+         total = n,
+         lbls = scales::number(total)
+        )
+
+
+ggplot(risco_anot2, aes(x = q1_5, y = total, fill = q1_5)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = lbls),
+            vjust = -0.5,
+            size = 3) + 
+  labs(x = "Formação Acadêmica",
+       y = "Frequência (n)") +
+  theme_minimal()
+```
+
