@@ -1,0 +1,6 @@
+
+1. Mostrar como salvar dados para análise no formato .rds
+2. Inserir Gráficos de Bolhas
+3. Classes de Séries Temporais
+4. Gráficos de Séries Temporais
+5. Roteiro e Data para o Exame 1
