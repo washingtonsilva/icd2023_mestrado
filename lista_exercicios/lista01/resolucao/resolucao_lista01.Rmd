@@ -185,20 +185,30 @@ b.
 
 a. 
 
-```{r}
+importando os dados:
 
+```{r}
+library(owidR)
+
+energia_solar <- owid("solar-energy-consumption-by-region")
+dplyr::glimpse(energia_solar)
 ```
 
 b.
 
-```{r}
+criando o mapa temático:
 
+```{r}
+owid_map(energia_solar)
 ```
 
 c.
 
-```{r}
+gráfico de linha para a série de geração de energia solar para o Brasil, Alemanha, Estados Unidos e China:
 
+```{r}
+owid_plot(energia_solar, summarise = FALSE, filter = c("Brazil", "Germany", 
+                                                       "United States", "China"))
 ```
 
 
