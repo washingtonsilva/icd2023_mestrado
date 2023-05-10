@@ -1,0 +1,412 @@
+---
+title: "Introdução à Ciência dos Dados - Aula 7"
+subtitle: "Um Tutorial sobre o Pacote ggplot2"
+author: "Prof. Washington Santos da Silva"
+date: "09/05/2023"
+output:
+  slidy_presentation:
+    logo: logo.jpg
+    incremental: false
+    highlight: default
+    footer: "Copyright (c) 2023, Washington S. Silva"
+---
+
+```{r setup, echo = FALSE, include = FALSE, warning = TRUE, message = TRUE}
+knitr::opts_chunk$set(echo = FALSE, message = TRUE, warning = TRUE)
+library(tidyverse)
+library(ggthemes)
+library(palmerpenguins)
+```
+
+
+## Chap. 2: Data visualisation
+
+>> “*The simple graph has brought more information to the data analyst’s mind 
+than any other device*.” — John Tukey
+
+
+- R tem vários sistemas para fazer gráficos, mas o ggplot2 é um dos mais elegantes e versáteis. 
+
+- O ggplot2 implementa a gramática dos gráficos, um sistema coerente para descrever e construir gráficos. 
+
+- Com o ggplot2, você pode fazer mais e mais rápido aprendendo um sistema e aplicando-o em muitos lugares. 
+
+**Pré-Requisitos**
+
+```{r, echo=TRUE}
+library(tidyverse)
+library(ggthemes)
+```
+
+Além do tidyverse, também usaremos o pacote `palmerpenguins`, que inclui o conjunto de dados sobre pinguins contendo medições corporais para pinguins em três ilhas no Arquipélago de Palmer, e o pacote `ggthemes` pela função 
+`scale_color_colorblind()`.
+
+
+
+## Referência
+
+- [Cap. 2](https://r4ds.hadley.nz) da Versão digital (2 edição) gratuita.
+
+![](https://r4ds.hadley.nz/cover.jpg){width=300, style="float:right"}
+
+
+## Primeiros Passos e a Data Frame `penguins`
+
+- Os pinguins com nadadeiras mais longas pesam mais ou menos do que os pinguins com nadadeiras mais curtas? Você provavelmente já tem uma resposta, mas tente tornar sua resposta precisa. 
+
+- Como é a relação entre o comprimento da nadadeira e a massa corporal? É positivo? Negativo? Linear? Não Linear? A relação varia de acordo com a espécie do pinguim? E que tal perto da ilha onde o pinguim mora. 
+
+- Vamos criar visualizações que podemos usar para responder a essas perguntas.
+
+- Você pode testar respostas com a `data.frame` `penguins` disponibilizada pelo pacote `palmerpenguins` (`palmerpenguins::penguins`). 
+
+- Lembrando que uma `data.frame` é uma coleção retangular de variáveis (nas colunas) e observações (nas linhas). 
+
+- A data frame `penguins` contém 344 observações coletadas e disponibilizadas pelo Dr. Kristen Gorman e a Estação Palmer, Antártica LTER.
+
+
+Vamos tentar consolidar alguns termos para facilitar a discussão: 
+
+- Uma **variável** é uma quantidade, qualidade ou propriedade que você 
+pode medir.
+
+- Um **valor** é o estado de uma variável quando você a mede. O valor de uma variável pode mudar de medição para medição.
+
+- Uma **observação** é um conjunto de medições feitas em condições semelhantes 
+(você geralmente faz todas as medições em uma observação ao mesmo tempo e no mesmo objeto). Uma observação conterá vários valores, cada um associado a uma variável diferente. 
+
+- **Dados tabulares** são um conjunto de valores, cada um associado a uma variável e uma observação. Os dados tabulares são arrumados (*tidy*) se cada valor for colocado em sua própria “célula”, cada variável em sua própria 
+coluna e cada observação em sua própria linha.
+
+- Neste contexto, uma variável se refere a um atributo de todos os pinguins, e uma observação se refere a todos os atributos de um único pinguim.
+
+```{r, echo=TRUE}
+penguins
+```
+
+- Visão Geral de `penguins`:
+
+```{r}
+dplyr::glimpse(penguins)
+```
+
+- Entre as variáveis temos:
+
+1. `species`: espécies de pinguim (Adelie, Chinstrap ou Gentoo)
+
+2. `flipper_length_mm`: Comprimento da nadadeira de um pinguim, em milímetros
+
+3. `body_mass_g`: Massa corporal de um pinguim, em gramas
+
+Para saber mais sobre penguins: 
+
+```{r, echo=TRUE, eval=FALSE}
+?palmerpenguins::penguins
+```
+
+- O objetivo principal do tutorial é reproduzir a seguinte visualização, 
+que exibe a relação entre os comprimentos das nadadeiras e as massas corporais desses pinguins, levando em consideração a espécie do pinguim.
+
+![](https://r4ds.hadley.nz/data-visualize_files/figure-html/unnamed-chunk-7-1.png){width=90%}
+
+- Vamos recriar esta visualização passo a passo.
+
+
+
+## Criando um ggplot
+
+- Com o `ggplot2`, você começa um gráfico com a função `ggplot()`, definindo um objeto gráfico ao qual você adiciona camadas `layers`. 
+
+- O primeiro argumento de `ggplot()` é o objeto de dados a ser usado no gráfico , assim, `ggplot(data = pinguins)` cria um gráfico vazio que é preparado para exibir os dados dos pinguins. 
+
+```{r, echo=TRUE}
+ggplot(data = penguins)
+```
+
+- Em seguida, precisamos dizer `ggplot()` como as informações dos dados serão representadas visualmente.
+
+- O argumento `mapping` da função `ggplot()` define como as variáveis dos dados são mapeadas para as propriedades visuais (aesthetics) do seu gráfico.
+
+- O argumento `mapping` é sempre definido na função `aes()`, e os argumentos 
+`x` e `y` de `aes()` especificam quais variáveis mapear para os eixos x e y.
+
+- Por enquanto, vamos mapear apenas o comprimento da nadadeira para a 
+estética `x` e a massa corporal para a estética `y`. O ggplot2 procura as variáveis mapeadas no argumento de dados, neste caso, `penguins`.
+
+```{r, echo=TRUE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+)
+```
+
+- Nossa tela vazia agora tem mais estrutura - está claro onde os comprimentos das nadadeiras serão exibidos (eixo x) e onde as massas corporais serão exibidas (eixo y). Mas os próprios pinguins ainda não estão no gráfico. 
+
+- Para fazer isso, precisamos definir uma `geom`: o objeto geométrico que um gráfico usa para representar dados. 
+
+- Esses **objetos geométricos** são disponibilizados no ggplot2 com funções que começam com `geom_`. 
+
+- As pessoas geralmente descrevem gráficos pelo tipo de objeto geométrico: 
+
+    - gráficos de barras usam geoms de barras (geom_bar()), 
+    - gráficos de linhas usam geoms de linha (geom_line()), 
+    - boxplots usam boxplot geoms (geom_boxplot()), 
+    - gráficos de dispersão usam geoms de ponto (geom_point()) 
+    - e assim por diante.
+    
+- A função `geom_point()` adiciona uma camada de pontos ao seu gráfico, o que cria um **gráfico de dispersão**. 
+
+- O ggplot2 vem com muitas funções geom que adicionam um tipo diferente de 
+camada a um gráfico. Você pode conhecer outras geometria no 
+[capítulo 10](https://r4ds.hadley.nz/layers.html).
+
+```{r, echo=TRUE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point()
+```
+
+Agora temos algo que se parece com um “gráfico de dispersão”. Ainda não corresponde ao nosso gráfico final, mas usando esse gráfico podemos começar a responder à pergunta que motivou nossa exploração: 
+
+- "Como é a relação entre o comprimento da nadadeira e a massa corporal?" 
+
+A relação parece ser **positiva** (à medida que o comprimento da nadadeira aumenta, aumenta massa corporal), **linear** (os pontos são agrupados 
+aproximadamente em torno de uma reta em vez de uma curva) e 
+**moderadamente forte** (não há muita dispersão em torno de tal linha). Ou seja, pinguins com nadadeiras mais longas geralmente são exibem maior massa corporal.
+
+- Antes de adicionarmos mais camadas a este gráfico, vamos fazer entender o aviso:
+
+```{r, eval=FALSE, echo=TRUE}
+## Warning: Removed 2 rows containing missing values (`geom_point()`).
+```
+
+- Vemos esta mensagem porque há dois pinguins em nos dados com massa corporal faltante e/ou valores de comprimento de nadadeiras e o ggplot2 não tem como representá-los no gráfico sem ambos os valores.
+
+- Como a linguagem R, o ggplot2 segue a filosofia de que valores falatntes nunca devem desaparecer silenciosamente.
+
+- Esse tipo de aviso é provavelmente um dos tipos mais comuns de que você verá ao trabalhar com dados reais - os valores faltantes são um problema muito 
+comum e você pode aprender mais sobre eles no [Cap. 19](https://r4ds.hadley.nz/missing-values.html).
+
+
+
+## Adicionado estéticas (aesthetics) e camadas (layers)
+
+- Gráficos de dispersão são úteis para exibir a relação entre duas variáveis numéricas. 
+
+- Mas é sempre uma boa ideia ser cético em relação a qualquer relação aparente entre duas variáveis e perguntar se pode haver outras variáveis que expliquem ou alterem a natureza dessa relação aparente. 
+
+- Por exemplo, a relação entre o comprimento da nadadeira e a massa corporal difere por espécie? 
+
+- Vamos incorporar espécies no gráfico e ver se isso revela alguma visão adicional sobre a relação aparente entre essas variáveis. Faremos isso representando espécies com diferentes pontos coloridos.
+
+- Para  isso, precisaremos modificar a estética ou o geom? Se você 
+respondeu **no mapeamento estético, dentro de aes()**, você já está pegando o jeito de criar visualizações de com o ggplot2! 
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)
+) +
+  geom_point()
+```
+
+- Quando uma variável categórica é mapeada para uma estética, o ggplot2 atribuirá automaticamente um valor único da estética (aqui uma cor única) a cada nível único da variável (cada uma das três espécies), um processo conhecido como **scaling** (dimensionamento). 
+
+- O ggplot2 também adicionará uma legenda que explica quais valores 
+correspondem a quais níveis.
+
+- Agora vamos adicionar mais uma camada: uma reta exibindo a relação entre a massa corporal e o comprimento da nadadeira.
+
+- Como este é um novo objeto geométrico que representa os dados, adicionaremos uma nova `geom` ao gráfico: `geom_smooth()`. 
+
+- Especificaremos que queremos desenhar uma reta de "melhor ajuste" 
+com base em um modelo de regressão linear com o arguimento `method = "lm"`:
+
+```{r, warning=FALSE, echo=TRUE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)
+) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+- Adicionamos retas com sucesso, mas este gráfico não se parece com o gráfico 
+que desejamos reproduzir, o qual tem apenas uma reta para todo o conjunto de dados, em oposição a retas separadas para cada uma das espécies de pinguins.
+
+- Quando os mapeamentos estéticos são definidos em `ggplot()`, globalmente, eles são passados para cada uma das camadas geométricas subsequentes do gráfico. 
+
+No entanto, cada função `geom_` no ggplot2 também pode ter um argumento de mapeamento, que permite mapeamentos estéticos locais, que são adicionados aos herdados do nível global. 
+
+Como queremos que os pontos sejam coloridos com base nas espécies, mas não queremos que as retas separadas para elas, devemos especificar 
+`color = species` apenas para `geom_point()`:
+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point(mapping = aes(color = species)) +
+  geom_smooth(method = "lm")
+```
+
+- Voila! Temos algo que se parece muito com o nosso objetivo final, 
+embora ainda não seja perfeito. Ainda precisamos usar formas diferentes para cada espécie de pinguins e melhorar os rótulos.
+
+- Geralmente não é uma boa ideia representar informações usando apenas cores em um gráfico, pois as pessoas percebem as cores de forma diferente devido ao daltonismo ou outras diferenças de visão de cores. Portanto, além da cor, 
+também podemos mapear as espécies para a forma da estética:
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point(mapping = aes(color = species, shape = species)) +
+  geom_smooth(method = "lm")
+```
+
+- Note que a legenda é atualizada automaticamente para refletir as diferentes formas dos pontos.
+
+- E, finalmente, podemos melhorar os rótulos do gráfico usando a função 
+`labs()` em uma nova camada. 
+
+- Alguns dos argumentos para labs() podem ser autoexplicativos: o título adiciona um título e o subtítulo adiciona um subtítulo ao enredo. Outros argumentos correspondem aos mapeamentos estéticos, x é o rótulo do eixo x, y é o rótulo do eixo y e a cor e a forma definem o rótulo para a legenda. 
+
+Além disso, podemos melhorar a paleta de cores para ser adequada para 
+daltônicos com a função `scale_color_colorblind()` do pacote `ggthemes`:
+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point(aes(color = species, shape = species)) +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Body mass and flipper length",
+    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+    x = "Flipper length (mm)", y = "Body mass (g)",
+    color = "Species", shape = "Species"
+  ) +
+  scale_color_colorblind()
+```
+
+
+## Simplificando a sintáxe do ggplot2
+
+- À medida que avançamos no uso do ggplot2, fazemos a transição para uma sintáxe mais concisa do código. 
+
+- Até agora, fomos muito explícitos, o que é útil quando estamos aprendendo:
+
+```{r, echo=TRUE, eval=FALSE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point()
+```
+
+
+- Em geral, os primeiros um ou dois argumentos de uma função são tão 
+importantes que você deve conhecê-los de cor. 
+
+- Os dois primeiros argumentos de `ggplot()` são os dados e o mapeamento, mas 
+usuários mais avançados não os utilizam em geral. 
+
+- Por que isso economiza digitação e, ao reduzir a quantidade de código, 
+conseguimos ver mais fácilmente as diferenças entre os gráficos. 
+
+Essa é uma preocupação de programação muito importante, você pode aprender 
+mais no [Cap. 26](https://r4ds.hadley.nz/functions.html).
+
+- Reescrevendo o gráfico anterior de forma mais concisa:
+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) + 
+  geom_point()
+```
+
+- Além disso, já conhecemos o operador pipe `|>`, que permite criar 
+gráficos com:
+
+```{r, echo=TRUE, warning=FALSE}
+penguins |> 
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) + 
+  geom_point()
+```
+
+
+
+## Salvando os gráficos
+
+- Depois de fazer um gráfico, podemos salvá-lo como uma imagem que porerá ser  usada em outro trabalho. 
+
+- `ggsave()` é a função do gggplot2 para isso, que salvará o gráfico mais recentemente criado no disco:
+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+ggsave(filename = "penguin-plot.png")
+```
+
+- Esse código irá salvar o gráfico em sua pasta ou diretório de trabalho:
+
+```{r, echo=TRUE}
+getwd()
+```
+
+- Se não especificamos a largura e a altura, elas serão retiradas das dimensões do dispositivo de plotagem atual. 
+
+- Para termos um código reproduzível, é importante especificá-las ou, 
+pelo menos, especificar a escala:
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+fig01 <- ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point(aes(color = species, shape = species)) +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Body mass and flipper length",
+    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+    x = "Flipper length (mm)", y = "Body mass (g)",
+    color = "Species", shape = "Species"
+  ) +
+  scale_color_colorblind()
+
+ggsave(filename = "penguin-plot.png")
+
+# cria a pasta figs
+dir.create("figs")
+
+# salva a imagen na pasta figs
+f1 <- 'figs/penguin-plot.png'
+ggsave(filename = f1,
+       plot = fig01,
+       width = 13,
+       height = 9,
+       dpi = 400,
+       units = "in")
+```
+
+
+
+- Geralmente, no entanto, é recomendável escrever seus relatórios finais usando `R Markdown` ou o sistema `Quarto`, que é a nova geração.
+
+- `R Markdown`, `Quarto` e `Jupyter Notebooks` são sistemas de autoria reproduzíveis que permitem intercalar código, prosa e incluir automaticamente 
+gráficos, tabelas, entre outros resultados de análise e modelagem de dados 
+no produto final.
+
+
+## Referências
+
+
+
+
+
+
+
+
