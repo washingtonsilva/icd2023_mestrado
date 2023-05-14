@@ -1,9 +1,20 @@
 ---
 title: "Resolução da Lista de Exercícios 1"
 author: "Prof. Washington S. da Silva"
-subtitle: "MPA - Discipplina: Introdução à Ciência dos Dados 2023"
-output: html_document
+output: 
+  html_document:
+    theme: readable
+    toc: true
+    toc_float: true
 ---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
 
 ```{r setup, include=FALSE}
 # opcoes globais para o arquivo a ser gerado
@@ -21,78 +32,122 @@ library(owidR)
 
 ### Questão 1
 
-a.
+**a.**
 
 ```{r}
 x <- 10*30
 x
 ```
 
-b.
+**b.**
 
 ```{r}
-
+y <- seq(1:100)
+length(y)
 ```
 
-c.
+**c.**
 
 ```{r}
-
+ls()
 ```
 
-d.
+**d.**
 
 ```{r}
-
+rm(x,y)
+ls()
 ```
 
 
 ### Questão 2
 
-a.
+**a.** Os principais tipos atômicos para representação de dados na linguagem R 
+estão descitos no quadro a seguir:
 
-```{r}
+ Tipos            Descrição    
+-----------       ---------------------------------------------  
+`double`          um vetor contendo números reais
+`integer`         um vetor contendo números inteiros
+`character`       um vetor contendo caracteres 
+`logical`         um vetor contendo valores lógicos
+`complex`         um vetor contendo números complexos
+`NA`              `Not Available`: representa dados faltantes
+`NaN`             `Not a Number`: 0/0, 1/0, etc. 
+`Inf`             $+ \infty$ ou $- \infty$
 
-```
 
-b.
+**b.** As principais estruturas para representação de dados na linguagem R são:
 
-```{r}
+ Estrutura                 Descrição    
+------------               --------------------------------------------- 
+`vector`                    elementos devem ser o mesmo tipo.
+`matrix`.                   elementos devem ser do tipo numérico (double ou integer).
+`data.frame` ou `tibble`.   colunas podem ser de tipos diferentes. É a estrutura mais usual 
+                            para a análise de dados.
+`array`                     elementos devem ser do mesmo tipo, mas com mais dimensões.
+`list`                      elementos podem ser de diferentes tipos, incluindo 
+                            estruturas como vetores, data frames etc. É a 
+                            estrutura de dados mais flexível.
 
+
+```{r fig1, out.width = "80%", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/struct.png")
 ```
 
 
 ### Questão 3
 
-
-a.
+**a.**
 
 ```{r}
-
+vendas <- c(653, 552, 748, 658, 502, 310, 160)
+custo <- c(243, 218, 283, 284, 212, 98, 110)
 ```
 
-b.
+**b.**
 
 ```{r}
-
+length(vendas)
 ```
 
-c.
-
 ```{r}
-
+length(custo)
 ```
 
-d.
+**c.**
 
 ```{r}
-
+lucro <- vendas - custo
+lucro
 ```
 
-e.
+**d.**
+
+Podemos utilizar a função `replace()`
 
 ```{r}
+vendas <- replace(vendas, vendas == 310, 130)
+lucro <- vendas - custo
+lucro
+```
 
+É sempre importante lembrar que, em geral, há várias possibilidades 
+para se resolver uma tarefa com uma linguagem de programação. 
+
+Outro método possível para corrigir o valor é: `vendas[x == 310] <- 130`
+
+**e.**
+
+```{r}
+lucro_total <- sum(lucro)
+lucro_total
+```
+
+
+```{r}
+lucro_medio_diario <- mean(lucro)
+lucro_medio_diario
 ```
 
 
@@ -101,7 +156,7 @@ e.
 ```{r questao4, renv.ignore = TRUE}
 i <- 0.006
 for (j in 1:1000) {
-   i <- 
+   i <- (1 - (1 + i)^(-20))/19
 }
 
 i
@@ -110,82 +165,216 @@ i
 
 ### Questão 5
 
-a. 
+**a.** 
 
 ```{r}
+# ativando os pacotes
+library(dplyr)
+library(gapminder)
 
+brasil <- gapminder |> filter(country == "Brazil")
+head(brasil)
 ```
 
-b.
+**b.**
 
 ```{r}
-
+gapminder |> filter(lifeExp < 30)
 ```
 
-c.
+**c.**
 
 ```{r}
-
+gapminder |> filter(country %in% c("Brazil", "Argentina"))
 ```
 
-d.
+**d.**
+
+dados sobre esperança de vida (lifeExp), população (pop) e Pib per capita (gdpPercap) apenas para o Brasil:
 
 ```{r}
-
+gapminder |> 
+    filter(country == "Brazil", year == 2007) |> 
+          select(country, lifeExp, pop, gdpPercap)
 ```
+
+Podemos verificar que estimativa da esperança de vida média para o Brasil em 
+2007 era 72,4 anos.
 
 
 ### Questão 6
 
 ```{r}
+set.seed(123)
 
+va_normal <- rnorm(100, mean = 51, sd = 5.2)
+
+# estimativa da média via simulacao
+est_media <- mean(va_normal)
+est_media
+
+# estimativa do desvio-padrao via simulacao
+est_dp <- sd(va_normal)
+est_dp
 ```
+
+Podemo usar o erro percentual para comparar as estimativas obtidas por 
+simulação com o verdadeir valor dos parâmetros:
+
+```{r}
+erro_percentual_media <- (abs(51 - est_media)/51)*100
+erro_percentual_media 
+```
+
+```{r}
+erro_percentual_dp <- (abs(5.2 - est_dp)/5.2)*100
+erro_percentual_dp 
+```
+
+Vemos que o erro percentual da estimativa do desvio-padrão (8,7%) é 
+aproximadamente 9 vezes superior ao erro percentual da estimativa da média 
+(0,9%). 
+
+Para reduzir o erro percentual da estimativa do desvio-padrão (e da média por 
+consequência), podemos aumentar o número de amostras simuladas de 100 para, 
+por exemplo, 1000.
 
 
 ### Questão 7
 
-a.
+simulando a variável aleatória Z:
 
 ```{r}
+set.seed(123)
+z <- rnorm(1000)
+```
 
+**a.**
+
+estimavia da probabilidade por simulação:
+
+```{r}
+sum(z > 2.5)/1000
+```
+
+estimativa da probabilidade usando a função `pnorm`:
+
+```{r}
+1 - pnorm(2.5)
 ```
 
 
-b.
+**b.**
+
+estimavia da probabilidade por simulação:
 
 ```{r}
-
+sum(z > -1.2 & z < 1.3)/1000
 ```
+
+estimativa da probabilidade usando a função `pnorm`:
+
+```{r}
+pnorm(1.3) - pnorm(-1.2)
+```
+
+Podemos ver que com 1000 amostras simuladas, as estimativas são muito próximas.
 
 
 ### Questão 8
 
-a.
+**a.**
+
+estimativa da integral por simulação de Monte Carlo:
 
 ```{r}
+set.seed(456)
 
+a <- runif(100000, min = 1, max = 3)
+mean(a^2)*(3 - 1)
 ```
 
 
-b.
+estimativa da integral numericamente usando a função integrate:
 
 ```{r}
+# cria a funcao seno(x)
+f1 <- function(x) {
+  out <- x^2
+}
 
+integrate(f1, lower = 1, upper = 3)
 ```
+
+
+**b.**
+
+estimativa da integral por simulação de Monte Carlo:
+
+```{r}
+set.seed(789)
+
+b <- runif(100000, min = 0, max = pi)
+mean(sin(b))*(pi)
+```
+
+estimativa da integral usando a função integrate:
+
+```{r}
+# cria a funcao seno(x)
+f2 <- function(x) {
+  out <- sin(x)
+}
+
+integrate(f2, lower = 0, upper = pi)
+```
+
 
 
 ### Questão 9
 
-```{r}
+Estimativa do VaR da carteira pelo método Hhstórico usando a função `Var()` 
+do pacote `PerformanceAnalytics`:
 
+importando o arquivo de dados:
+
+```{r}
+path1 <- "dados/retornos_xts.rds"
+retornos_xts <- read_rds(path1)
+head(retornos_xts)
 ```
+
+Estimativa do VaR de 1-dia para a carteira (p = 0.05):
+
+```{r, warning = FALSE, message = FALSE}
+library(PerformanceAnalytics)
+
+VaR(retornos_xts, 
+    p = .95, 
+    method = "historical", 
+    weights = c(0.5, 0.2, 0.3),     
+    portfolio_method = "component")
+```
+
+
+O Valor-em-Risco estimado (VaR) de 1-dia para a carteira (p = 0.05), pelo 
+método de simulação histórica é igual a 0.038*(R$ 1.000.000,00) = R$ 37.910,00. 
+
+A estimativa indica que há uma probabilidade de 5% da carteira sofrer uma perda maior que R$ 37.910,00 no dia, ou, que há 95% de probabilidade da perda 
+na carteira ser menor que R$ 37.910,00 no dia.
+
+Pelo resultado vemos que as contribuições de cada ação para o risco da carteira 
+foram:
+
+| PETR4.SA   | BDORY      | ABEV     | 
+|:----------:|:----------:|:--------:|
+|  71,63%    | 18,17%     | 10,20%   |
+
 
 
 ### Questão 10
 
-a. 
-
-importando os dados:
+**a.** importando os dados:
 
 ```{r}
 library(owidR)
@@ -194,17 +383,14 @@ energia_solar <- owid("solar-energy-consumption-by-region")
 dplyr::glimpse(energia_solar)
 ```
 
-b.
-
-criando o mapa temático:
+**b.** criando o mapa temático:
 
 ```{r}
 owid_map(energia_solar)
 ```
 
-c.
-
-gráfico de linha para a série de geração de energia solar para o Brasil, Alemanha, Estados Unidos e China:
+**c.** gráfico de linha para a série de geração de energia solar para o Brasil, 
+Alemanha, Estados Unidos e China:
 
 ```{r}
 owid_plot(energia_solar, summarise = FALSE, filter = c("Brazil", "Germany", 
