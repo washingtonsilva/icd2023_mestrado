@@ -1,0 +1,149 @@
+---
+title: "Exame 1 - Resolução"
+subtitle: "Introdução à Ciência dos Dados 2023"
+author: "Seu Nome"
+date: "18/05/2023"
+output: html_document
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+```{r setup, include = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+library(readr)
+library(skimr)
+library(ggplot2)
+library(ggthemes)
+library(janitor)
+library(scales)
+```
+
+
+### Questão 1
+
+```{r}
+file <- "dados/BBBClub.csv"
+bbclub <- readr::read_csv(file, col_names = TRUE)
+dplyr::glimpse(bbclub)
+```
+
+
+
+### Questão 2
+
+```{r}
+head(bbclub)
+```
+
+
+
+### Questão 3  
+
+```{r}
+skimr::skim(bbclub)
+```
+
+
+
+### Questão 4 
+
+```{r}
+bbclub_analise <- bbclub |> 
+   dplyr::transmute(choice = factor(choice),
+                    gender = factor(gender),
+                    amount = as.integer(amount),
+                    freq = as.integer(freq),
+                    last = as.integer(last),
+                    first = as.integer(first),
+                    child = as.integer(child),
+                    youth = as.integer(youth),
+                    cook = as.integer(cook),
+                    diy = as.integer(diy),
+                    art = as.integer(art))
+
+dplyr::glimpse(bbclub_analise)
+```
+
+
+
+### Questão 5 
+
+
+```{r}
+summary(bbclub_analise$amount)
+```
+
+
+
+### Questão 6
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(bbclub_analise, aes(x = amount)) + 
+  geom_histogram(aes(y = ..density..)) +
+  geom_density(col = "steelblue", size = 1.5) + 
+  theme_minimal()
+```
+
+
+```{r}
+ggplot(bbclub_analise, aes(x = amount)) +
+  geom_boxplot() +
+  coord_flip() + 
+  labs(x = "Valor Total Gasto",
+       y = NULL) +
+  theme_minimal()
+```
+
+
+
+### Questão 7
+
+
+```{r}
+tab1 <- bbclub_analise |> 
+        tabyl(last) |> 
+        adorn_pct_formatting(rounding = "half up", digits = 0) |>
+        knitr::kable()
+tab1
+```
+
+
+
+### Questão 8
+
+```{r}
+ggplot(bbclub_analise, aes(x = factor(last))) + 
+ geom_bar() + 
+ theme_minimal()
+```
+
+
+
+### Questão 9
+
+
+```{r}
+ggplot(bbclub_analise, aes(x = gender, y = amount)) + 
+  geom_boxplot() + 
+  theme_minimal()
+```
+
+
+
+### Questão 10
+
+
+```{r}
+ggplot(data = bbclub_analise, mapping = aes(x = last, y = amount)) +
+  geom_point() +
+  geom_smooth(mapping = aes(x = last, y = amount), method = "lm")
+```
+
+
+

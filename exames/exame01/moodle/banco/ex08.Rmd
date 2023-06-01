@@ -1,0 +1,43 @@
+
+Question
+========
+
+Qual é o conteúdo do objeto `gender` após o código a seguir é executado?
+
+```
+gender <- c("M", "M", "F", "F", "F")
+whereF <- (gender == "F")
+gender[whereF] <- "Female"
+```
+
+Answerlist
+----------
+
+* FALSE FALSE  TRUE  FALSE  TRUE
+* FALSE TRUE   FALSE  TRUE  TRUE
+* FALSE FALSE  TRUE  TRUE  TRUE
+* FALSE FALSE  TRUE  TRUE  FALSE
+
+
+
+Solution
+================
+
+
+
+Answerlist
+----------
+* FALSE 
+* FALSE
+* TRUE
+* FALSE
+
+
+
+Meta-information
+================
+exname: genero
+extype: schoice
+exsolution: 0010
+exshuffle: TRUE
+

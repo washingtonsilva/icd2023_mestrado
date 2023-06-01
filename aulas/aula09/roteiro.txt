@@ -1,0 +1,6 @@
+1. Comentar o Artigo Data Organization in Spreadsheets
+2. Tipos de Dados em Finanças
+3. Inferência - Conceitos Básicos
+4. Análise de Correlação - Slides e Tutorial
+
+OBS: Tentar disponibilizar solução do Exame 1

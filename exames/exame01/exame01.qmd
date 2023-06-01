@@ -1,0 +1,186 @@
+---
+title: "Exame 1 - Valor: 35 pontos"
+subtitle: "Introdução à Ciência dos Dados 2023"
+lang: "pt"
+date: today
+author:
+  - name: Prof. Washington Santos da Silva 
+    affiliation: IFMG - Campus Formiga - Mestrado Profissional em Administração.
+    affiliation-url: https://www.formiga.ifmg.edu.br/mestrado
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc-location: left
+    number-sections: false
+    smooth-scroll: true
+    theme: solarized
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+```{r setup, include = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+library(readr)
+library(skimr)
+library(ggplot2)
+library(ggthemes)
+library(janitor)
+library(scales)
+```
+
+
+## Questões de Múltipla Escolha
+
+Na seção da sala virtual da disciplina referente ao Exame 1, acesse 
+Tarefa e responda às dez questões de múltipla escolha. Cada questão 
+tem o valor de 1 ponto, totalizando 10 pontos.
+
+
+## Instruções
+
+::: {.callout-note icon=false}
+### Procedimentos
+
+- Baixe o arquivo compactado `exame01.zip` disponibilizado na 
+sala virtual da disciplina. Este arquivo contém o notebook R que vocês 
+utilizarão para resolver as questões, chamado `exame1_modelo.Rmd`, e 
+o arquivo de dados `BBBClub.csv`.  
+
+- Crie uma pasta chamada `exames`, dentro do projeto `icd2023` do RStudio.
+
+- Em seguinda, dentro da pasta `exames` crie uma subpasta chamada `exame01`, mova o notebook `exame1_modelo.Rmd` para esta subpasta.
+
+- Ainda na pasta `exame01`, crie uma subpasta chamada `dados` e mova o arquivo `BBBClub.csv` para esta subpasta. 
+
+- Finalizados os passos anteriores, utilize o notebook `exame1_modelo.Rmd` para resolver as questões.
+  
+- Após resolver todas as questões que conseguir, processe o notebook para criar um arquivo no formato `html`. Para gerar o arquivo, basta clicar no botão 
+`Knit` e, em seguida, clicar em: `Knit to HTML`.
+
+- Caso não consiga gerar o arquivo `.html` devido a um erro em uma ou mais 
+questões, insira a opção `eval = FALSE` no chunk correspondente: `{r, eval = FALSE}`
+
+- Após gerar o arquivo `.html` final, contendo a resolução das questões, renomeie o arquivo gerado com o seguinte padrão: `nome_sobrenome.html`.
+
+- Vocês devem fazer o upload de um arquivo `.html` no local apropriado da 
+sessão da sala virtual da disciplna sobre o Exame 1.
+:::
+
+
+## Dados
+
+Para ilustrar os conceitos e procedimentos básicos da análise exploratória de dados e responder às questões a seguir, utilizem os dados do do Bookbinders 
+Book Club (um clube do livro) contidos no arquivo `BBBClub.csv`. O arquivo contém 1.300 observações sobre 11 variáveis descritas a seguir:
+
+variável        Descrição
+------------    --------------------------------------------------------
+`choice`        O cliente comprou o livro “A História da Arte de Florença”?
+`gender`        Gênero
+`amount`        Valor total gasto no BBB Club
+`freq`          Frequência total de compras no BBB Club
+`last`          Número de meses desde a última compra
+`first`         Número de meses desde a primeira compra
+`child`         Número de livros infantis comprados
+`youth`         Número de livros juvenis comprados
+`cook`          Número de livros de culinária comprados
+`diy`           Número de livros do tipo faça você mesmo comprados
+`art`           Número de livros de arte comprados
+
+Cada questão será pontuada com 2,5 pontos
+
+
+### Questão 1
+
+Importe o arquivo `BBBClub.csv` usando a função apropriada do pacote `readr` e nomeie o objeto como `bbclub`. Utilize a função apropriada do pacote dplyr para ter uma visão geral dos dados importados.
+
+
+
+### Questão 2
+
+Execute o comando que exibe as primeiras seis linhas do objeto importado. 
+O que cada observação representa?
+
+
+
+### Questão 3  
+
+Utilize a função `skimr` do pacote `skim` para obter um relatório detalhado dos dados importados. Analisando o relatório, os dados importandos 
+são compativeis com o número de observações e variáveis informandos anteriormente? Quantas variáveis são do tipo `numeric` e quantas são do tipo `character`? Há dados faltantes?
+
+
+
+### Questão 4 
+
+Usando a função `transmute()` do pacote `dplyr`, altere as variáveis do 
+tipo `character` para a classe `factor` (usando `factor()`) e as variáveis do tipo numérico `double` para o tipo numérico `integer` (usando `as.integer()`).
+
+Nomeie os dados trasnformados `bbclub_analise`. Após finalizar 
+a transformação, verifique se a transformação está correta usando `dplyr::glimpse()`.
+
+
+
+### Questão 5 
+
+Obtenha as estimativas do valor total mínimo, o primeiro quartil do 
+valor total gasto, o valor total mediano, o valor total médio, o terceiro quartil do valor total e o valor total máximo gasto no Bookbinders Book Club usando a função `summary()` aplicada sobre a variável `amount` 
+
+(**Dica**, podemos extrair uma variável de uma data.frame usando `nome_dataframe$nome_variavel`).
+
+Qual a interpretação das estimativas do primeiro quartil e do terceiro quartil?
+
+
+
+### Questão 6
+
+Usando o pacote `ggplot2`, faça um histograma, com densidade empírica 
+sobreposta, e um boxplot da disbribuição da variável `amount` (valor total 
+gasto no clube). 
+
+Observando os gráficos exploratórios, qual (ou quais) a principal 
+característica da distribuição do valor total gasto no clube?
+
+
+
+### Questão 7
+
+Obtenha uma tabela contendo frequências (absolutas e 
+percentuais) para a variável `last` (número de meses desde a última compra) usando a função `tabyl` do pacote `janitor`. 
+
+
+
+### Questão 8
+
+Facá um gráfico de barras da variável `last` usando o pacote `ggplot2`. 
+Use `x = factor(last)` dentro de `aes`. 
+
+Observando a tabela de frequências ou o gráfico de barras, há quantos meses a maioria dos clientes comprou algum livro?
+
+
+
+### Questão 9
+
+Iniciando com `ggplot(bbclub_analise, aes(gender, amount))`, complete o 
+código e faça um boxplot comparativo entre gênero e valor total gasto 
+no clube. 
+
+Observando o gráfico, há alguma diferença aparente na distribuição 
+dos gastos entre homens e mulheres?
+
+
+
+### Questão 10
+
+Para os dados do Bookbinders Book Club, um analista de dados formula a 
+hipóteses de que tende a haver uma correlação positiva entre o tempo (número de meses) desde a última compra e o valor total gasto, pois os clientes que 
+podem esperar mais tempo desde sua última compra, tendem a comprar mais para cumprir os requisitos mínimos de compra do clube do livro. 
+
+Faça um gráfico de dispersão entre as variáveis `last` e `amount` e trace uma reta de regressão. O gráfico de dispersão fornece evidências contra, ou a favor, da hipótese de que tendemos a observar uma correlação positiva entre o tempo (número de meses) desde a última compra e o valor total gasto?
+
+

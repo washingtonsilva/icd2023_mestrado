@@ -1,0 +1,35 @@
+
+Question
+========
+
+Como você cria uma variável chamada x com o valor numérico 5?
+
+
+Answerlist
+----------
+* int x = 5 
+* x : 5
+* x <- 5
+
+
+
+Solution
+================
+
+
+
+
+Answerlist
+----------
+* FALSE
+* FALSE
+* TRUE
+
+
+Meta-information
+================
+exname: atrib
+extype: schoice
+exsolution: 001 
+exshuffle: TRUE
+

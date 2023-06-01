@@ -1,0 +1,37 @@
+
+Question
+========
+
+Qual operador pode ser usado para comparar dois valores?
+
+
+Answerlist
+----------
+* =
+* ==
+* <>
+* ><
+
+
+
+Solution
+================
+
+
+
+
+Answerlist
+----------
+* FALSE
+* TRUE
+* FALSE
+* FALSE
+
+
+Meta-information
+================
+exname: testequal
+extype: schoice
+exsolution: 0100 
+exshuffle: TRUE
+

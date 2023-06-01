@@ -1,0 +1,34 @@
+
+Question
+========
+
+Na linguagem R é necessário declarar o tipo de dados representado 
+por uma variável?
+
+
+Answerlist
+----------
+
+* Falso
+* Verdadeiro
+
+
+Solution
+================
+
+
+
+Answerlist
+----------
+* TRUE 
+* FALSE
+
+
+
+Meta-information
+================
+exname: dyntype
+extype: schoice
+exsolution: 10
+exshuffle: TRUE
+

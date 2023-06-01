@@ -1,0 +1,49 @@
+
+Question
+========
+
+Selecione a opção que corresponde ao tipo correto das seguintes variáveis: 
+
+- idade
+- gênero
+- renda
+- número de pedidos de seguro desemprego solicitados na última semana
+  no Brasil.
+- rating (nota referente ao risco de crédito) sendo AAA (mais alta 
+qualidade) (BBB boa qualidade) (CCC risco substancial)
+
+Answerlist
+----------
+
+* numérica discreta, categórica, numérica contínua, numérica contínua,  
+  categórica ordinal.
+* categórica ordinal, numérica contínua, numérica contínua, numérica discreta,   categórica.
+* numérica contínua, categórica, numérica contínua, numérica discreta,    
+  categórica ordinal.
+* numérica contínua, numérica discreta, categórica, categórica ordinal,   
+  numérica contínua.
+ 
+
+
+
+Solution
+================
+
+
+
+Answerlist
+----------
+* FALSE 
+* FALSE
+* TRUE
+* FALSE
+
+
+
+Meta-information
+================
+exname: Rauthors
+extype: schoice
+exsolution: 0010
+exshuffle: TRUE
+

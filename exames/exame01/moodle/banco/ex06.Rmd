@@ -1,0 +1,36 @@
+
+Question
+========
+
+O que função `nchar()` executa quando aplicada à string linguagem?
+
+
+Answerlist
+----------
+
+* Adiciona uma linha para cada caracter da palavra linguagem
+* Adiciona espaços para cada caracter da palavra linguagem
+* Encontra o número de caracteres da palavra linguagem
+
+
+
+Solution
+================
+
+
+
+Answerlist
+----------
+* FALSE 
+* FALSE
+* TRUE
+
+
+
+Meta-information
+================
+exname: caract
+extype: schoice
+exsolution: 001
+exshuffle: TRUE
+

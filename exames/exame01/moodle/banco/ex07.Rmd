@@ -1,0 +1,38 @@
+
+Question
+========
+
+Qual das seguintes características de variáveis aleatóris descreve uma medida do quanto duas variáveis variam entre si?
+
+
+Answerlist
+----------
+
+* Variância
+* Média condicional
+* Média local
+* Covariância
+
+
+
+Solution
+================
+
+
+
+Answerlist
+----------
+* FALSE 
+* FALSE
+* FALSE
+* TRUE
+
+
+
+Meta-information
+================
+exname: incompro
+extype: schoice
+exsolution: 0001
+exshuffle: TRUE
+

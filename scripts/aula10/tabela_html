@@ -1,0 +1,17 @@
+
+<table style="text-align:center"><tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td>Custos Totais (reais)</td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Unidades Vendidas</td><td>23.00<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(22.00, 24.00)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td style="text-align:left">Intercepto</td><td>43,100.00</td></tr>
+<tr><td style="text-align:left"></td><td>(-32,644.00, 118,843.00)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td style="text-align:left">Observations</td><td>15</td></tr>
+<tr><td style="text-align:left">R<sup>2</sup></td><td>0.99</td></tr>
+<tr><td style="text-align:left">Adjusted R<sup>2</sup></td><td>0.99</td></tr>
+<tr><td style="text-align:left">Residual Std. Error</td><td>33,705.00 (df = 13)</td></tr>
+<tr><td style="text-align:left">F Statistic</td><td>1,350.00<sup>***</sup> (df = 1; 13)</td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Notes:</em></td><td style="text-align:left"><sup>***</sup>Significant at the 1 percent level.</td></tr>
+<tr><td style="text-align:left"></td><td style="text-align:left"><sup>**</sup>Significant at the 5 percent level.</td></tr>
+<tr><td style="text-align:left"></td><td style="text-align:left"><sup>*</sup>Significant at the 10 percent level.</td></tr>
+</table>

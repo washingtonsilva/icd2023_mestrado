@@ -1,0 +1,120 @@
+---
+title: "Introdução à Ciência dos Dados - Aula 9"
+subtitle: "Tutorial - Análise de Dados Experimentais"
+author: "Prof. Washington Santos da Silva"
+date: "25/05/2023"
+output:
+  slidy_presentation:
+    logo: logo.jpg
+    incremental: false
+    highlight: default
+    footer: "Copyright (c) 2023, Washington S. Silva"
+bibliography: bibliografia.bib
+csl: associacao-brasileira-de-normas-tecnicas.csl
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+
+```{r setup, echo = FALSE, include = FALSE, warning = TRUE, message = TRUE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(readxl)
+```
+
+
+## Roteiro
+
+- Analisar dados de um experimento em Economia
+
+- Utilizar estatísticas descritivas e gráficos para descrever e 
+  comparar dados experimentais
+  
+- Calcular e interpretar valores-p
+
+- Avaliar a utilidade dos experimentos para determinar causalidade 
+
+- Limitações de experimentos
+
+
+## Economia Experimental
+
+- Assim como os físicos usam experimentos para investigar como os fenômenos físicos funcionam sob certas condições, os cientistas sociais usam experimentos para investigar como as pessoas podem se comportar em situações específicas.
+
+- Embora não possamos prever perfeitamente como as pessoas realmente se comportarão, o ambiente controlado dos experimentos nos permite isolar os 
+efeitos de uma determinada mudança e identificar razões específicas para o comportamento observado. 
+
+- Se mantivermos todas as condições iguais e mudarmos apenas um fator, então podemos ter mais certeza de que quaisquer diferenças que observamos são 
+devidas a essa mudança.
+
+
+## Bens Públicos
+
+- Os economistas usam experimentos para analisar as interações sociais em que a decisão de uma pessoa afeta o resultado para esse indivíduo e os resultados para os outros. 
+
+- Alguns bens e serviços são chamados de bens públicos porque quando uma pessoa suporta o custo de fornecer o bem, todos podem apreciá-lo. 
+
+- Projetos de irrigação e a produção de novos conhecimentos são exemplos de \
+bens públicos. 
+
+- O problema com o fornecimento de bens públicos é que pessoas completamente egoístas preferem se beneficiar do bem sem pagar nada por ele - isso é conhecido como 'free riding' (o problema do carona).
+
+- No entanto, existem exemplos reais de fornecimento bem sucedido de bens públicos, como projetos comuns de irrigação na Índia e no Nepal. O que poderia explicar tais contribuições sustentadas para um bem público?
+
+- Uma explicação é que as pessoas contribuem porque se preocupam com o bem-estar dos outros ou porque respeitam as normas de que "o problem do carona é ruim". 
+Ou eles podem contribuir para a vergonha que sentiriam (ou pior) se fossem punidos publicamente. 
+
+- Se outros em sua comunidade sabem que você não contribuiu e poderiam puni-lo (por exemplo, fofocando sobre você, retendo ajuda no futuro ou ostracizando você), então você pode contribuir por interesse próprio ou porque quer ser capaz de pensar em si mesmo como uma boa pessoa. 
+
+
+
+## Artigo: *Antisocial Punishment Across Societies*
+
+Para ver se a punição poderia resultar em contribuições sustentadas para um 
+bem público, os pesquisadores [@herrmann2008](https://www.science.org/doi/10.1126/science.1153808)  fizeram um 
+estudo em que diferentes grupos de pessoas, em vários países, participaram de 
+dois experimentos de bens públicos.
+
+### Primeiro experimento
+
+O primeiro experimento teve dez rodadas. Em cada rodada:
+
+    - Cada pessoa no experimento (sujeitos) recebe US$ 20.
+
+    - Os sujeitos são alocados aleatoriamente em pequenos grupos, normalmente de quatro pessoas que não se conhecem.
+
+    - Eles são convidados a decidir sobre uma contribuição de seus US$ 20 para uma reserva comum de dinheiro.
+
+    - A reserva de dinheiro é um bem público. Para cada dólar contribuído, cada pessoa do grupo recebe US$0,40, incluindo o contribuinte.
+
+    - Após cada rodada, os participantes são informados sobre quanto outros membros de seu grupo contribuíram.
+
+     - Por exemplo, se entre três jogadores, cada um contribuir com US\$ 1, e um não contribuir com nada, cada um dos três terá US\$ 20,20 no total, e o quarto terá US\$ 21,20. 
+
+### Segundo Experimento
+
+O segundo experimento foi o mesmo que o primeiro, mas contou com uma opção de punição adicional: 
+
+    - Depois de observar as contribuições de seu grupo, os jogadores individuais poderiam pagar para punir outros jogadores, fazendo-os pagar uma multa de US\$ 3. 
+
+    - O punidor permaneceu anônimo, mas teve que pagar US$ 1 por jogador punido. 
+
+
+Você pode ler o estudo de [@herrmann2008](https://www.science.org/doi/10.1126/science.1153808) e os conceitos econômicos por trás de seu experimento na Seção 2.7 de Economia, Sociedade e PolíticasPúblicas.
+
+Neste tutorial, vamos aprender maneiras de descrever e analisar os dados experimentais dos dois experimentos descritos acima, a fim de responder às seguintes perguntas de pesquisa:
+
+    - Houve alguma diferença de comportamento (contribuições médias) entre os 
+      experimentos?
+
+    - Podemos atribuir as diferenças observadas de comportamento à mudança das 
+      condições, ao invés do acaso?
+
+## Referências
+
+

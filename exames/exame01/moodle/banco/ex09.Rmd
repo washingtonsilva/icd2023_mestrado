@@ -1,0 +1,40 @@
+
+Question
+========
+
+Qual "verbo" do pacote `dplyr` é utilizado para calcular diversas 
+estatísticas de uma `data.frame` ou `tibble`?
+
+
+
+Answerlist
+----------
+
+* `mutate()`
+* `group_by()`
+* `filter()`
+* `summarise()`
+* `transmute()`
+
+
+Solution
+================
+
+
+
+Answerlist
+----------
+* FALSE 
+* FALSE
+* FALSE
+* TRUE
+* FALSE
+
+
+Meta-information
+================
+exname: dpverbs
+extype: schoice
+exsolution: 00010
+exshuffle: TRUE
+

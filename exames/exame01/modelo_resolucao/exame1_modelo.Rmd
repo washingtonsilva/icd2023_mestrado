@@ -1,0 +1,115 @@
+---
+title: "Exame 1 - Resolução"
+subtitle: "Introdução à Ciência dos Dados 2023"
+author: "Seu Nome"
+date: "18/05/2023"
+output: html_document
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+```{r setup, include = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+library(readr)
+library(skimr)
+library(ggplot2)
+library(ggthemes)
+library(janitor)
+```
+
+
+### Questão 1
+
+```{r}
+
+```
+
+
+
+### Questão 2
+
+```{r}
+
+```
+
+
+
+### Questão 3  
+
+```{r}
+
+```
+
+
+
+### Questão 4 
+
+```{r}
+
+```
+
+
+
+### Questão 5 
+
+
+```{r}
+
+```
+
+
+
+### Questão 6
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+
+### Questão 7
+
+
+```{r}
+
+```
+
+
+
+### Questão 8
+
+```{r}
+
+```
+
+
+
+### Questão 9
+
+
+```{r}
+
+```
+
+
+
+### Questão 10
+
+
+```{r}
+
+```
+
+
+

@@ -1,0 +1,36 @@
+
+Question
+========
+
+Os seguintes valores: 10.5, 55 e 787, pertencem a qual tipo atômico de 
+dados da linguagem R?
+
+
+Answerlist
+----------
+* complex
+* numeric
+* integer 
+
+
+
+Solution
+================
+
+
+
+
+Answerlist
+----------
+* FALSE
+* TRUE
+* FALSE
+
+
+Meta-information
+================
+exname: typeat
+extype: schoice
+exsolution: 010 
+exshuffle: TRUE
+

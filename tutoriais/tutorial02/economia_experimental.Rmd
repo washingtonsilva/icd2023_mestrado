@@ -1,0 +1,319 @@
+---
+title: "Aula09 - Introdução à Ciência dos Dados"
+subtitle: "Análise de Dados Experimentais"
+author: "Seu Nome"
+date: "2023-05-25"
+output: html_document
+---
+
+# Empirical Project 2 Working in R
+
+These code downloads have been constructed as supplements to the full Doing Economics projects (https://core-econ.org/doing-economics/). You'll need to download the data before running the code that follows. 
+
+```{r, warning=FALSE}
+library(tidyverse)
+library(readxl)
+```
+
+
+
+## Part 2.2 Describing the data
+
+### R walk-through 2.2 Importing the datafile into R
+
+```{r, warning=FALSE}
+
+path01 <- 'dados/datafile.xlsx'
+path02 <- 'dados/datafile.xlsx'
+
+
+data_N <- read_excel(path01, range = "A2:Q12")
+data_P <- read_excel(path02, range = "A16:Q26")
+```
+
+```{r}
+glimpse(data_N)
+```
+
+```{r}
+glimpse(data_P)
+```
+
+
+Look at the data either by opening the dataframes from the Environment window or by typing `data_N` or `data_P` into the Console.
+
+You can see that in each period (row), the average contribution varies across countries; in other words, there is a distribution of average contributions in each period.
+
+
+
+### R walk-through 2.3 Calculating the mean using a loop or the `apply` function
+
+#### Calculate mean contribution
+
+We calculate the mean using two different methods, to illustrate that there are usually many ways of achieving the same thing. We apply the first method on `data_N`, which uses a loop to calculate the average separately over each column except the first (`data_P[row,2:17]` or `data_P[row,-1]`). We use the second method (the `apply` function) on `data_P`.
+
+```{r}
+# Use a loop for data_N
+
+data_N$meanC <- 0
+
+for (row in 1:nrow(data_N)) {
+  data_N$meanC[row] <- rowMeans(data_N[row, 2:17])
+}
+
+# Use the apply function for data_P
+data_P$meanC <- apply(data_P[, 2:17], 1, mean)
+```
+
+As the name suggests, the `apply` function applies another function (the `mean` function in this case) to all rows or columns in a dataframe. The second input, `1`, applies the specified function to all rows in `data_P[,2:17]`. Typing `2` would have calculated column means instead (check and see for yourself). Type `?apply` in your console for more details, or see R walk-through 2.5 for further practice.
+
+
+
+#### Plot the mean contribution
+
+Now we will produce a line chart showing the mean contributions.
+
+```{r}
+plot(data_N$Period, data_N$meanC, type = "l",
+  col = "blue", lwd = 2, xlab = "Round",
+  ylim = c(4, 14), ylab = "Average contribution")
+
+lines(data_P$meanC, col = "red", lwd = 2)
+
+title("Average contribution to public goods game")
+
+legend("bottomleft", lty = 1, cex = 1.2, lwd = 2,
+  legend = c("Without punishment", "With punishment"),
+  col = c("blue", "red"))
+```
+
+The difference between experiments is stark, as the contributions increase and then stabilize at around \$13 when there is punishment, but decrease consistently from around \$11 to \$4 across the rounds when there is no punishment.
+
+
+### R walk-through 2.4 Drawing a column chart to compare two groups
+
+To make a column chart, we will use the `barplot` function. We first extract the four data points we need (Periods 1 and 10, with and without punishment) and place them into a matrix, which we then input into the `barplot` function.
+
+```{r}
+temp_d <- c(data_N$meanC[1], data_N$meanC[10],
+  data_P$meanC[1], data_P$meanC[10])
+temp <- matrix(temp_d, nrow = 2, ncol = 2, byrow = TRUE)
+temp
+```
+
+```{r}
+barplot(temp, 
+  main = "Mean contributions in a public goods game",
+  ylab = "Contribution",
+  beside = TRUE, col = c("Blue", "Red"), 
+  names.arg = c("Round 1", "Round 10"))
+legend("bottomleft", pch = 1, col = c("Blue", "Red"),
+  c("Without punishment", "With punishment"))
+```
+
+### Tip
+
+Experimenting with these charts will help you to learn how to use R. The details of how to specify the column chart may look complicated, but you can see from Figure 2.3 what the options `main`, `ylab`, `col` and `names.arg` do. To figure out what the `beside` option does, try switching the option from `TRUE` to `FALSE` and see what happens.
+
+
+### R walk-through 2.5 Calculating and understanding the standard deviation
+
+In order to calculate these standard deviations and variances, we will use the `apply` function, which we introduced in R walk-through 2.3. As we saw, `apply` is a command asking R to apply the same function to all the rows or columns of a dataframe, and the basic structure is as follows: `apply(dataframe, dimension (rows or columns), the function to apply)`. So to calculate the variances, we use the following command:
+
+```{r}
+data_N$varC <- apply(data_N[, 2:17], 1, var)
+```
+
+Here we take `data_N[, 2:17]` and apply the `var` function to each row (recall that the second input `1` does this; `2` would indicate columns). Note that as in R walk-through 2.3, we exclude the first column from the calculation, as that contains the period numbers. The result is saved as a new variable called `varC`.
+
+We then apply the same principle to the standard deviation calculation and the `data_P` dataframe.
+
+```{r}
+data_N$sdC <- apply(data_N[, 2:17], 1, sd)
+data_P$varC <- apply(data_P[, 2:17], 1, var)
+data_P$sdC <- apply(data_P[, 2:17], 1, sd)
+```
+
+To determine whether 95% of the observations fall within two standard deviations of the mean, we can use a line chart. As we have 16 countries in every period, we would expect about one observation (0.05 × 16 = 0.8) to fall outside this interval.
+
+```{r}
+citylist <- names(data_N[2:17])
+
+plot(data_N$Period, data_N$meanC, type = "l",
+  col = "blue", lwd = 2, xlab = "Round", 
+  ylim = c(0, 20), ylab = "Average contribution")
+
+# mean + 2 sd
+lines(data_N$meanC + 2 * data_N$sdC, col = "red", lwd = 2)
+
+# mean – 2 sd
+lines(data_N$meanC - 2 * data_N$sdC, col = "red", lwd = 2)
+
+for(i in citylist) {
+  points(data_N[[1]], data_N[[i]])
+}
+
+title("Contribution to public goods game without punishment")
+
+legend("bottomleft", legend = c("Mean", "+/- 2 sd"),
+  col = c("blue", "red"), lwd = 2, lty = 1, cex = 1.2)
+```
+
+None of the observations fall outside the mean ±&nbsp;two standard deviations interval for the public goods game without punishment. Let's see the equivalent chart for the version with punishment.
+
+```{r}
+citylist <- names(data_N[2:17])
+
+plot(data_P$Period, data_P$meanC, type = "l",
+  col = "blue", xlab = "Round",
+  ylim = c(0, 22), ylab = "Average contribution")
+
+# mean + 2 sd
+lines(data_P$meanC + 2 * data_P$sdC, col = "red")
+
+# mean – 2 sd
+lines(data_P$meanC - 2 * data_P$sdC, col = "red")
+
+for(i in citylist) {
+  points(data_P[[1]], data_P[[i]])
+}
+
+title("Contribution to public goods game with punishment")
+
+legend("bottomleft", legend = c("Mean", "+/- 2 sd"),
+  col = c("blue", "red"), lty = 1, cex = 1.2)
+```
+
+Here it looks as if we only have one observation outside the interval (in Period 8). In that aspect the two experiments look similar. However, from comparing these two charts, we see that the game with punishment displays a greater variation of responses than the game without punishment. In other words, there is a larger standard deviation and variance for the observations coming from the game with punishment.
+
+
+### R walk-through 2.6 Finding the minimum, maximum, and range of a variable
+
+To calculate the range for both experiments and for all periods, we will use the `apply` function again. You might think it makes sense to use the following command:
+
+```{r}
+data_P$rangeC <- apply(data_P[, 2:17], 1, range)
+```
+
+Unfortunately, when you execute this command you are likely to get an error message that reads something like this: `Error in $<-.data.frame(*tmp*, "rangeC", value = c(5.81818199157715, : replacement has 2 rows, data has 10`.
+
+Let's investigate why we get this error message, by picking one data row and calculating the range.
+
+```{r}
+range(data_N[1, 2:17])
+```
+
+You can see that we get two values - the maximum and the minimum. However, we need the range as a single value (maximum–minimum). The error arises because we tried to save two variables as a single variable. So we first need to calculate the maximum and minimum for our whole dataset (using the `apply` function) and save this in a new variable called `temp`. 
+
+```{r}
+temp <- apply(data_N[, 2:17], 1, range)
+temp
+```
+
+Now we use the difference between the respective maximums (Column&nbsp;2) and minimums (Column 1) to define our new range variable `rangeC`.
+
+```{r}
+data_N$rangeC <- temp[2, ] - temp[1, ]
+```
+
+And now we do the same for `data_P`:
+
+```{r}
+temp <- apply(data_P[,2:17], 1, range)
+data_P$rangeC <- temp[2, ] - temp[1, ]
+```
+
+Let's create a chart of the ranges for both experiments for all periods in order to compare them.
+
+```{r}
+plot(data_N$Period, data_N$rangeC, type = "l",
+  col = "blue", lwd = 2, xlab = "Round",
+  ylim = c(4, 14), ylab = "Range of contributions")
+
+lines(data_P$rangeC, col = "red", lwd = 2)
+
+title("Range of contributions to public goods game")
+
+legend("bottomright", lwd = 2, lty = 1, cex = 1.2,
+  legend = c("Without punishment", "With punishment"),
+  col = c("blue", "red"), )
+```
+
+This chart confirms what we found in R walk-through 2.5, which is that there is a greater spread (variation) of contributions in the game with punishment.
+
+
+
+### R walk-through 2.7 Creating a table of summary statistics
+
+We have already done most of the work for creating this summary table in R walk-through 2.6. Since we also want to display the minimum and maximum values, we should add these to the dataframes `data_N` and `data_P`. 
+
+```{r}
+data_N$minC <- apply(data_N[, 2:17], 1, min)
+data_N$maxC <- apply(data_N[, 2:17], 1, max)
+data_P$minC <- apply(data_P[, 2:17], 1, min)
+data_P$maxC <- apply(data_P[, 2:17], 1, max)
+```
+
+Now we display the summary statistics in a table. We enclose our command in the `round` function, which reduces the number of digits displayed after the decimal point (2 in our case) and makes the table easier to read.  
+
+```{r}
+print("Public goods game without punishment")
+```
+
+```{r}
+# We want to see Rows 1 and 10 and Column 1 (which contains the period number) as well as Columns 18 to 23 (which contain the statistics). 
+round(data_N[c(1, 10), c(1, 18:23)], digits = 2)
+```
+
+We repeat this command for the version with punishment.
+
+```{r}
+# Show two digits
+options(signif = 2)
+print("Public goods game with punishment")
+```
+
+```{r}
+round(data_P[c(1, 10), c(1, 18:23)], digits = 2)
+```
+
+
+
+## Part 2.3 Did changing the rules of the game affect behaviour?
+
+### R walk-through 2.8 Calculating the p-value for the difference in means
+
+We need to extract the observations in Period 1 for the data for with and without punishment, and then feed the observations into the `t.test` function. The `t.test` function is extremely flexible: if you input two variables (`x` and `y`) as shown below, it will automatically test whether the difference in means is due to chance or not (formally speaking, it tests the null hypothesis that the means of both variables are equal). 
+
+```{r}
+p1_N <- data_N[1, 2:17]
+p1_P <- data_P[1, 2:17]
+t.test(x = p1_N, y = p1_P)
+```
+
+Unfortunately, if you run this code, you are likely to get an error message like this:
+
+`Error: Unsupported use of matrix or array for column indexing.`
+
+The reason for this is that `p1_N` and `p1_P` are still ‘tibbles’ (dataframes) with one observation (row) and 16 variables (columns). However, the `t.test` function requires both `x` and `y` to be variables (with one column and many rows), so we need to reformat `p1_N` and `p1_P`. One way to do this is to use the `t` function (which switches the rows and columns; if you are familiar with matrices, this is the same idea as a vector transpose).
+
+```{r}
+p1_N <- t(data_N[1, 2:17])
+p1_P <- t(data_P[1, 2:17])
+t.test(x = p1_N, y = p1_P)
+```
+
+This result delivers a p-value of 0.9496. This means it is very likely that the assumption that there are no differences in the populations is likely to be true (formally speaking, we cannot reject the null hypothesis). 
+
+The `t.test` function automatically assumes that both variables were generated by different groups of people. When calculating the p-value, it assumes that the observed differences are partly due to some variation in characteristics between these two groups, and not just the differences in experimental conditions. However, in this case, the same groups of people did both experiments, so there will not be any variation in characteristics between the groups. When calculating the p-value, we account for this fact with the `paired` option. 
+
+```{r}
+p1_N <- t(data_N[1, 2:17])
+p1_P <- t(data_P[1, 2:17])
+t.test(x = p1_N, y = p1_P, paired = TRUE)
+```
+
+As you can see, the p-value becomes smaller as we can attribute more of the differences to the ‘with punishment’ treatment, but the p-value is still very large (0.8828), so we still conclude that the differences in Period 1 are likely to be due to chance. 
+
+
+
