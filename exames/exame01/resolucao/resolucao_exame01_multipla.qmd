@@ -1,0 +1,164 @@
+---
+title: "Exame 1: Resolução das Questões de Múltipla Escolha"
+subtitle: "Introdução à Ciência dos Dados 2023"
+lang: "pt"
+date: today
+author:
+  - name: Prof. Washington Santos da Silva 
+    affiliation: IFMG - Campus Formiga - Mestrado Profissional em Administração.
+    affiliation-url: https://www.formiga.ifmg.edu.br/mestrado
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc-location: left
+    number-sections: false
+    smooth-scroll: true
+    theme: solarized
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+```{r setup, include = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+library(tidyverse)
+```
+
+
+
+### Questão 
+
+Como você insere comentários no código da linguagem R?
+
+::: {.callout-note icon=false}
+## Respota correta
+
+\# isto é um comentário
+:::
+
+
+
+### Questão 
+
+Na linguagem R é necessário declarar o tipo de dados representado 
+por uma variável?
+
+::: {.callout-note icon=false}
+## Respota correta
+
+Falsa.
+:::
+
+
+### Questão 
+
+Como você cria uma variável chamada x com o valor numérico 5?
+
+::: {.callout-note icon=false}
+## Respota correta
+
+`x <- 5`
+:::
+
+
+### Questão 
+
+Os seguintes valores: 10.5, 55 e 787, pertencem a qual tipo atômico de 
+dados da linguagem R?
+
+::: {.callout-note icon=false}
+## Respota correta
+
+`numeric`
+:::
+
+
+### Questão 
+
+Qual operador pode ser usado para comparar dois valores?
+
+::: {.callout-note icon=false}
+## Respota correta
+
+`==`
+:::
+
+
+### Questão 
+
+O que função `nchar()` executa quando aplicada à string linguagem?
+
+::: {.callout-note icon=false}
+## Respota correta
+
+Encontra o número de caracteres da palavra linguagem
+:::
+
+
+### Questão 
+
+Qual das seguintes características de variáveis aleatóris descreve uma medida do quanto duas variáveis variam entre si?
+
+::: {.callout-note icon=false}
+## Respota correta
+
+Covariância
+:::
+
+
+### Questão 
+
+Qual é o conteúdo do objeto `gender` após o código a seguir é executado?
+
+```
+gender <- c("M", "M", "F", "F", "F")
+whereF <- (gender == "F")
+gender[whereF] <- "Female"
+```
+
+::: {.callout-note icon=false}
+## Respota correta
+
+`FALSE FALSE  TRUE  TRUE  TRUE`
+:::
+
+
+### Questão
+
+Qual "verbo" do pacote `dplyr` é utilizado para calcular diversas 
+estatísticas de uma `data.frame` ou `tibble`?
+
+::: {.callout-note icon=false}
+## Respota correta
+
+`summarise()`
+:::
+
+
+### Questão
+
+Selecione a opção que corresponde ao tipo correto das seguintes variáveis: 
+
+- idade
+- gênero
+- renda
+- número de pedidos de seguro desemprego solicitados na última semana
+  no Brasil.
+- rating (nota referente ao risco de crédito) sendo AAA (mais alta 
+qualidade) (BBB boa qualidade) (CCC risco substancial)
+
+::: {.callout-note icon=false}
+## Respota correta
+
+numérica contínua, categórica, numérica contínua, numérica discreta, categórica ordinal.
+:::
+
+
+
+
