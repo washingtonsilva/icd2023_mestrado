@@ -1,0 +1,21 @@
+##########################################
+\begin{itemize}[<+-| alert@+>]
+	\item 
+	\item
+	\item   
+\end{itemize}
+##########################################
+\begin{itemize}
+	\item 
+	\item
+	\item   
+\end{itemize}
+##########################################
+\begin{block}{}	
+
+\end{block}
+##########################################
+\begin{alertblock}
+		
+\end{alertblock}
+

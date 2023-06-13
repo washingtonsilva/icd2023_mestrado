@@ -948,21 +948,19 @@ ou, pelo menos, especificar a escala:</p></li>
 <span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a>  <span class="fu">scale_color_colorblind</span>()</span>
 <span id="cb29-14"><a href="#cb29-14" tabindex="-1"></a></span>
-<span id="cb29-15"><a href="#cb29-15" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;penguin-plot.png&quot;</span>)</span></code></pre></div>
-<pre><code>## Saving 8 x 6 in image
-## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># cria a pasta figs</span></span>
-<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;figs&quot;</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a><span class="co"># salva a imagen na pasta figs</span></span>
-<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="st">&#39;figs/penguin-plot.png&#39;</span></span>
-<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> f1,</span>
-<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>       <span class="at">plot =</span> fig01,</span>
-<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">13</span>,</span>
-<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">9</span>,</span>
-<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a>       <span class="at">dpi =</span> <span class="dv">400</span>,</span>
-<span id="cb31-11"><a href="#cb31-11" tabindex="-1"></a>       <span class="at">units =</span> <span class="st">&quot;in&quot;</span>)</span></code></pre></div>
-<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<span id="cb29-15"><a href="#cb29-15" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;penguin-plot.png&quot;</span>)</span>
+<span id="cb29-16"><a href="#cb29-16" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" tabindex="-1"></a><span class="co"># cria a pasta figs</span></span>
+<span id="cb29-18"><a href="#cb29-18" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;figs&quot;</span>)</span>
+<span id="cb29-19"><a href="#cb29-19" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" tabindex="-1"></a><span class="co"># salva a imagen na pasta figs</span></span>
+<span id="cb29-21"><a href="#cb29-21" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="st">&#39;figs/penguin-plot.png&#39;</span></span>
+<span id="cb29-22"><a href="#cb29-22" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> f1,</span>
+<span id="cb29-23"><a href="#cb29-23" tabindex="-1"></a>       <span class="at">plot =</span> fig01,</span>
+<span id="cb29-24"><a href="#cb29-24" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">13</span>,</span>
+<span id="cb29-25"><a href="#cb29-25" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">9</span>,</span>
+<span id="cb29-26"><a href="#cb29-26" tabindex="-1"></a>       <span class="at">dpi =</span> <span class="dv">400</span>,</span>
+<span id="cb29-27"><a href="#cb29-27" tabindex="-1"></a>       <span class="at">units =</span> <span class="st">&quot;in&quot;</span>)</span></code></pre></div>
 <ul>
 <li><p>Geralmente, no entanto, é recomendável escrever seus relatórios
 finais usando <code>R Markdown</code> ou o sistema <code>Quarto</code>,
@@ -973,6 +971,9 @@ permitem intercalar código, prosa e incluir automaticamente gráficos,
 tabelas, entre outros resultados de análise e modelagem de dados no
 produto final.</p></li>
 </ul>
+</div>
+<div id="referências" class="slide section level2">
+<h1>Referências</h1>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->
