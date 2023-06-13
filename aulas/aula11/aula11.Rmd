@@ -1,6 +1,6 @@
 ---
 title: Intodução à Ciência dos Dados
-subtitle: Aula 5 - Análise de Correlação
+subtitle: Aula 11 - Análise de Correlação
 author: Prof. Washington Santos da Silva
 header-includes:
    - \usepackage[brazil]{babel}
@@ -10,7 +10,7 @@ header-includes:
         linkcolor = blue,
         filecolor = magenta,      
         urlcolor = blue}
-date: 05/05/2022
+date: 15/06/2023
 institute: Mestrado Profissional em Administração
 output: binb::metropolis
 beameroption: "show notes"
