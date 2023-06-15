@@ -19,3 +19,55 @@
 		
 \end{alertblock}
 
+
+Inference for Bootstrap CI From the Output:
+
+Looking at the Normal method interval of (0.9219, 0.9589) we can be 95% certain that the actual correlation between petal length and width lies in this interval 95% of the time. As we have seen the output consists of multiple CI using different methods according to the type parameter in function boot.ci. The computed intervals correspond to the (“norm”, “basic”, “perc”, “bca”) or Normal, Basic, Percentile, and BCa which give different intervals for the same level of 95%. The specific method to use for any variable depends on various factors such as its distribution, homoscedastic, bias, etc.
+
+The 5 methods that boot package provides for bootstrap confidence intervals are summarized below:
+
+Normal bootstrap or Standard confidence limits methods use the standard deviation for calculation of CI. 
+Use when statistic is unbiased.
+Is normally distributed.
+
+Basic bootstrap or Hall’s (second percentile) method use percentile to calculate upper and lower limit of test statistic. 
+When statistic is unbiased and homoscedastic.
+The bootstrap statistic can be transformed to a standard normal distribution.
+
+Percentile bootstrap or Quantile-based, or Approximate intervals use quantiles eg 2.5%, 5% etc. to calculate the CI. 
+Use when statistic is unbiased and homoscedastic.
+The standard error of your bootstrap statistic and sample statistics are the same.
+
+BCa bootstrap or Bias Corrected Accelerated use percentile limits with bias correction and estimate acceleration coefficient corrects the limit and find the CI. 
+The bootstrap statistic can be transformed to a normal distribution.
+The normal-transformed statistic has a constant bias.
+
+Studentized bootstrap resamples the bootstrap sample to find a second-stage bootstrap statistic and use it to calculate the CI. 
+Use when statistic is homoscedastic.
+The standard error of bootstrap statistic can be estimated by second-stage resampling.
+
+
+
+
+## Distribuição de Bernoulli
+
+\metroset{block=fill}
+
+O valor esperado (média) de uma VA discreta X com distribuição de Bernoulli é:
+
+\begin{align*}
+E(X) &= \sum xP(X = x), \\
+     &= 1 \times p + 0 \times (1 - p), \\
+     & = p
+\end{align*}
+
+A variância é dada por:
+
+\begin{align*}
+V(X) &= E[(X - E(X))^2], \\
+     &= (1-p)^2 \times p + (0 - p)^2 \times (1 - p), \\
+     &= p - 2pˆ2 + p^3 + p^2 - p^3, \\
+     &= p-p^2, \\
+     &= p(1-p)
+\end{align*}
+
