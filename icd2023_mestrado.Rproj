@@ -11,8 +11,3 @@ Encoding: UTF-8
 
 RnwWeave: Sweave
 LaTeX: pdfLaTeX
-
-BuildType: Website
-WebsitePath: /Users/wss/github/quarto_website_template
-
-SpellingDictionary: pt_BR

@@ -1,0 +1,164 @@
+---
+title: "Exame Final - Valor: 35 pontos"
+subtitle: "Introdução à Ciência dos Dados 2023"
+lang: "pt"
+date: today
+author:
+  - name: Prof. Washington Santos da Silva 
+    affiliation: IFMG - Campus Formiga - Mestrado Profissional em Administração.
+    affiliation-url: https://www.formiga.ifmg.edu.br/mestrado
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc-location: left
+    number-sections: false
+    smooth-scroll: true
+    theme: solarized
+bibliography: bibliografia.bib
+csl: associacao-brasileira-de-normas-tecnicas.csl
+crossref:
+  fig-title: '**Fig.**'
+  fig-labels: arabic
+  title-delim: "**.**"
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+```{r setup, include = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+
+
+## Instruções
+
+::: {.callout-note icon=false}
+### Procedimentos
+
+- Baixe o arquivo compactado `exame_final.zip` disponibilizado na 
+sala virtual da disciplina. Este arquivo contém o notebook R que vocês 
+utilizarão para resolver as questões, chamado `exame2_modelo.Rmd`, e 
+o arquivo de dados `BBBClub.csv`.  
+
+- Acesse a pasta `exames`, dentro do projeto `icd2023` do RStudio.
+
+- Em seguinda, dentro da pasta `exames` crie uma subpasta chamada `exame02`, 
+mova o notebook `exame2_modelo.Rmd` para esta subpasta.
+
+- Ainda na pasta `exame02`, crie uma subpasta chamada `dados` e mova o arquivo `BBBClub.csv` para esta subpasta. 
+
+- Finalizados os passos anteriores, utilize o notebook `exame2_modelo.Rmd` 
+para resolver as questões.
+  
+- Após resolver todas as questões que conseguir, processe o notebook para criar 
+um arquivo no formato `html`. Para gerar o arquivo, basta clicar no botão 
+`Knit` e, em seguida, clicar em: `Knit to HTML`.
+
+- Caso não consiga gerar o arquivo `.html` devido a um erro em uma ou mais 
+questões, insira a opção `eval = FALSE` no chunk correspondente: 
+`{r, eval = FALSE}`
+
+- Após gerar o arquivo `.html` final, contendo a resolução das questões, 
+renomeie o arquivo gerado com o seguinte padrão: `nome_sobrenome.html`.
+
+- Vocês devem fazer o upload de um arquivo `.html` no local apropriado da 
+sessão da sala virtual da disciplna sobre o Exame 1.
+:::
+
+
+
+### Questão 1: Fundamentos de Inferência Estatística: Estimação e Teste de Hipóteses para uma proporção.
+
+Uma empresa de auditoria deseja estimar a proporção de faturas com erros em uma determinada empresa. Para isso, eles selecionaram aleatoriamente uma amostra de 
+200 faturas e encontraram 106 faturas com erros. Sendo $p$, a proporção de 
+todas as faturas com erros, responda às seguintes perguntas:
+
+a. Use os resultados para obter uma estimativa pontual de $p$.
+
+b. No contexto de testes estatísticos de hipóteses, qual é a diferença entre 
+hipótese nula e hipótese alternativa? E entre nível de significância e 
+poder de um teste?
+
+c. Explique, com suas palavras, o conceito de valor-p de um teste de hipóteses.
+
+d. Qual é o valor-p para o teste $H_O: P = 0.5$ versus $H_A: p \neq 0,5$. 
+Interprete o resultado segundo o padrão APA.
+
+e. Qual é o valor-p para o teste $H_0: p = 0.5$ versus $H_A: p > 0.5$. 
+Interprete o resultado segundo o padrão APA.
+
+f. A pesquisa contém evidências estatisticamente significativas sobre se a 
+proporção de faturas com erro seja superior a 50%? A resposta envolve utilizar 
+o resultado do teste realizado em c) ou do teste realizado em d), qual 
+seria o teste correto? Interprete o resultado do teste escolhdio segundo o 
+padrão da APA.
+
+g. Obtenha um intervalo com 95% de confiança para $p$ utilizando 
+o estimador por intervalo baseado no Teorema Central do limite.
+
+h. Obtenha um intervalo com 99% de confiança para $p$ utilizando 
+o estimador por intervalo baseado no Teorema Central do limite.
+
+i. Por que o intervalo obtido em h) é maior que o intervalo obtido 
+em g)?
+
+j. Obtenha um intervalo com 95% de confiança para $p$ utilizando 
+bootstrap não-paramétrico.
+
+k. Em suas palavras, por que um intervalo de confiança contém mais informações 
+do que o resultado de um único teste de hipóteses. 
+
+
+### Questão 2: Modelo de Regressão linear Simples
+
+Os dados denominados `k401K` são um subconjunto dos dados analisados por 
+@papke1995 para estudar a relação entre participação em um fundo/plano de 
+aposentadoria/pensão e a "generosidade" do plano, esses dados estão contidos 
+no pacote `wooldridge`.
+
+A "generosidade" de um fundo/plano de pensão pode ser avaliada em diferentes 
+aspectos, tais como a fórmula de cálculo do benefício, a idade de elegibilidade 
+para aposentadoria, as opções de pagamento do benefício (como pensão vitalícia 
+ou pagamento em uma única quantia) e outras características do plano. 
+
+ **Dicionário dos Dados**
+-------------------------
+
+variável        Descrição
+------------    --------------------------------------------------------
+`prate`         % de trabalhadores qualificados com uma conta ativa
+`mrate`         contrapartida média (em \$) da empresa para cada $ 1 de contr. 
+                do trabalhador.
+
+A variável `prate` é a porcentagem de trabalhadores qualificados com uma conta 
+ativa; esta é a variável que gostaríamos de explicar. A variávels `mrate`, 
+corresponde aos depósitos ou contrapartidas da empresa do trabalhador.
+
+Especificamene, neste caso, `mrate` fornece o valor médio que a empresa 
+contribui para o plano de cada trabalhador para cada $ 1 de contribuição do 
+trabalhador. Por exemplo, se `mrate  =  0,50`, então, uma contribuição de $ 1 do trabalhador implica em uma contribuição de 0,50 centavos pela empresa.
+
+
+```{r}
+library(wooldridge)
+data("k401k")
+glimpse(k401k)
+```
+
+## Referências 
+
+::: {#refs}
+:::
+
+
+

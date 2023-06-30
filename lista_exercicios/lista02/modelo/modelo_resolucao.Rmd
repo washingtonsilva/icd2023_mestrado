@@ -1,0 +1,51 @@
+---
+title: "Resolução da Lista de Exercícios 2"
+author: "Seu Nome"
+subtitle: "MPA - Discipplina: Introdução à Ciência dos Dados 2023"
+output: html_document
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+```{r setup, include=TRUE}
+# opcoes globais para o arquivo a ser gerado
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+options(digits = 4, scipen = 999)
+
+# pacotes utilizados
+library(dplyr)
+library(readr)
+library(PerformanceAnalytics)
+library(DescTools)
+library(pwr)
+```
+
+
+
+### Questão 1
+
+
+
+### Questão 2
+
+
+
+### Questão 3
+
+
+
+### Questão 4
+
+
+
+### Questão 5
+
+
+
+
+

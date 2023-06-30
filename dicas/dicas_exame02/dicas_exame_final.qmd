@@ -1,0 +1,110 @@
+---
+title: "Roteiro para Revisão/Estudo"
+subtitle: "Exame final"
+lang: "pt"
+date: today
+author:
+  - name: Prof. Washington Santos da Silva 
+    affiliation: IFMG - Campus Formiga - Mestrado Profissional em Administração.
+    affiliation-url: https://www.formiga.ifmg.edu.br/mestrado
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc-location: left
+    number-sections: true
+    smooth-scroll: true
+    anchor-sections: false
+    theme: default
+bibliography: bibliografia.bib
+csl: associacao-brasileira-de-normas-tecnicas.csl
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+
+## Referências 
+
+Os principais materiais para estudo são:
+
+- Slides e notebooks da Aula 11: Fundamentos de Inferência Estatística
+- Slides e notebooks da Aula 10: Modelos de Regressão Linear
+- Brooks (2019): capítulos 3, 4 e 5: Modelos de Regressão Linear
+- As referências contidas nos links das seções a seguir são 
+  complementares.
+
+
+## Fundamentos de Inferência Estatística
+
+- Estimação:
+
+    - Estimativa pontual de um parâmetro populacional.
+   
+    - Estimativa por intervalo de confiança de um parâmetro populacional 
+      usando funções internas como `prop.test()` ou `binom.test()`.
+      
+    - Dica: [Inference for one Proportion](https://openintro-ims.netlify.app/inference-one-prop.html)
+   
+    - Estimativa por intervalo via bootstrap de um parâmetro populacional 
+      usando o pacote `nptest`.
+      
+    - Dica: [Confidence intervals with bootstrapping](https://openintro-ims.netlify.app/foundations-bootstrapping.html)
+
+
+- Testes Estatísticos de Hipóteses:
+
+    - Conceitos de Hipótese Nula e Hipótese Alternativa. 
+    
+    - Nível de Significância.
+    
+    - Poder do Teste.
+    
+    - Tipos de Erros.
+    
+    - Implementação de testes de hipóteses com a função `prop.test()`.
+    
+    - Determinação do tamanho de amostra ou do poder do teste usando funções 
+      do pacote `pwr`.
+      
+    - Dica: [Hypothesis testing with randomization](https://openintro-ims.netlify.app/foundations-randomization.html)
+      
+- Comunicação de resultados de procedimentos de inferência estatística 
+segundo o padrão da American Psychological Association.
+
+
+
+## Modelos de Regressão Linear.
+
+- Estimação de modelos de regressão linear usando a função `lm()`.
+
+- Interpretação das estimativas dos parâmetros de um modelo de regressão 
+  linear.
+  
+- Interpretaçaõ de procedimentos de diagnóstico de modelos de regressão linear:
+
+    - Interpretação do teste F e dos testes t dos parâmetros.
+    
+    - Interpretação do $R^2$-ajustado.
+    
+    - Interpretação de gráficos dos resíduos do modelo.
+    
+    - Interpretação do teste de Especificação (Teste RESET).
+    
+    - Interpretação de teste de normalidade dos resíduos.
+    
+    - Interpretação de teste de homocedasticidade dos resíduos.
+    
+- Comunicação dos resultados de modelos de regressão usando o pacote 
+`stargazer` para a geração de tabelas com os resultados. 
+
+- Obtenção de previsões a partir de modelos de regressão linear.
+
+
+
+
+

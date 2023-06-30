@@ -1,0 +1,158 @@
+---
+title: "Lista de Exercícios 2 - Valor: 10 pontos"
+subtitle: "MPA - Discipplina: Introdução à Ciência dos Dados 2023"
+author: "Prof. Washington S. Silva"
+date: "20/06/2023"
+output: 
+  html_document:
+    theme: readable
+    toc: true
+    toc_float: true
+bibliography: bibliografia.bib
+csl: associacao-brasileira-de-normas-tecnicas.csl
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+options(digits = 4, scipen = 999)
+
+library(tidyverse)
+library(quantmod)
+library(xts)
+library(PerformanceAnalytics)
+```
+
+
+## 1. Instruções e Data para envio
+
+**1.1 Instruções**
+
+- Baixe o arquivo compactado `notebook_lista02.zip` disponibilizado na 
+sala virtual da disciplina. Este arquivo contém o notebook R que vocês 
+utilizarão para resolver as questões, chamado `modelo_resolucao.Rmd` e 
+o arquivo de dados `dados_franco2022.csv`.
+
+- Dentro da pasta `listas_exercicios` crie uma subpasta 
+chamada `lista02`, mova o notebook `modelo_resolucao.Rmd` para esta 
+
+- Acesse a pasta `listas_exercicios` dentro do projeto `icd2023`.
+subpasta.
+
+- Ainda na pasta `lista02`, crie uma subpasta chamada `dados` e mova 
+o arquivo `dados_franco2022.csv` para esta subpasta. 
+
+- Finalizados os passos anteriores, utilize o notebook R 
+  `modelo_resolucao.Rmd` para resolver as questões: 
+
+- O procedimento recomendado é resolver cada questão individualmente,
+observando o resultado da tentativa de resolução de cada questão,
+interativamente, isto é, no próprio notebook.
+
+- Após resolver todas as questões que conseguir, processe o notebook para
+criar um arquivo em um dos seguintes formatos possíveis: `HTML` ou `PDF`. 
+Para criar um desses formatos, basta clicar no botão `Knit` e, em
+seguida, clicar na opção correspondente ao formato escolhido: `Knit to HTML`, 
+`Knit to PDF`.
+
+- Vocês devem fazer o upload de um arquivo em um dos formatos possíveis 
+(`.html` ou `.pdf`) no local apropriado da sessão da sala 
+virtual da disciplna sobre a Lista de Exercícios 2, somente um desses formatos 
+será aceito pelo ambiente virtual. 
+
+- Após gerar o arquivo final, contendo a resolução das questões, renomeie o 
+arquivo gerado com o seguinte padrão: `nome_sobrenome.html` ou 
+`nome_sobrenome.html` ou  `nome_sobrenome.docx`.
+
+
+**1.2 Data Limite para entrega na Sala Virtual**
+
+- O ambiente virtual está configurado para aceitar o envio do arquivo contendo 
+  a resolução desta lita até as **22:00 horas do dia 08/05/2023**.
+
+
+## Questões
+
+Em linhas gerais, o objetivo de @franco2022 foi "*ajudar a esclarecer ‘se’ e ‘como’ o sentimento pode ser considerado mais um dos canais pelos quais a incerteza pode impactar os mercados. Através de uma abordagem empírica, trata explicitamente da relação entre incerteza e sentimento a partir de medidas de incerteza e sentimento para o Brasil*". Na sessão [Referências](#ref), há um link para o artigo no formato pdf.
+
+Para mensurar a **incerteza**, o autor utilizou três indicadores propostos na 
+literatura: 
+
+
+- `INC`: é a medida de incerteza fundamental sugerida por 
+@jurado2015, abreviada por INC. Para sua construção, foi utilizado um 
+conjunto de indicadores econômicos representativos dos fundamentos econômicos, englobando produto, preços, consumo, construção civil, moeda e crédito, 
+câmbio e mercado de capitais.
+
+- `EPU`: é a medida de incerteza da política econômica baseada na mídia, 
+abreviada por EPU, conforme a metodologia desenvolvida por @baker2016.
+
+- `IEM`: componente mídia do indicador de incerteza econômica IIE-BR, 
+computadopelo Instituto Brasileiro de Economia (IBRE/FGV), denotado por IEM.
+
+Para mensurar o **sentimento**, o autor utilizou dois índices de confiança 
+do consumidor:
+
+- `ICCFGV`: índice de confiança do consumidor publicado pela Fundação Getulio 
+Vargas (FGV).
+
+- `ICCFEC`: publicado pela Federação do Comércio de São Paulo (Fecomércio).
+
+
+Foram utilizados dados com frequência mensal para o período 2002/02 até 2019/12.
+Estes 5 indicadores utilizados e disponibilizados pelo autor estão 
+contidos no arquivo `dados.csv`, este arquivo contém as seguintes variáveis 
+(ou colunas): `data`, para representar o mês e os dados dos indicadores 
+`EPU`, `IEM`, `INC`, `ICCFEC` e `ICCFGV`.
+
+- Importe o arquivo `dados_franco2022.csv` utilizando a função `read_csv()` do 
+pacote `readr` (da família `tidyverse`) 
+
+- Utilizando o comando apropriado do pacote `dplyr`, retire a variável/coluna 
+`data` do objeto `dados` e salve o resultado da operação em um objeto 
+denominado `dados_cor`. Utilize um comando para verificar se a coluna `data` de 
+fato não está contida em `dados_cor`. 
+
+Em seguida, responda às seguintes questões:
+
+
+**1.** Utilizando `dados_cor`, reproduza a Fig. 1 do artigo de Franco (2022). 
+Analisando a Fig. 1, todas as correlações foram estatísticamente 
+diferentes de zero? Justifique sua resposta.
+
+**2.** Analisando a reprodução da Fig. 1 de Franco (2022), qual o padrão 
+da distribuição dos dados dos indicadores de incerteza `EPU`, `IEM` e `INC` é 
+possível identificar nos histogramas da diagonal principal da figura? E qual 
+o padrão é possível identificar na distribuição dos indicadores de sentimento `ICCFGV` e `ICCFEC` observando os histogramas?
+
+**3.** Faça um gráfico de dispersão, usando o pacote `ggplot2`, entre o 
+indicador de sentimento `ICCFGV` e o indicador de incerteza `IEM`. 
+Descreva sucintamente o padrão observado neste gráfico.
+
+**4.** Faça um teste de correlação apropriado (usando $\alpha = 0.05$) entre os 
+indicadores `ICCFGB` e `IEM` para verificar se a correlação é 
+signficativamente diferente de zero e obtenha uma estimativa do intervalo de confiança ($1 - \alpha = 0.95$) para $\rho$. Escreva a conclusão destes 
+procedimentos de inferência estatística seguindo o padrão da APA. Justifique 
+o procedimento. Além disso, Forneça uma interpretação da estimativa do 
+intervalo de confiança obtido e do conceito de valor-p.
+
+**5.** Estime, aproximadamente, o poder do teste em relação ao coeficiente de 
+correlação obtido por @franco2022 considerando o tamanho da 
+amostra utilizado, que o autor deseja captar uma pequena diferença 
+conforme Cohen (1988) e que a hipótese alternativa de interesse é 
+bilateral (`two.sided`). Além disso, explique o conceito de poder 
+de um teste de hipóteses. 
+
+
+## Referências {#ref}
+
+
+
+
