@@ -1,0 +1,155 @@
+---
+title: "Exame Final: Solução"
+subtitle: "Introdução à Ciência dos Dados 2023"
+lang: "pt"
+date: today
+author:
+  - name: Prof. Washington Santos da Silva 
+    affiliation: IFMG - Campus Formiga - Mestrado Profissional em Administração.
+    affiliation-url: https://www.formiga.ifmg.edu.br/mestrado
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc-location: left
+    number-sections: false
+    smooth-scroll: true
+    theme: solarized
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+
+```{r setup, include = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+library(nptest)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(zoo)
+library(dynlm)
+library(lmtest)
+library(DescTools)
+```
+
+
+## Questão 1:
+
+
+### Questão 1.1
+
+
+### Questão 1.2
+
+
+### Questão 1.3
+
+
+### Questão 1.4
+
+
+### Questão 1.5
+
+
+
+## Questão 2:
+
+
+Proc. 1) Importando o arquivo de dados
+
+```{r}
+path <- "dados/capm.csv"
+
+capm <- read_csv2(path,
+                  locale = locale("pt"),
+                  col_types = cols(date = col_date(format = "%b/%y"),
+                                   sandp = col_double(),
+                                   ford = col_double(),
+                                   ge = col_double(),
+                                   microsoft = col_double(),
+                                   oracle = col_double(),
+                                   ustb3m = col_double())
+                  )
+glimpse(capm)
+```
+
+
+Proc. 2) Calculando os retornos compostos continuamente da Oracle e S&P(500)
+
+```{r}
+capm <- capm |>
+  mutate(
+    rsandp = c(NA, 100*diff(log(sandp))),
+    roracle = c(NA, 100*diff(log(oracle)))
+  ) |> na.omit()
+
+glimpse(capm)
+```
+
+
+Proc. 3) Calculando os retornos excedentes em relação à taxa livre de risco
+
+```{r}
+#| eval: true
+capm <- capm |>
+  mutate(
+    ustb3m = ustb3m / 12,
+    resandp = rsandp - ustb3m,
+    reoracle = roracle - ustb3m,
+  )
+
+glimpse(capm)
+```
+
+
+Proc. 4) Transforme `resandp` e `reoracle` em séries temporais da classe `zoo`
+
+```{r}
+resandpst <- zoo(x = capm$resandp, order.by = capm$date)
+reoraclest <- zoo(x = capm$reoracle, order.by = capm$date)
+```
+
+
+### Questão 2.1
+
+
+```{r, eval=TRUE}
+capm_teste <- dynlm(reoraclest ~ resandpst)
+summary(capm_teste)
+```
+
+
+### Questão 2.2
+
+
+**1.**
+
+```{r}
+ggplot(data = capm, mapping = aes(x = resandp, y = reoracle)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = TRUE)
+```
+
+**2.**
+
+```{r}
+capm_linear <- lm(reoracle ~ resandp, data = capm)
+resettest(capm_linear, type = "regressor")
+```
+
+
+### Questão 2.3
+
+
+
+### Questão 2.4
+
+```{r}
+JarqueBeraTest(capm_teste$residuals, robust = TRUE)
+```

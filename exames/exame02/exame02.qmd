@@ -10,11 +10,13 @@ author:
 format:
   html:
     self-contained: true
+    link-external-icon: true
+    link-external-newwindow: true
     toc: true
     toc-location: left
     number-sections: false
     smooth-scroll: true
-    theme: solarized
+    theme: cerulean
 bibliography: bibliografia.bib
 csl: associacao-brasileira-de-normas-tecnicas.csl
 crossref:
@@ -33,9 +35,13 @@ crossref:
 ```{r setup, include = FALSE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
+library(nptest)
 library(readr)
 library(dplyr)
 library(ggplot2)
+library(zoo)
+library(dynlm)
+library(DescTools)
 ```
 
 
@@ -48,14 +54,14 @@ library(ggplot2)
 - Baixe o arquivo compactado `exame_final.zip` disponibilizado na 
 sala virtual da disciplina. Este arquivo contém o notebook R que vocês 
 utilizarão para resolver as questões, chamado `exame2_modelo.Rmd`, e 
-o arquivo de dados `BBBClub.csv`.  
+o arquivo de dados `capm.csv`.  
 
 - Acesse a pasta `exames`, dentro do projeto `icd2023` do RStudio.
 
 - Em seguinda, dentro da pasta `exames` crie uma subpasta chamada `exame02`, 
 mova o notebook `exame2_modelo.Rmd` para esta subpasta.
 
-- Ainda na pasta `exame02`, crie uma subpasta chamada `dados` e mova o arquivo `BBBClub.csv` para esta subpasta. 
+- Ainda na pasta `exame02`, crie uma subpasta chamada `dados` e mova o arquivo `camp.csv` para esta subpasta. 
 
 - Finalizados os passos anteriores, utilize o notebook `exame2_modelo.Rmd` 
 para resolver as questões.
@@ -77,88 +83,258 @@ sessão da sala virtual da disciplna sobre o Exame 1.
 
 
 
-### Questão 1: Fundamentos de Inferência Estatística: Estimação e Teste de Hipóteses para uma proporção.
+## Questão 1: Fundamentos de Inferência Estatística: Estimação e Teste de Hipóteses para uma proporção.
 
 Uma empresa de auditoria deseja estimar a proporção de faturas com erros em uma determinada empresa. Para isso, eles selecionaram aleatoriamente uma amostra de 
 200 faturas e encontraram 106 faturas com erros. Sendo $p$, a proporção de 
 todas as faturas com erros, responda às seguintes perguntas:
 
-a. Use os resultados para obter uma estimativa pontual de $p$.
 
-b. No contexto de testes estatísticos de hipóteses, qual é a diferença entre 
-hipótese nula e hipótese alternativa? E entre nível de significância e 
-poder de um teste?
+### Questão 1.1  
 
-c. Explique, com suas palavras, o conceito de valor-p de um teste de hipóteses.
+Use as informações disponibilizadas para obter uma estimativa pontual de 
+$p$.
 
-d. Qual é o valor-p para o teste $H_O: P = 0.5$ versus $H_A: p \neq 0,5$. 
-Interprete o resultado segundo o padrão APA.
 
-e. Qual é o valor-p para o teste $H_0: p = 0.5$ versus $H_A: p > 0.5$. 
-Interprete o resultado segundo o padrão APA.
+### Questão 1.2
 
-f. A pesquisa contém evidências estatisticamente significativas sobre se a 
-proporção de faturas com erro seja superior a 50%? A resposta envolve utilizar 
-o resultado do teste realizado em c) ou do teste realizado em d), qual 
-seria o teste correto? Interprete o resultado do teste escolhdio segundo o 
-padrão da APA.
+A pesquisa contém evidências estatisticamente significativas sobre se a 
+proporção de faturas com erro seja superior a 50%? Responda observando o 
+valor-p do teste: $H_0: p = 0.5$ versus $H_A: p > 0.5$. 
 
-g. Obtenha um intervalo com 95% de confiança para $p$ utilizando 
-o estimador por intervalo baseado no Teorema Central do limite.
+Interprete o resultado do teste seguindo o padrão da APA.
 
-h. Obtenha um intervalo com 99% de confiança para $p$ utilizando 
-o estimador por intervalo baseado no Teorema Central do limite.
 
-i. Por que o intervalo obtido em h) é maior que o intervalo obtido 
-em g)?
+### Questão 1.3
 
-j. Obtenha um intervalo com 95% de confiança para $p$ utilizando 
+Obtenha um intervalo com 95% de confiança para $p$ utilizando o estimador por 
+intervalo baseado no Teorema Central do limite.
+
+
+### Questão 1.4
+
+Obtenha um intervalo com 95% de confiança para $p$ utilizando 
 bootstrap não-paramétrico.
 
-k. Em suas palavras, por que um intervalo de confiança contém mais informações 
+
+### Questão 1.5
+
+Em suas palavras, por que um intervalo de confiança contém mais informações 
 do que o resultado de um único teste de hipóteses. 
 
 
-### Questão 2: Modelo de Regressão linear Simples
 
-Os dados denominados `k401K` são um subconjunto dos dados analisados por 
-@papke1995 para estudar a relação entre participação em um fundo/plano de 
-aposentadoria/pensão e a "generosidade" do plano, esses dados estão contidos 
-no pacote `wooldridge`.
+## Questão 2: Modelo de Regressão linear Simples
 
-A "generosidade" de um fundo/plano de pensão pode ser avaliada em diferentes 
-aspectos, tais como a fórmula de cálculo do benefício, a idade de elegibilidade 
-para aposentadoria, as opções de pagamento do benefício (como pensão vitalícia 
-ou pagamento em uma única quantia) e outras características do plano. 
-
- **Dicionário dos Dados**
--------------------------
+Os dados necessários estão contidos no arquivo `capm.csv`, esse arquivo contém 
+dados mensais, entre Janeiro/2002 e Fevereiro/2018, sobre as seguintes 
+variáveis:
 
 variável        Descrição
 ------------    --------------------------------------------------------
-`prate`         % de trabalhadores qualificados com uma conta ativa
-`mrate`         contrapartida média (em \$) da empresa para cada $ 1 de contr. 
-                do trabalhador.
+`date`          mês
+`sandp`         preço mensal de um carteira do índice Standard \& Poors (500)
+`ford`          preço mensal das ações da Ford
+`ge`            preço mensal das ações da General Eletric
+`microsoft`     preço mensal das ações da Microsoft
+`oracle`        preço mensal das ações da Oracle
+`ustb3m`        série mensal de rendimentos de títulos do Tesouro dos EUA de 3 meses.
 
-A variável `prate` é a porcentagem de trabalhadores qualificados com uma conta 
-ativa; esta é a variável que gostaríamos de explicar. A variávels `mrate`, 
-corresponde aos depósitos ou contrapartidas da empresa do trabalhador.
+É padrão na literatura acadêmica usar cinco anos de dados (retornos) mensais 
+para estimar os betas do CAPM, mas usaremos todas as observações disponíveis no 
+arquivo de dados (mais de quinze anos) nesta atividade.
 
-Especificamene, neste caso, `mrate` fornece o valor médio que a empresa 
-contribui para o plano de cada trabalhador para cada $ 1 de contribuição do 
-trabalhador. Por exemplo, se `mrate  =  0,50`, então, uma contribuição de $ 1 do trabalhador implica em uma contribuição de 0,50 centavos pela empresa.
+Para responder as questões que se seguem, faça os seguintes procedimentos:
 
+
+**Proc. 1)** Importe os dados usando os seguintes comandos:
 
 ```{r}
-library(wooldridge)
-data("k401k")
-glimpse(k401k)
+#| echo: true
+#| eval: false
+
+path <- "dados/capm.csv"
+
+capm <- read_csv2(path,
+                  locale = locale("pt"),
+                  col_types = cols(date = col_date(format = "%b/%y"),
+                                   sandp = col_double(),
+                                   ford = col_double(),
+                                   ge = col_double(),
+                                   microsoft = col_double(),
+                                   oracle = col_double(),
+                                   ustb3m = col_double())
+                  )
+glimpse(capm)
 ```
 
-## Referências 
 
-::: {#refs}
-:::
+**Proc. 2)** Para estimar uma equação CAPM para as ações de uma empresa, precisamos 
+transformar a série de preços em uma série de retornos e, em seguida, 
+transformá-los em retornos excedentes sobre a taxa livre de risco. Seja $R_t$ 
+o retorno mensal simples de uma ação, o retorno composto continunamente, 
+$r_t$ é definido por:
+      
+$$
+r_t = \ln(1 + R_t) = \ln\Bigl(\frac{P_t}{P_{t-1}}\Bigr) = 100\times(\ln(P_t) - \ln(P_{t-1}))
+$$
+Portanto, os retornos mensais compostos continuamente podem ser calculados 
+simplesmente tomando-se apenas a primeira diferença do logaritmo natural 
+dos preços mensais. Após importar o arquivo de dados para o R, calcule os
+retornos compostos continuamente para `sandp` e `oracle` usando 
+os comandos:
+
+```{r}
+#| eval: false
+capm <- capm |>
+  mutate(
+    rsandp = c(NA, 100*diff(log(sandp))),
+    roracle = c(NA, 100*diff(log(oracle)))
+  )
+```
+
+
+**Proc. 3)** Para transformar os retornos em retornos excedentes, precisamos deduzir 
+a taxa livre de risco, no nosso caso a taxa dos títulos do Tesouro dos 
+EUA a 3 meses, a partir dos retornos compostos continuamente. 
+
+No entanto,  precisamos ter cuidado porque os retornos das ações são mensais, 
+enquanto os rendimentos dos títulos do Tesouro são anualizados. 
+
+Ao estimar o modelo, não é importante se usamos taxas anualizadas ou mensais. 
+Contudo, é crucial que todas as séries no modelo sejam medidas de forma 
+consistente, ou seja, que todas elas sejam taxas mensais ou todas anualizadas. 
+      
+Transforme os rendimentos de `ustb3m` em uma série de taxas mensais 
+(mantendo o nome `ustb3m`), calcule os retornos excedentes do índice S&P (500) 
+e das ações da Oracle, criando os objetos `resandp` e \texttt{reoracle} 
+que conterão os retornos excedentes e inclua estas séries como novas colunas 
+na data.frame `capm` usando os seguintes comandos:
+
+```{r}
+#| eval: false
+capm <- capm %>%
+  mutate(
+    ustb3m = ustb3m / 12,
+    resandp = rsandp - ustb3m,
+    reoracle = roracle - ustb3m
+  )
+```
+
+
+**Proc. 4)**  Transforme `resandp` e `reoracle` em séries temporais da classe 
+`zoo` e crie os objetos `rsandpst` e `reoraclest`. A sintáxe para 
+criar séries temporais da classe `zoo` é a mesma da classe `xts`. Faça esta 
+operação usando os comandos:
+
+```{r}
+#| eval: false
+resandpst <- zoo(x = capm$resandp, order.by = capm$date)
+reoraclest <- zoo(x = capm$reoracle, order.by = capm$date)
+```
+
+
+**Proc. 5)** Em econometria, as regressões de séries temporais são frequentemente 
+ajustadas por MQO. Assim, em princípio, regressões envolvendo séries temporais 
+poderiam ser ajustados como qualquer outro modelo de regressão linear usando 
+a função `lm()` se o conjunto de dados for mantido em uma `data.frame`. No 
+entanto, esse normalmente não é o caso de dados de séries temporais, que são 
+mais convenientemente armazenadas em uma das classes de séries temporais da 
+linguagem R , tais como `ts`, `xts`, `zoo` e `tsibble`.
+
+Esses problemas podem ser enfrentados de diferentes maneiras. A solução mais 
+simples é fazer os cálculos “manualmente”; ou seja, para calcular lags ou 
+diferenças antes de usar a função `lm()`.
+
+Entretanto, o uso de `lm()` com dados em classes de séries temporais tem duas desvantagens: 1) para valores ajustados ou residuais, as propriedades da 
+série temporal são, por padrão, não preservadas e 2) lags ou diferenças não 
+podem ser especificados diretamente na fórmula em `lm()`.
+
+Alternativamente, o pacote [dynlm](https://CRAN.R-project.org/package=dynlm) (@zeileis2008) fornece a função `dynlm()`, tenta superar os problemas 
+descritos acima. Para estimar os parâmetros do CAPM deste exercício, 
+a sintáxe da fórmula do modelo é a mesma da função `lm()`. Isto é, para 
+estimar um modelo de regressão simples, como o CAPM neste exercício, 
+basta fazer:  
+
+`modelo <- dynlm(y ~ x)`
+
+
+### Questão 2.1 
+
+Estime o CAPM para os retornos excedentes da Oracle, utilizando os retornos 
+excedentes do índice S&P(500) como os retornos dacarteira de mercado usando a 
+função `dynlm` do pacote dynlm. Exiba os resultados da estimação usando 
+a função `summary()`.
+
+
+### Questão 2.2
+
+Como pode ser verificado na revisão do CAPM, podemos testar sua validade
+estimando o seguinte modelo de regressão linear simples:
+
+$$
+y_t = \alpha_i + \beta_i x_t + \varepsilon_{it} \sim N(0, \sigma)
+$${#eq-1}
+
+Assim, podemos verificar (parcialmente) a validade das previsões teóricas do 
+CAPM checando duas implicações do modelo:
+
+- Segundo o CAPM, a estimatvia de $\hat{\alpha}$ (@eq-1) não deve ser 
+significativamente diferente de zero. O resultado obtido para a Oracle suporta 
+ou não a previsão do CAPM?
+
+
+- Ainda conforme o CAPM, a relação entre $y_t$ e $x_t$ deve ser linear. 
+Isto é, o modelo linear descrito pelo CAPM deve ser adequado para modelar a 
+relação entre $y_t$ e $x_t$. 
+
+
+**a.** faça um gráfico de dispersão entre os retornos excedentes do índice S&P 
+(500), no eixo x, e os retornos excedentes da oracle, no eixo y. Além disso, 
+inclua a reta de regressão estimada (linha característica) no gráfico. 
+Observando esse gráfico de dispersão, Qual sua conclusão sobre a validade do 
+modelo linear proposto pelo CAPM?
+
+**b.** Efetue o teste RESET para testar formalmente a adequação do modelo linear. 
+Para implementar esse teste, faça uma regressão linear simples entre 
+`reoracle` e `resandp` usando a função `lm`:
+
+```{r}
+#| eval: false
+capm_linear <- lm(reoracle ~ resandp, data = capm)
+```
+
+em seguida, execute o teste RESET fazendo:
+
+```{r}
+#| eval: false
+resettest(capm_linear, type = "regressor")
+```
+
+A função `resettest` do pacote `lmtest` não aceita séries temporais como 
+argumentos, por isso foi necessário efetuar o procedimento acima. 
+
+Se a hipótese nula do teste RESET é a de que um modelo linear é 
+adequado, observando o valor-p do teste, qual sua conclusão sobre 
+a adequação do modelo linear previsto pelo CAPM com base no resultado 
+do teste?
+
+
+### Questão 2.3
+
+Interprete o $R^2$-ajustado do modelo estimado.
+
+
+### Questão 2.4
+
+Efetue o teste de Jarque-Bera de normalidade dos resíduos do modelo, use 
+função `JarqueBeraTest(capm_teste$residuals, robust = TRUE)` do 
+pacote `DescTools`. Interprete o resultado observando o valor-p do teste. 
+Descreva brevemente as as consequências do resultado.
+
+
+
+
 
 
 

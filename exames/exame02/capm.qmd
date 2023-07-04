@@ -1,0 +1,175 @@
+---
+title: "Revisão do CAPM"
+subtitle: "Exame Final"
+lang: "pt"
+date: today
+author:
+  - name: Prof. Washington Santos da Silva 
+    affiliation: IFMG - Campus Formiga - Mestrado Profissional em Administração.
+    affiliation-url: https://www.formiga.ifmg.edu.br/mestrado
+format:
+  html:
+    self-contained: true
+    link-external-icon: true
+    link-external-newwindow: true
+    toc: true
+    toc-location: left
+    number-sections: false
+    smooth-scroll: true
+    theme: cerulean
+bibliography: bibliografia.bib
+csl: associacao-brasileira-de-normas-tecnicas.csl
+crossref:
+  fig-title: '**Fig.**'
+  fig-labels: arabic
+  title-delim: "**.**"
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+
+## *The Capital Asset Pricing Model*
+
+O CAPM é um modelo de equilíbrio de precificação de ativos arriscados proposto 
+originalmente por @sharpe1964. Embora os gestores de portfólios não dediquem 
+tempo para testar a validade do modelo original, já que poucos precisam ser 
+convencidos de sua limitação, há uma história de cerca de 50 anos de testes 
+empíricos sobre a validade deste modelo, sendo que a principal ferramenta usada 
+foi a análise de regressão. 
+
+Como todo modelo teórico matemático, o CAPM é derivado a partir de um conjunto 
+de hipóteses. E, sendo um modelo teórico, é uma abstração dos mercados de 
+capitais do mundo real. Embora algumas das suposições sejam irrealistas, elas simplificam bastante as coisas e tornam o CAPM mais tratável do ponto de vista matemático. 
+
+As suposições se enquadram em duas categorias gerais: 
+
+**1. A forma como os investidores tomam decisões.**
+
+Com relação à tomada de decisão do investidor, assume-se que os investidores 
+são avessos ao risco e tomam decisões de investimento em um horizonte de um 
+período com base no retorno esperado e na variância dos retornos
+
+**2. Características do mercado de capitais.**
+
+No que diz respeito ao mercado de capitais, assume-se, entre outras 
+hipóteses, que o mercado seja perfeitamente competitivo e que
+existe um ativo livre de risco no qual os investidores podem investir e tomar empréstimos.
+
+A partir destes dois conjuntos de hipóteses, o CAPM pode ser representado 
+por:
+
+$$
+E(R_i) - R_f = \beta_i(E(R_M) - R_f) 
+$${#eq-1}
+
+sendo: 
+
+- $E(R_i)$ = retorno esperado do ativo arriscado $i$.
+- $R_f$ = taxa livre de risco.
+- $E(R_M)$ = retorno esperado da carteira de mercado.
+- $\beta_i$ = parâmetro que mede o risco sistemático do ativo $i$.
+
+O parâmetro que mede o risco sistemático do ativo arriscado $i$, $\beta_i$, 
+popularmente chamado de *beta*, é o grau em que um ativo covaria com a carteira 
+de mercado e por isso é chamado de **risco sistemático** do ativo. 
+
+Mais especificamente, o risco sistemático é a parcela da variabilidade de 
+um ativo que pode ser atribuída a um fator comum. O risco sistemático é o risco 
+que resulta as condições gerais do mercado e econômicas que não podem ser diversificadas. 
+
+A parte da variabilidade de um ativo que pode ser diversificada é o risco 
+exclusivo de um ativo. Esse risco é chamado de **risco não sistemático**, outras 
+denominações são risco diversificável, risco único, risco residual e risco 
+específico da empresa.
+
+O CAPM afirma que, dadas as hipóteses nas quais o modelo é baseado, o retorno 
+esperado de um ativo é uma função linear positiva de seu parâmetro de risco 
+sistemático, medido pelo beta. 
+
+Quanto maior o $\beta_i$, ou beta, maior o retorno esperado do ativo arriscado 
+$i$. Observando a formulação matemática do modelo, não há outros fatores que 
+devam afetar significativamente o retorno esperado de um ativo além do 
+parâmetro do risco sistemático.
+
+**Estimando Beta com um Modelo de Regressão Linear**
+
+O beta de um ativo pode ser estimado usando a seguinte regressão linear 
+simples:
+
+$$
+r_{it} - r_{ft} = \alpha_i + \beta_i(r_{Mt} - r_{ft}) + \epsilon_{it} \sim N(0, \sigma)
+$${#eq-2}
+sendo:
+
+- retorno observado do ativo $i$ no tempo $t$.
+- retorno observado do ativo livre de risco no tempo $t$.
+- retorno observado da carteira de mercado no tempo $t$.
+- termo do erro aleatório no tempo $t$.
+
+A @eq-2 de regressão é denominada *characteristic line* (linha ou reta 
+característica). 
+
+Fazendo:
+
+$$
+x_t = r_{Mt} - r_{ft}
+$$
+
+e:
+
+$$
+y_t = r_{it} - r_{ft}
+$$
+$x_t$ são os retornos excedentes em relação à taxa livre de risco da 
+carteira de mercado e $y_t$ os retornos excedentes em relação à taxa livre 
+de risco do ativo $i$.
+
+Assim, a equação de regressão linear simples (linha característica) a 
+ser estimada pode ser descrita por:
+
+$$
+y_t = \alpha_i + \beta_i x_t + \varepsilon_{it} \sim N(0, \sigma)
+$${#eq-3}
+
+Portanto, para estimar a linha característica de um ativo arriscado usando 
+análise de regressão, são necessárias três séries temporais de retornos: 
+
+1. série temporal do ativo arriscado. 
+
+2. série temporal da carteira de mercado e;
+
+3. série temporal da taxa livre de risco.
+
+Os dados de retorno são frequentemente agregados em períodos de cinco anos de
+dados mensais para estimar esta regressão.
+
+Veja que vocês tem as todas as séries necessárias para testar o CAPM nesta
+questão.
+
+
+**Teste do CAPM**
+
+De acordo com o CAPM, devemos encontrar algums resultados a partir 
+da estimação do modelo de regressão linear simples(@eq-3) para 
+que os dados suportem o CAPM, são eles:
+
+1. A relação entre $y_t$ e $x_t$ deve ser linear. Isto é, o modelo linear 
+descrito pelo CAPM deve ser adequado para modelar a relação entre 
+$y_t$ e $x_t$. 
+
+2. $\hat{\alpha_i}$ não deve ser significativamente diferente de zero.
+
+**Obs:** Na verdade, outras condições devem ser verificadas, esta seria uma 
+validação parcial do CAPM.
+
+
+## Referências 
+
+::: {#refs}
+:::
+
