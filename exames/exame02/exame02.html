@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -3161,8 +3161,6 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
   <li><a href="#questão-1.1" id="toc-questão-1.1" class="nav-link" data-scroll-target="#questão-1.1">Questão 1.1</a></li>
   <li><a href="#questão-1.2" id="toc-questão-1.2" class="nav-link" data-scroll-target="#questão-1.2">Questão 1.2</a></li>
   <li><a href="#questão-1.3" id="toc-questão-1.3" class="nav-link" data-scroll-target="#questão-1.3">Questão 1.3</a></li>
-  <li><a href="#questão-1.4" id="toc-questão-1.4" class="nav-link" data-scroll-target="#questão-1.4">Questão 1.4</a></li>
-  <li><a href="#questão-1.5" id="toc-questão-1.5" class="nav-link" data-scroll-target="#questão-1.5">Questão 1.5</a></li>
   </ul></li>
   <li><a href="#questão-2-modelo-de-regressão-linear-simples" id="toc-questão-2-modelo-de-regressão-linear-simples" class="nav-link" data-scroll-target="#questão-2-modelo-de-regressão-linear-simples">Questão 2: Modelo de Regressão linear Simples</a>
   <ul class="collapse">
@@ -3207,7 +3205,7 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">4 de julho de 2023</p>
+      <p class="date">6 de julho de 2023</p>
     </div>
   </div>
   
@@ -3254,24 +3252,40 @@ Procedimentos
 <p>Uma empresa de auditoria deseja estimar a proporção de faturas com erros em uma determinada empresa. Para isso, eles selecionaram aleatoriamente uma amostra de 200 faturas e encontraram 106 faturas com erros. Sendo <span class="math inline">\(p\)</span>, a proporção de todas as faturas com erros, responda às seguintes perguntas:</p>
 <section id="questão-1.1" class="level3">
 <h3 class="anchored" data-anchor-id="questão-1.1">Questão 1.1</h3>
-<p>Use as informações disponibilizadas para obter uma estimativa pontual de <span class="math inline">\(p\)</span>.</p>
+<p>A pesquisa contém evidências estatisticamente significativas sobre se a proporção de faturas com erro seja superior a 50%?</p>
+<ol type="a">
+<li><p>Responda observando o valor-p do teste: <span class="math inline">\(H_0: p = 0.5\)</span> versus <span class="math inline">\(H_A: p &gt; 0.5\)</span>, utilize um nivel de significância de 5%. Utilize o teste exato implementado na função interna <code>binom.test()</code>.</p></li>
+<li><p>Qual foi a estimativa pontual de <span class="math inline">\(p\)</span> e qual foi a estimativa por intervalo, com 95% de confiança, obtidas no item a?</p></li>
+<li><p>Reporte o resultado utilizando o padrão definido pela American Psychological Association (APA).</p></li>
+</ol>
 </section>
 <section id="questão-1.2" class="level3">
 <h3 class="anchored" data-anchor-id="questão-1.2">Questão 1.2</h3>
-<p>A pesquisa contém evidências estatisticamente significativas sobre se a proporção de faturas com erro seja superior a 50%? Responda observando o valor-p do teste: <span class="math inline">\(H_0: p = 0.5\)</span> versus <span class="math inline">\(H_A: p &gt; 0.5\)</span>.</p>
-<p>Interprete o resultado do teste seguindo o padrão da APA.</p>
+<p>Obtenha um intervalo com 95% de confiança para <span class="math inline">\(p\)</span> utilizando bootstrap não-paramétrico e método BCa, utilize 10000 reamostras. Utilize a função <code>np.boot</code> do pacote <code>nptest</code>. Considere que o objeto <code>amostra</code> contém os dados obtidos pela auditoria.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dados</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>amostra <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">106</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">94</span>)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="questão-1.3" class="level3">
 <h3 class="anchored" data-anchor-id="questão-1.3">Questão 1.3</h3>
-<p>Obtenha um intervalo com 95% de confiança para <span class="math inline">\(p\)</span> utilizando o estimador por intervalo baseado no Teorema Central do limite.</p>
-</section>
-<section id="questão-1.4" class="level3">
-<h3 class="anchored" data-anchor-id="questão-1.4">Questão 1.4</h3>
-<p>Obtenha um intervalo com 95% de confiança para <span class="math inline">\(p\)</span> utilizando bootstrap não-paramétrico.</p>
-</section>
-<section id="questão-1.5" class="level3">
-<h3 class="anchored" data-anchor-id="questão-1.5">Questão 1.5</h3>
-<p>Em suas palavras, por que um intervalo de confiança contém mais informações do que o resultado de um único teste de hipóteses.</p>
+<p>Se os auditores desejavam ser capazes de detectar uma pequena diferença em <span class="math inline">\(p\)</span>, conforme Cohen (1988), e um poder do teste superior a 80%, eles conseguiram o desejado utilizando uma amostra de tamanho (<span class="math inline">\(n\)</span>) 200? E Se eles tivessem utilizado uma amostra de tamanho 50? (Dica: Segundo Cohen (1998), uma pequena diferença padronizada (<span class="math inline">\(h\)</span>) para <span class="math inline">\(p\)</span> corresponde a 0.2).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.p.test</span>(<span class="at">h =</span> <span class="fl">0.2</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">n =</span> <span class="dv">50</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     proportion power calculation for binomial distribution (arcsine transformation) 
+
+              h = 0.2
+              n = 50
+      sig.level = 0.05
+          power = 0.4087972
+    alternative = greater</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="questão-2-modelo-de-regressão-linear-simples" class="level2">
@@ -3319,56 +3333,56 @@ Procedimentos
 <p>Para responder as questões que se seguem, faça os seguintes procedimentos:</p>
 <p><strong>Proc. 1)</strong> Importe os dados usando os seguintes comandos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">&quot;dados/capm.csv&quot;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>capm <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(path,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="st">&quot;pt&quot;</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">date =</span> <span class="fu">col_date</span>(<span class="at">format =</span> <span class="st">&quot;%b/%y&quot;</span>),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">sandp =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">ford =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">ge =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">microsoft =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">oracle =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">ustb3m =</span> <span class="fu">col_double</span>())</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                  )</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(capm)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">&quot;dados/capm.csv&quot;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>capm <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(path,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="st">&quot;pt&quot;</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">date =</span> <span class="fu">col_date</span>(<span class="at">format =</span> <span class="st">&quot;%b/%y&quot;</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">sandp =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">ford =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">ge =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">microsoft =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">oracle =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">ustb3m =</span> <span class="fu">col_double</span>())</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(capm)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Proc. 2)</strong> Para estimar uma equação CAPM para as ações de uma empresa, precisamos transformar a série de preços em uma série de retornos e, em seguida, transformá-los em retornos excedentes sobre a taxa livre de risco. Seja <span class="math inline">\(R_t\)</span> o retorno mensal simples de uma ação, o retorno composto continunamente, <span class="math inline">\(r_t\)</span> é definido por:</p>
 <p><span class="math display">\[
 r_t = \ln(1 + R_t) = \ln\Bigl(\frac{P_t}{P_{t-1}}\Bigr) = 100\times(\ln(P_t) - \ln(P_{t-1}))
 \]</span> Portanto, os retornos mensais compostos continuamente podem ser calculados simplesmente tomando-se apenas a primeira diferença do logaritmo natural dos preços mensais. Após importar o arquivo de dados para o R, calcule os retornos compostos continuamente para <code>sandp</code> e <code>oracle</code> usando os comandos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>capm <span class="ot">&lt;-</span> capm <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">rsandp =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">100</span><span class="sc">*</span><span class="fu">diff</span>(<span class="fu">log</span>(sandp))),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">roracle =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">100</span><span class="sc">*</span><span class="fu">diff</span>(<span class="fu">log</span>(oracle)))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>capm <span class="ot">&lt;-</span> capm <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">rsandp =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">100</span><span class="sc">*</span><span class="fu">diff</span>(<span class="fu">log</span>(sandp))),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">roracle =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">100</span><span class="sc">*</span><span class="fu">diff</span>(<span class="fu">log</span>(oracle)))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> <span class="fu">na.omit</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Proc. 3)</strong> Para transformar os retornos em retornos excedentes, precisamos deduzir a taxa livre de risco, no nosso caso a taxa dos títulos do Tesouro dos EUA a 3 meses, a partir dos retornos compostos continuamente.</p>
 <p>No entanto, precisamos ter cuidado porque os retornos das ações são mensais, enquanto os rendimentos dos títulos do Tesouro são anualizados.</p>
 <p>Ao estimar o modelo, não é importante se usamos taxas anualizadas ou mensais. Contudo, é crucial que todas as séries no modelo sejam medidas de forma consistente, ou seja, que todas elas sejam taxas mensais ou todas anualizadas.</p>
 <p>Transforme os rendimentos de <code>ustb3m</code> em uma série de taxas mensais (mantendo o nome <code>ustb3m</code>), calcule os retornos excedentes do índice S&amp;P (500) e das ações da Oracle, criando os objetos <code>resandp</code> e que conterão os retornos excedentes e inclua estas séries como novas colunas na data.frame <code>capm</code> usando os seguintes comandos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>capm <span class="ot">&lt;-</span> capm <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ustb3m =</span> ustb3m <span class="sc">/</span> <span class="dv">12</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">resandp =</span> rsandp <span class="sc">-</span> ustb3m,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">reoracle =</span> roracle <span class="sc">-</span> ustb3m</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>capm <span class="ot">&lt;-</span> capm <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ustb3m =</span> ustb3m <span class="sc">/</span> <span class="dv">12</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">resandp =</span> rsandp <span class="sc">-</span> ustb3m,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">reoracle =</span> roracle <span class="sc">-</span> ustb3m</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Proc. 4)</strong> Transforme <code>resandp</code> e <code>reoracle</code> em séries temporais da classe <code>zoo</code> e crie os objetos <code>rsandpst</code> e <code>reoraclest</code>. A sintáxe para criar séries temporais da classe <code>zoo</code> é a mesma da classe <code>xts</code>. Faça esta operação usando os comandos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>resandpst <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="at">x =</span> capm<span class="sc">$</span>resandp, <span class="at">order.by =</span> capm<span class="sc">$</span>date)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>reoraclest <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="at">x =</span> capm<span class="sc">$</span>reoracle, <span class="at">order.by =</span> capm<span class="sc">$</span>date)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resandpst <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="at">x =</span> capm<span class="sc">$</span>resandp, <span class="at">order.by =</span> capm<span class="sc">$</span>date)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>reoraclest <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="at">x =</span> capm<span class="sc">$</span>reoracle, <span class="at">order.by =</span> capm<span class="sc">$</span>date)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Proc. 5)</strong> Em econometria, as regressões de séries temporais são frequentemente ajustadas por MQO. Assim, em princípio, regressões envolvendo séries temporais poderiam ser ajustados como qualquer outro modelo de regressão linear usando a função <code>lm()</code> se o conjunto de dados for mantido em uma <code>data.frame</code>. No entanto, esse normalmente não é o caso de dados de séries temporais, que são mais convenientemente armazenadas em uma das classes de séries temporais da linguagem R , tais como <code>ts</code>, <code>xts</code>, <code>zoo</code> e <code>tsibble</code>.</p>
 <p>Esses problemas podem ser enfrentados de diferentes maneiras. A solução mais simples é fazer os cálculos “manualmente”; ou seja, para calcular lags ou diferenças antes de usar a função <code>lm()</code>.</p>
 <p>Entretanto, o uso de <code>lm()</code> com dados em classes de séries temporais tem duas desvantagens: 1) para valores ajustados ou residuais, as propriedades da série temporal são, por padrão, não preservadas e 2) lags ou diferenças não podem ser especificados diretamente na fórmula em <code>lm()</code>.</p>
 <p>Alternativamente, o pacote <a href="https://CRAN.R-project.org/package=dynlm">dynlm</a> (<span class="citation" data-cites="zeileis2008">ZEILEIS (<a href="#ref-zeileis2008" role="doc-biblioref">2019</a>)</span>) fornece a função <code>dynlm()</code>, tenta superar os problemas descritos acima. Para estimar os parâmetros do CAPM deste exercício, a sintáxe da fórmula do modelo é a mesma da função <code>lm()</code>. Isto é, para estimar um modelo de regressão simples, como o CAPM neste exercício, basta fazer:</p>
-<p><code>modelo &lt;- dynlm(y ~ x)</code></p>
+<p><code>capm_teste &lt;- dynlm(y ~ x)</code></p>
 <section id="questão-2.1" class="level3">
 <h3 class="anchored" data-anchor-id="questão-2.1">Questão 2.1</h3>
-<p>Estime o CAPM para os retornos excedentes da Oracle, utilizando os retornos excedentes do índice S&amp;P(500) como os retornos dacarteira de mercado usando a função <code>dynlm</code> do pacote dynlm. Exiba os resultados da estimação usando a função <code>summary()</code>.</p>
+<p>Estime o CAPM para os retornos excedentes da Oracle, utilizando os retornos excedentes do índice S&amp;P(500) como os retornos dacarteira de mercado usando a função <code>dynlm</code> do pacote dynlm. Exiba os resultados da estimação usando a função <code>summary(capm_teste)</code>.</p>
 </section>
 <section id="questão-2.2" class="level3">
 <h3 class="anchored" data-anchor-id="questão-2.2">Questão 2.2</h3>
@@ -3384,11 +3398,11 @@ y_t = \alpha_i + \beta_i x_t + \varepsilon_{it} \sim N(0, \sigma)
 <p><strong>a.</strong> faça um gráfico de dispersão entre os retornos excedentes do índice S&amp;P (500), no eixo x, e os retornos excedentes da oracle, no eixo y. Além disso, inclua a reta de regressão estimada (linha característica) no gráfico. Observando esse gráfico de dispersão, Qual sua conclusão sobre a validade do modelo linear proposto pelo CAPM?</p>
 <p><strong>b.</strong> Efetue o teste RESET para testar formalmente a adequação do modelo linear. Para implementar esse teste, faça uma regressão linear simples entre <code>reoracle</code> e <code>resandp</code> usando a função <code>lm</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>capm_linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(reoracle <span class="sc">~</span> resandp, <span class="at">data =</span> capm)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>capm_linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(reoracle <span class="sc">~</span> resandp, <span class="at">data =</span> capm)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>em seguida, execute o teste RESET fazendo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resettest</span>(capm_linear, <span class="at">type =</span> <span class="st">&quot;regressor&quot;</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resettest</span>(capm_linear, <span class="at">type =</span> <span class="st">&quot;regressor&quot;</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A função <code>resettest</code> do pacote <code>lmtest</code> não aceita séries temporais como argumentos, por isso foi necessário efetuar o procedimento acima.</p>
 <p>Se a hipótese nula do teste RESET é a de que um modelo linear é adequado, observando o valor-p do teste, qual sua conclusão sobre a adequação do modelo linear previsto pelo CAPM com base no resultado do teste?</p>
@@ -3399,7 +3413,7 @@ y_t = \alpha_i + \beta_i x_t + \varepsilon_{it} \sim N(0, \sigma)
 </section>
 <section id="questão-2.4" class="level3">
 <h3 class="anchored" data-anchor-id="questão-2.4">Questão 2.4</h3>
-<p>Efetue o teste de Jarque-Bera de normalidade dos resíduos do modelo, use função <code>JarqueBeraTest(capm_teste$residuals, robust = TRUE)</code> do pacote <code>DescTools</code>. Interprete o resultado observando o valor-p do teste. Descreva brevemente as as consequências do resultado.</p>
+<p>Efetue o teste de Jarque-Bera de normalidade dos resíduos do modelo, use a função <code>JarqueBeraTest(capm_teste$residuals, robust = TRUE)</code> do pacote <code>DescTools</code>. Interprete o resultado observando o valor-p do teste. Descreva brevemente as as consequências do resultado.</p>
 
 </section>
 </section>
