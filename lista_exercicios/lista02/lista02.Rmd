@@ -31,52 +31,6 @@ library(PerformanceAnalytics)
 ```
 
 
-## 1. Instruções e Data para envio
-
-**1.1 Instruções**
-
-- Baixe o arquivo compactado `notebook_lista02.zip` disponibilizado na 
-sala virtual da disciplina. Este arquivo contém o notebook R que vocês 
-utilizarão para resolver as questões, chamado `modelo_resolucao.Rmd` e 
-o arquivo de dados `dados_franco2022.csv`.
-
-- Dentro da pasta `listas_exercicios` crie uma subpasta 
-chamada `lista02`, mova o notebook `modelo_resolucao.Rmd` para esta 
-
-- Acesse a pasta `listas_exercicios` dentro do projeto `icd2023`.
-subpasta.
-
-- Ainda na pasta `lista02`, crie uma subpasta chamada `dados` e mova 
-o arquivo `dados_franco2022.csv` para esta subpasta. 
-
-- Finalizados os passos anteriores, utilize o notebook R 
-  `modelo_resolucao.Rmd` para resolver as questões: 
-
-- O procedimento recomendado é resolver cada questão individualmente,
-observando o resultado da tentativa de resolução de cada questão,
-interativamente, isto é, no próprio notebook.
-
-- Após resolver todas as questões que conseguir, processe o notebook para
-criar um arquivo em um dos seguintes formatos possíveis: `HTML` ou `PDF`. 
-Para criar um desses formatos, basta clicar no botão `Knit` e, em
-seguida, clicar na opção correspondente ao formato escolhido: `Knit to HTML`, 
-`Knit to PDF`.
-
-- Vocês devem fazer o upload de um arquivo em um dos formatos possíveis 
-(`.html` ou `.pdf`) no local apropriado da sessão da sala 
-virtual da disciplna sobre a Lista de Exercícios 2, somente um desses formatos 
-será aceito pelo ambiente virtual. 
-
-- Após gerar o arquivo final, contendo a resolução das questões, renomeie o 
-arquivo gerado com o seguinte padrão: `nome_sobrenome.html` ou 
-`nome_sobrenome.html` ou  `nome_sobrenome.docx`.
-
-
-**1.2 Data Limite para entrega na Sala Virtual**
-
-- O ambiente virtual está configurado para aceitar o envio do arquivo contendo 
-  a resolução desta lita até as **22:00 horas do dia 08/05/2023**.
-
 
 ## Questões
 
