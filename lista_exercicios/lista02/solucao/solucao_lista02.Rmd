@@ -1,0 +1,138 @@
+---
+title: "Resolução da Lista de Exercícios 2"
+subtitle: "MPA - Discipplina: Introdução à Ciência dos Dados 2023"
+author: "Prof. Washington S. Silva"
+date: "20/06/2023"
+output: 
+  html_document:
+    theme: readable
+    toc: true
+    toc_float: true
+bibliography: bibliografia.bib
+csl: associacao-brasileira-de-normas-tecnicas.csl
+---
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+  text-align: justify
+      }
+</style>
+
+
+```{r setup, include=TRUE, message=FALSE, warning=FALSE}
+# opcoes globais para o arquivo a ser gerado
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+options(digits = 4, scipen = 999)
+
+# pacotes utilizados
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(ggthemes)
+library(PerformanceAnalytics)
+library(DescTools)
+library(pwr)
+```
+
+
+## Preparação dos dados
+
+Importando o arquivo `dados_franco2022.csv`:
+
+```{r, warning = FALSE, message = FALSE}
+
+path <- "dados/dados_franco2022.csv"
+dados <- read_csv(path)
+glimpse(dados)
+```
+
+Retirando a coluna `data`:
+
+```{r, warning = FALSE, message = FALSE}
+
+dados_cor <- dados |> select(-data)
+glimpse(dados_cor)
+```
+
+
+
+## Questão 1 
+
+Reproduzingo a Fig. 1 de @franco2022:
+
+```{r}
+chart.Correlation(dados_cor)
+```
+
+
+
+## Questão 2
+
+
+
+## Questão 3
+
+```{r}
+ggplot(data = dados_cor, mapping = aes(x = ICCFGV, y = IEM)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) + 
+  labs(x = "ICCFGV", y = "IEM") + 
+  theme_tufte() + 
+  scale_color_colorblind()
+```
+
+
+## Questão 4
+
+Os histogramas dos indicadores `ICCFGV` e `IEM`produzidos no item b, indicaram 
+que a distribuição de ambos os indicadores apresentam assimetria, o que 
+indica que não é razoável assumir uma distribuição normal para estes 
+indicadores, neste caso, como vimos, podemos utilizar o coeficiente de 
+correlação de Spearman.
+
+
+```{r}
+cor.test(dados_cor$ICCFGV, dados_cor$IEM, alternative = "two.sided", 
+         method = "spearman")
+
+library(DescTools)
+SpearmanRho(dados_cor$ICCFGV, dados_cor$IEM, conf.level = 0.95)
+```
+
+**Conclusão: Padrão *American Psychological Association* (APA)**
+
+Um coeficiente de correlação de Spearman foi estimado para avaliar a relação 
+monotônica entre o indicador de sentimento `ICCFGV` (índice de confiança do 
+consumidor publicado pela Fundação Getulio Vargas) e o indicador de 
+desempenho `IEM` (componente mídia do indicador de incerteza econômica IIE-BR, 
+computadopelo Instituto Brasileiro de Economia (IBRE/FGV)). Os resultados 
+indicam uma correlação negativa moderada mas significativa entre os 
+indicadores: $S = 818306$, $valor−p < 0.001$, $r = .29$, $n = 148$, 
+IC (95%) [-0.39, -0.52].
+
+
+
+## Questão 5
+
+Podemos utilizar a função `cohen.ES()` do pacote `pwr` para relembrar 
+o que seria um tamanho de efeito (diferença) pequena segundo @cohen1988:
+
+```{r}
+cohen.ES(test = "r", size = "small")
+```
+
+Assim, devemos utilizar r = 0.1 como representando um pequeno tamanho 
+do efeito (ou diferença) na função `pwr.r.test`:
+
+```{r}
+pwr.r.test(r = 0.1, n = 148, sig.level = 0.05, alternative = "two.sided")
+```
+
+
+## Referências {#ref}
+
+
+
+
+
