@@ -83,7 +83,6 @@ sessão da sala virtual da disciplna sobre o Exame 1.
 :::
 
 
-
 ## Questão 1: Fundamentos de Inferência Estatística: Estimação e Teste de Hipóteses para uma proporção. (15 pontos)
 
 Uma empresa de auditoria deseja estimar a proporção de faturas com erros em uma determinada empresa. Para isso, eles selecionaram aleatoriamente uma amostra de 
@@ -121,17 +120,11 @@ amostra <- sample(c(rep(1, 106), rep(0, 94)))
 ### Questão 1.3
 
 Se os auditores desejavam ser capazes de detectar uma pequena diferença em $p$, 
-conforme Cohen (1988), e um poder do teste superior a 80%, eles conseguiram 
+conforme @cohen1988, e um poder do teste superior a 80%, eles conseguiram 
 o desejado utilizando uma amostra de tamanho ($n$) 200? E Se eles tivessem 
-utilizado uma amostra de tamanho 50? (Dica: Segundo Cohen (1998), 
+utilizado uma amostra de tamanho 50? (Dica: Segundo @cohen1988, 
 uma pequena diferença padronizada ($h$) para $p$ corresponde a 0.2).
 
-```{r}
-pwr.p.test(h = 0.2,
-           sig.level = 0.05,
-           n = 50,
-           alternative = "greater")
-```
 
 
 ## Questão 2: Modelo de Regressão linear Simples (20 pontos)
@@ -290,22 +283,22 @@ Assim, podemos verificar (parcialmente) a validade das previsões teóricas do
 CAPM checando duas implicações do modelo:
 
 - Segundo o CAPM, a estimatvia de $\hat{\alpha}$ (@eq-1) não deve ser 
-significativamente diferente de zero. O resultado obtido para a Oracle suporta 
-ou não a previsão do CAPM?
+significativamente diferente de zero. 
 
 
 - Ainda conforme o CAPM, a relação entre $y_t$ e $x_t$ deve ser linear. 
 Isto é, o modelo linear descrito pelo CAPM deve ser adequado para modelar a 
 relação entre $y_t$ e $x_t$. 
 
+**a.** Em relação à estimatvia de $\hat{\alpha}$, o resultado obtido para a 
+Oracle suporta ou não a previsão do CAPM?
 
-**a.** faça um gráfico de dispersão entre os retornos excedentes do índice S&P 
+**b.** faça um gráfico de dispersão entre os retornos excedentes do índice S&P 
 (500), no eixo x, e os retornos excedentes da oracle, no eixo y. Além disso, 
-inclua a reta de regressão estimada (linha característica) no gráfico. 
-Observando esse gráfico de dispersão, Qual sua conclusão sobre a validade do 
-modelo linear proposto pelo CAPM?
+inclua a reta de regressão estimada (linha característica) no gráfico, utilize 
+o `ggplot2`. Observando esse gráfico de dispersão, qual a sua avaliação sobre a validade do modelo linear proposto pelo CAPM?
 
-**b.** Efetue o teste RESET para testar formalmente a adequação do modelo linear. 
+**c.** Efetue o teste RESET para testar formalmente a adequação do modelo linear. 
 Para implementar esse teste, faça uma regressão linear simples entre 
 `reoracle` e `resandp` usando a função `lm`:
 
@@ -332,7 +325,9 @@ do teste?
 
 ### Questão 2.3
 
-Interprete o $R^2$-ajustado do modelo estimado.
+Interprete o $R^2$-ajustado do modelo estimado. Descreva elementos que possam 
+explicar o $R^2$-ajustado obtido e possibilidades de "melhoria" desta 
+medida de acurácia explicativa do modelo.
 
 
 ### Questão 2.4
@@ -340,7 +335,7 @@ Interprete o $R^2$-ajustado do modelo estimado.
 Efetue o teste de Jarque-Bera de normalidade dos resíduos do modelo, use a
 função `JarqueBeraTest(capm_teste$residuals, robust = TRUE)` do 
 pacote `DescTools`. Interprete o resultado observando o valor-p do teste. 
-Descreva brevemente as as consequências do resultado.
+Descreva brevemente as consequências do resultado.
 
 
 

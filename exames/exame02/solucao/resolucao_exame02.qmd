@@ -164,8 +164,11 @@ summary(capm_teste)
 
 ### Questão 2.2
 
+**a.**
 
-**1.**
+
+
+**b.**
 
 ```{r}
 ggplot(data = capm, mapping = aes(x = resandp, y = reoracle)) + 
@@ -173,12 +176,17 @@ ggplot(data = capm, mapping = aes(x = resandp, y = reoracle)) +
   geom_smooth(method = "lm", se = TRUE)
 ```
 
-**2.**
+
+
+
+**c.**
 
 ```{r}
 capm_linear <- lm(reoracle ~ resandp, data = capm)
 resettest(capm_linear, type = "regressor")
 ```
+
+
 
 
 ### Questão 2.3

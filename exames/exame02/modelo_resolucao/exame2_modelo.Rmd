@@ -105,7 +105,6 @@ capm <- capm |>
 Proc. 3) Calculando os retornos excedentes em relação à taxa livre de risco
 
 ```{r}
-#| eval: false
 capm <- capm %>%
   mutate(
     ustb3m = ustb3m / 12,
@@ -135,11 +134,18 @@ reoraclest <- zoo(x = capm$reoracle, order.by = capm$date)
 **a.**
 
 
+
 **b.**
 
 ```{r}
+
+```
+
+
+**c.**
+
+```{r}
 capm_linear <- lm(reoracle ~ resandp, data = capm)
-resettest(capm_linear, type = "regressor")
 ```
 
 
