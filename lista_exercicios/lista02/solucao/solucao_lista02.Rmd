@@ -65,9 +65,46 @@ Reproduzingo a Fig. 1 de @franco2022:
 chart.Correlation(dados_cor)
 ```
 
+Os asteriscos associados às estimativas dos coeficientes de correlação entre 
+os indicadores indicamo o nível de significância em que estas estimativas 
+foram estatisticamente significativas, ou seja, estatisticamente diferentes 
+de zero.  
+
+Todas as estimativas dos coeficientes de correlação entre os indicadores 
+contém três asteriscos, o que indica que são estatificamente significativas 
+a um nível de significância menor que 0.001 (ou 0,1%).
+
+Podemos verificar o valor-p usando a função `cor.test`, vamos 
+verificar o coeficiente de correlação de Spearman entre `ICCFGV` e 
+`IEM`:
+
+
+```{r}
+cor.test(dados_cor$ICCFGV, dados_cor$IEM, alternative = "two.sided", 
+         method = "spearman")
+
+library(DescTools)
+SpearmanRho(dados_cor$ICCFGV, dados_cor$IEM, conf.level = 0.95)
+```
+O valor-p do teste de hipóeses foi igual a 0.00000000002, que é de fato menor 
+que 0.001 (0.1%). Esta verificação poderia se estender aos coeficientes de 
+correlação entre os outros indicadores.
+
 
 
 ## Questão 2
+
+Os histogramas com densidades empíricas sobrepostas dos indicadores `EPU`, 
+`IEM` e `INC` indicaram que a distribuição desses indicadores apresenta clara 
+assimetria à direita (ou positiva), o que indica que não é razoável assumir uma distribuição normal para estes indicadores, neste caso, poderíamos utilizar o coeficiente de correlação de Spearman, que não exige que os dados sigam 
+aproximadamente uma distribuição normal.
+
+No caso do indicador `ICCFEC` podemos ver pelo menos dois picos ou modas 
+no histograma, o que indica, pelo menos, bimodalidade da distribuição. Por sua 
+vez, o histograma com densidade empírica sobreposta indica uma clara 
+assimetria à esquerda (ou negativa). Em ambos os caos, novamente, não é 
+razoável assumir que os dados desses indicadores poderiam ser modelados 
+por, aproximadamente, por uma distribuição normal.
 
 
 
@@ -82,14 +119,21 @@ ggplot(data = dados_cor, mapping = aes(x = ICCFGV, y = IEM)) +
   scale_color_colorblind()
 ```
 
+O gráfico de dispersão evidencia uma clara correlação negativa, entre moderada 
+e forte, entre o indicador de sentimento `ICCFGV` (índice de confiança do 
+consumidor publicado pela Fundação Getulio Vargas) e  o indicador de incerteza 
+`IEM` (componente mídia do indicador de incerteza econômica IIE-BR, computado 
+pelo Instituto Brasileiro de Economia (IBRE/FGV)).
+
 
 ## Questão 4
 
-Os histogramas dos indicadores `ICCFGV` e `IEM`produzidos no item b, indicaram 
-que a distribuição de ambos os indicadores apresentam assimetria, o que 
-indica que não é razoável assumir uma distribuição normal para estes 
-indicadores, neste caso, como vimos, podemos utilizar o coeficiente de 
-correlação de Spearman.
+Os histogramas com densidades empíricas sobrepostas dos indicadores `ICCFGV` e `IEM`produzidos no item 2, indicaram que a distribuição de ambos os indicadores apresentam assimetria, o que indica que não é razoável assumir uma 
+distribuição normal para estes indicadores, neste caso, como vimos, podemos 
+utilizar procedimentos de inferência não-paramétricos (teste de hipótese e 
+estimativa por intervalo de confiança) usando o coeficiente de correlação de 
+Spearman, que não exige que os dados sigam uma distribuição aproximadamente 
+normal:
 
 
 ```{r}
